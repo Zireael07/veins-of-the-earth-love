@@ -24,7 +24,7 @@ function Map:loadTiles()
     floor = love.graphics.newImage("gfx/tiles/terrain/floor.png")
     wall = love.graphics.newImage("gfx/tiles/terrain/wall.png")
     floor_bright = love.graphics.newImage("gfx/tiles/terrain/floor_bright.png")
-    player_tile = love.graphics.newImage("gfx/player/racial_dolls/human_m.png")
+    player_tile = love.graphics.newImage("gfx/tiles/player/racial_dolls/human_m.png")
 end
 
 function Map:setupMapView()
