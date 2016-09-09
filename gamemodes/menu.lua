@@ -10,6 +10,7 @@ function gamemode.keypressed(k)
     if k == "return" then
         text = "Loading..."
         --print("Pressed escape key")   
+        loadGamemode("game")
     end
 end
 
