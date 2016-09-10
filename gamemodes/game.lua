@@ -6,6 +6,7 @@ ROT=require 'libraries/rotLove/rotLove'
 require 'class.Area'
 require 'class.Map'
 require 'class.Player'
+require 'class.Entity'
 
 function gamemode.load()
     --list of entities
@@ -19,6 +20,7 @@ function gamemode.load()
     Map:setupMapView()
     
     player = Player.new()
+    Entity:addEntity(player)
     
     --load scheduler
     s  =ROT.Scheduler.Action:new()
@@ -71,6 +73,11 @@ function gamemode.keypressed(k)
     end
 end
 
+--update!
+function gamemode.update()
+  rounds()
+end
+
 function rounds()
     --do nothing if we're locked (waiting for player to finish turn)
     if game_locked then return end
@@ -90,7 +97,7 @@ function rounds()
     if curr_ent.player == true then 
       game_lock()
       schedule_curr = "PLAYER "..schedule_curr end
-    draw_y= draw_y< 400 and draw_y +10 or 200
+    --draw_y= draw_y< 400 and draw_y +10 or 200
 end
 
 --turn-basedness
