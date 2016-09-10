@@ -86,8 +86,20 @@ function gamemode.keypressed(k)
     end
 end
 
+function gamemode.mousepressed(x,y,b)
+  print("Calling mousepressed",x,y,b)
+  if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
+end
+
 --update!
 function gamemode.update()
+  --get mouse coords
+    mouse = {
+   x = love.mouse.getX(),
+   y = love.mouse.getY()
+  }
+  tile_x, tile_y = Map:mousetoTile()
+  
   rounds()
 end
 
