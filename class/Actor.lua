@@ -2,7 +2,7 @@ require 'T-Engine.class'
 
 require 'class.Map'
 
-module("Actor", package.seeall, class.make)
+module("Actor", package.seeall, class.inherit(Entity))
 
 function _M:init(t)
     if t then print("We were given a table") end

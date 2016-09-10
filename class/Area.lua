@@ -1,6 +1,7 @@
 require 'T-Engine.class'
 
 require 'class.Map'
+local Spawn = require 'class.Spawn'
 
 module("Area", package.seeall, class.make)
 
@@ -22,7 +23,11 @@ function _M:generate(level, width, height)
   
   --test
   Area:fillWalls(width, height)
-
+  
+    --test!
+  Spawn:createActor(4, 4)
+  Spawn:createActor(10,10)
+  
 end
 
 function Area:fillWalls(width, height)
