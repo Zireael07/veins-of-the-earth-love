@@ -26,6 +26,7 @@ function Map:loadTiles()
     floor_bright = love.graphics.newImage("gfx/tiles/terrain/floor_bright.png")
     player_tile = love.graphics.newImage("gfx/tiles/player/racial_dolls/human_m.png")
     orc = love.graphics.newImage("gfx/tiles/mobiles/orc.png")
+    longsword = love.graphics.newImage("gfx/tiles/object/longsword.png")
 end
 
 function Map:setupMapView()

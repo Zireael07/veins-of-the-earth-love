@@ -28,6 +28,9 @@ function _M:generate(level, width, height)
   Spawn:createActor(4, 4)
   Spawn:createActor(10,10)
   
+  Spawn:createItem(2,2)
+  Spawn:createItem(6,6)
+  
 end
 
 function Area:fillWalls(width, height)
