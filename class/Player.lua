@@ -28,4 +28,14 @@ function _M:PlayerMove(dir_string)
   endTurn()
 end
 
+function _M:movetoMouse(x,y, self_x, self_y)
+  if x == self_x and y == self_y then print("Error: trying to move to own position") return end
+  path = Pathfinding:findPath(x, y, self_x, self_y)
+
+  print("Moving to mouse", x,y)
+  self:moveAlongPath(path)
+  --finish turn
+  endTurn()
+end
+
 return _M
