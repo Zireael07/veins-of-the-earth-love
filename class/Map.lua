@@ -199,3 +199,15 @@ function Map:mousetoTile()
   --tile_x, tile_y = math.floor ( mouse.x-120 / 32, mouse.y / 32 )
   return tile_x, tile_y
 end
+
+function Map:findFreeGrid(sx, sy, radius)
+    for y=0, Map:getWidth()-1 do
+      for x=0, Map:getHeight()-1 do 
+        if utils:distance(sx, sy, x, y) < radius then
+          if Map:getCellTerrain(x,y) ~= "#" then 
+            print("[MAP]: Found a free grid", x,y)
+            return x, y end
+        end
+      end
+  end
+end

@@ -20,10 +20,12 @@ function gamemode.load()
     --area = Area.new()
     Area:generate(1, 20, 20)
 
+      --fix spawning in wall
+    player_x, player_y = Map:findFreeGrid(1, 1, 5)
+
+    player = Spawn:createPlayer(player_x, player_y)
+
     Map:setupMapView()
-    
-    player = Player.new()
-    Entity:addEntity(player)
     
     --load scheduler
     s  =ROT.Scheduler.Action:new()
