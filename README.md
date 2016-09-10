@@ -11,3 +11,4 @@ This is a LÃVE port of Veins of the Earth.
 Place them in /libraries folder.
 
 [ROTLove](https://github.com/paulofmandown/rotLove) - a port of rot.js to Lua
+[Jumper](https://github.com/Yonaba/Jumper) - a fast pathfinding library (A* and Dijkstra)

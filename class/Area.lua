@@ -2,6 +2,7 @@ require 'T-Engine.class'
 
 require 'class.Map'
 local Spawn = require 'class.Spawn'
+require 'interface.Pathfinding'
 
 module("Area", package.seeall, class.make)
 
@@ -24,6 +25,9 @@ function _M:generate(level, width, height)
   --test
   Area:fillWalls(width, height)
   
+  Area:getAreaMap()
+  if path_map then print("Created a path_map successfully!")  end
+  
     --test!
   Spawn:createActor(4, 4)
   Spawn:createActor(10,10)
@@ -41,6 +45,11 @@ function Area:fillWalls(width, height)
       Map:setCell(x, y, ".")
     end
   end
+end
+
+function Area:getAreaMap()
+  path_map = Pathfinding:create()
+  return path_map
 end
 
 return Area
