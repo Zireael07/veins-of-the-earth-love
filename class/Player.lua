@@ -24,6 +24,8 @@ function _M:PlayerMove(dir_string)
     --print("Direction: ", dir_x, dir_y)
     end
   self:moveDir(dir_x, dir_y)
+  --finish turn
+  endTurn()
 end
 
 return _M
