@@ -2,6 +2,8 @@ require 'T-Engine.class'
 
 require 'class.Map'
 
+local ActorAI = require 'interface.ActorAI'
+
 module("Actor", package.seeall, class.inherit(Entity))
 
 function _M:init(t)
@@ -15,7 +17,24 @@ function _M:init(t)
     self.display = t.display or "o"
     self.image = t.image or "orc"
     self.name = t.name or "orc"
+    self.path = nil
 end
+
+function _M:act()
+  if not self.player == true then 
+    --do AI stuff
+    self:target(player)
+  end
+end
+
+function _M:target(player)
+  self.path = ActorAI:target(player, self.x, self.y)
+  if self.path then 
+      print("[Actor] We have a self path")
+  
+      self:moveAlongPath(self.path)
+  end
+end 
 
 function _M:move(x, y)
   if not x or not y then return end
@@ -67,6 +86,16 @@ function _M:canMove(x,y)
   if Map:getCellTerrain(x,y) == "#" then return false end
  -- if x == player.x and y == player.y then return false end
   return true
+end
+
+function _M:moveAlongPath(path)
+  if not path then return end
+  local tx = path[2].x
+  local ty = path[2].y
+  print("[Actor] Moving along path", tx, ty)
+  if self:canMove(tx, ty) then
+    self:move(path[2].x, path[2].y)
+  end
 end
 
 return _M
