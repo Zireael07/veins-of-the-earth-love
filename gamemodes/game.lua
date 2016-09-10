@@ -7,8 +7,9 @@ require 'class.Area'
 require 'class.Map'
 require 'class.Player'
 
-
 function gamemode.load()
+    --list of entities
+    entities = {}
     --load tiles
     Map:loadTiles()
 
@@ -18,6 +19,13 @@ function gamemode.load()
     Map:setupMapView()
     
     player = Player.new()
+    
+    --load scheduler
+    s  =ROT.Scheduler.Action:new()
+    --put entities into scheduler
+    for i, e in ipairs(entities) do
+      s:add(i,true,i-1) 
+    end
 end
 
 --drawing
@@ -58,5 +66,49 @@ function gamemode.keypressed(k)
         --[[map_y = map_y-1
         if map_y < 0 then map_y = 0 end
         print("Pressed up key, map_y: ", map_y)]]
+    elseif k == "return" then
+        endTurn()
     end
+end
+
+function rounds()
+    --do nothing if we're locked (waiting for player to finish turn)
+    if game_locked then return end
+      love.timer.sleep(.5)
+    --gets the number
+    c  =s:next()
+    --test 
+    curr_ent = entities[c]
+    --debug display
+    local name = curr_ent.name
+
+    dur=10 --test
+    s:setDuration(dur)
+
+    --used by debug display
+    schedule_curr = "TURN: "..curr_ent.name.." ["..c.."] for "..dur.." units of time"
+    if curr_ent.player == true then 
+      game_lock()
+      schedule_curr = "PLAYER "..schedule_curr end
+    draw_y= draw_y< 400 and draw_y +10 or 200
+end
+
+--turn-basedness
+function game_lock()
+  game_locked = true
+end
+
+function game_unlock()
+  if game_locked == false then return end
+  game_locked = false
+
+  for i=1,#entities do
+    local item = entities[i]
+    if item['act'] then item:act() end
+  end
+end
+
+function endTurn()
+  game_unlock()
+  print("[GAME] Ended our turn")
 end
