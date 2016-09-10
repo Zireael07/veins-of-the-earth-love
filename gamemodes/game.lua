@@ -6,6 +6,7 @@ ROT=require 'libraries/rotLove/rotLove'
 require 'class.Area'
 require 'class.Map'
 require 'class.Player'
+local GUI = require 'class.PlayerGUI'
 require 'class.Entity'
 
 function gamemode.load()
@@ -13,6 +14,8 @@ function gamemode.load()
     entities = {}
     --load tiles
     Map:loadTiles()
+    --load GUI
+    GUI:loadGUI()
 
     --area = Area.new()
     Area:generate(1, 20, 20)
@@ -35,6 +38,14 @@ function draw_map()
    Map:display()
 end
 
+function draw_GUI(player)
+  GUI:draw_GUI(player)
+end
+
+function drawdebug()
+  GUI:draw_schedule()
+end
+
 --shorthand
 function celltotile(x, y)
     return Map:convertTerraintoTile(x,y)
@@ -43,6 +54,8 @@ end
 function gamemode.draw()
     love.graphics.setColor(255, 255, 255)
     draw_map()
+    if player then draw_GUI(player) end
+    if player then drawdebug() end
 end
 
 
