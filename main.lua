@@ -1,7 +1,15 @@
+--print to console in realtime
+io.stdout:setvbuf('no')
+
 --do stuff
 do
     require "gamefunctions"
     loadGamemode("menu")
+end
+
+--Zerobrane debugging
+function love.load(arg)
+  if arg[#arg] == "-debug" then require("mobdebug").start() end
 end
 
 function love.draw()
