@@ -40,10 +40,12 @@ end
 
 function draw_GUI(player)
   GUI:draw_GUI(player)
+  GUI:draw_mouse()
 end
 
 function drawdebug()
   GUI:draw_schedule()
+  GUI:draw_drawstats()
 end
 
 --shorthand

@@ -30,4 +30,22 @@ function PlayerGUI:draw_schedule()
     love.graphics.print(schedule_curr, 700, 2) --draw_y)
 end
 
+function PlayerGUI:draw_drawstats()
+    love.graphics.setColor(255, 255, 102)
+    local stats = love.graphics.getStats()
+ 
+    local str = string.format("Estimated texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
+    love.graphics.print(str, 700, 50)
+    local drawcalls = string.format("Drawcalls: %d", stats.drawcalls)
+    love.graphics.print(drawcalls, 700, 65)
+end
+
+function PlayerGUI:draw_mouse(x,y)
+    love.graphics.setColor(255,255,255)
+   -- love.graphics.print(mouse.x..", "..mouse.y, mouse.x+10, mouse.y)
+    love.graphics.print((tile_x or "N/A")..", "..(tile_y or "N/A"), mouse.x+10, mouse.y+15)
+    love.graphics.setColor(255, 255, 102)
+    love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y)
+end
+
 return PlayerGUI
