@@ -23,7 +23,8 @@ function _M:generate(level, width, height)
   Map:init(width+1, height+1)
   
   --test
-  Area:fillWalls(width, height)
+  Area:makeWalled(width, height)
+  --Area:fillWalls(width, height)
   
   Area:getAreaMap()
   if path_map then print("Created a path_map successfully!")  end
@@ -43,6 +44,20 @@ function Area:fillWalls(width, height)
     for y=0, height do
             --dungeon[level].map[x][y] = {}
       Map:setCell(x, y, ".")
+    end
+  end
+end
+
+function Area:makeWalled(width, height)
+ for x=0, width do
+    --dungeon[level].map[x] = {}
+    for y=0, height do
+       -- local empty= x>0 and y>0 and x<width and y<height
+      local empty= x>0 and y>0 and x<width and y<height
+            --dungeon[level].map[x][y] = {}
+      if empty then Map:setCell(x, y, ".")
+      else Map:setCell(x, y, "#")
+      end
     end
   end
 end
