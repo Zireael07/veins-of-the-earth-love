@@ -3,6 +3,10 @@ io.stdout:setvbuf('no')
 
 --do stuff
 do
+    --load stuff
+    load = love.filesystem.load("load.lua")
+    local loaded = load()
+    --require
     require "gamefunctions"
     loadGamemode("menu")
 end
