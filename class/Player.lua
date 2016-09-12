@@ -1,10 +1,10 @@
 require 'T-Engine.class'
 
 local Actor = require 'class.Actor'
-
+local ActorInventory = require 'interface.ActorInventory'
 local utils = require 'utils'
 
-module("Player", package.seeall, class.inherit(Actor))
+module("Player", package.seeall, class.inherit(Actor, ActorInventory))
 
 function _M:init(t)
     print("Initializing player")
@@ -14,7 +14,17 @@ function _M:init(t)
     self.wounds = 20
     self.name = "Player"
     self.player = true
-    Actor:init(self, t)
+    self.body = t.body or {}
+    --init inherited stuff
+    Actor:init(self, t) 
+    ActorInventory.init(self, t)
+    --debug
+    if self.body then 
+      print("We have a body")
+      for k, v in pairs(self.body) do
+        print(k, v)
+      end
+    end
 end
 
 function _M:PlayerMove(dir_string)
@@ -36,6 +46,11 @@ function _M:movetoMouse(x,y, self_x, self_y)
   self:moveAlongPath(path)
   --finish turn
   endTurn()
+end
+
+function _M:playerPickup()
+  print("Player: pickup")
+  self:pickupFloor()
 end
 
 return _M

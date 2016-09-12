@@ -19,7 +19,7 @@ function gamemode.load()
 
     --area = Area.new()
     Area:generate(1, 20, 20)
-
+  
       --fix spawning in wall
     player_x, player_y = Map:findFreeGrid(1, 1, 5)
 
@@ -85,6 +85,8 @@ function gamemode.keypressed(k)
         --[[map_y = map_y-1
         if map_y < 0 then map_y = 0 end
         print("Pressed up key, map_y: ", map_y)]]
+    elseif k == "g" then
+        player:playerPickup()
     elseif k == "return" then
         endTurn()
     end
