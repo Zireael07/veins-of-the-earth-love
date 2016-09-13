@@ -145,7 +145,7 @@ end
 
 --assume we already checked if there is an actor at x,y
 function Map:convertActortoTile(x,y)
-  local string = Map:getCellActor(x,y)
+  local string = Map:getCellActor(x,y).image
   if string == "player_tile" then tile = player_tile end
   if string == "orc" then tile = orc end
   --print ("Actor tile gotten for x: "..x.."y: "..y)
@@ -156,7 +156,7 @@ end
 
 --assume we already checked if there is an actor at x,y
 function Map:convertObjecttoTile(x,y)
-  local string = Map:getCellObject(x,y)
+  local string = Map:getCellObject(x,y).image
   if string == "longsword" then tile = longsword end
   --print ("Object tile gotten for x: "..x.."y: "..y)
   return tile

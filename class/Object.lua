@@ -32,7 +32,7 @@ function _M:place(x,y)
     if y >= Map:getHeight() then y = Map:getHeight() - 1 end
 
     print("Object: updating map cell: ", x, y)
-    Map:setCellObject(x, y, self.image) --display)
+    Map:setCellObject(x, y, self) --self.image)
 
 end
 

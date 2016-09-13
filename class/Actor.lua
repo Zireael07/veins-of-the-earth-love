@@ -56,7 +56,7 @@ function _M:move(x, y)
   print("Actor: updating map cell: ", x, y)
   print("Actor:old cell: ", self.old_x, self.old_y) 
   Map:setCellActor(self.old_x, self.old_y, nil)
-  Map:setCellActor(x, y, self.image) --display)
+  Map:setCellActor(x, y, self) --self.image) 
   --remove ourselves from old cell if we left it
  --[[ if x ~= self.old_x or y ~= self.old_y then
     Map:setCellActor(self.old_x, self.old_y, nil)
