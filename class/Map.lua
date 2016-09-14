@@ -162,6 +162,36 @@ function Map:convertObjecttoTile(x,y)
   return tile
 end
 
+--FOV
+function Map:isTileVisible(x,y)
+  if not Map:getCell(x,y) then return false 
+  else
+    cell = Map:getCell(x,y)
+    return cell:isVisible()
+  end
+end 
+
+function Map:setTileVisible(x,y, val)
+  if not Map:getCell(x,y) then return end
+  print("Map:setTileVisible: ", x, y, val)
+  self.cells[x][y]:setVisible(val)
+end
+
+function Map:isTileSeen(x,y)
+  if not Map:getCell(x,y) then return false 
+  else
+    cell = Map:getCell(x,y)
+    return cell:isSeen()
+  end
+end 
+
+function Map:setTileSeen(x,y, val)
+  if not Map:getCell(x,y) then return end
+  print("Map:setTileSeen: ", x, y, val)
+  self.cells[x][y]:setSeen(val)
+end
+
+--actual display happens here
 function Map:display()
   for y=0, Map:getWidth()-1 do
       for x=0, Map:getHeight()-1 do                                                      

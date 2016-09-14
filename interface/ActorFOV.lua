@@ -4,13 +4,21 @@ require 'Map'
 
 module("ActorFOV", package.seeall, class.make)
 
+function ActorFOV:resetVisibleTiles()
+    for y=0, Map:getWidth()-1 do
+      for x=0, Map:getHeight()-1 do
+        Map:setTileVisible(x,y, false)
+      end
+    end
+end
+
 function ActorFOV:update_draw_visibility_new()
     print("Our x, y are: ", self.x, self.y)
-    --[[visibleTiles={}
+
+    --reset visible tiles
+    self:resetVisibleTiles()
     -- mark all seen tiles as not currently seen
-    for i,v in ipairs(seenTiles) do
-        seenTiles['i'] = 0
-    end]]
+    
     fov=ROT.FOV.Precise:new(lightPassesCallback,{topology=8})
     results = fov:compute(self.x,self.y,6,isVisibleCallback)
 end
@@ -30,10 +38,10 @@ end
 -- for FOV calculation
 function isVisibleCallback(x,y,r,v)
     print("Setting as visible", x, y, r, v)
-  --[[ -- first mark as visible
-    table.insert(visibleTiles,{x=x,y=y,r=r,last=r,v=v})
-    -- also mark in seen tiles as currently seen
-    table.insert(seenTiles,{x=x,y=y})]]
+    -- first mark as visible
+    Map:setTileVisible(x,y, true)
+    -- also mark  as currently seen
+    Map:setTileSeen(x,y, true)
 end
 
 return ActorFOV

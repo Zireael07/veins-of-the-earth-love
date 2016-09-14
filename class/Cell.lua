@@ -17,6 +17,10 @@ function Cell:init()
     self.terrain = nil
     self.actor = nil
     self.object = nil
+
+    --FOV
+    self.seen = false
+    self.visible = false
 end
 
 function Cell:CalculateDeadEndCorridorDirection()
@@ -89,6 +93,7 @@ function Cell:getWallCount()
     return wallCount
 end
 
+--terrain/actor/object
 function Cell:getTerrain()
     return self.terrain
 end
@@ -111,6 +116,23 @@ end
 
 function Cell:setObject(val)
     self.object = val
+end
+
+--FOV
+function Cell:isVisible()
+    return self.visible
+end
+
+function Cell:setVisible(val)
+    self.visible = val
+end    
+
+function Cell:isSeen()
+    return self.seen
+end
+
+function Cell:setSeen(val)
+    self.seen = val
 end
 
 return Cell
