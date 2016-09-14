@@ -1,6 +1,6 @@
-# Veins of the Earth - LÃVE
+# Veins of the Earth - LÃ–VE
 
-This is a LÃVE port of Veins of the Earth.
+This is a LÃ–VE port of Veins of the Earth.
 
 ## Requirements
 
