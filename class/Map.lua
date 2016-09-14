@@ -196,27 +196,35 @@ function Map:display()
   for y=0, Map:getWidth()-1 do
       for x=0, Map:getHeight()-1 do                                                      
          --print("Querying: ", x, map_x, y, map_y)
-         --draw terrain
-         love.graphics.draw(
-            Map:convertTerraintoTile(x+map_x, y+map_y),
-            (x*tile_w)+map_offset_x, 
-            (y*tile_h)+map_offset_y)
-         --check if we have any objects to draw
-         if Map:getCellObject(x,y) then
-            --if yes then draw
-            love.graphics.draw(
-              Map:convertObjecttoTile(x+map_x, y+map_y),
+         --do we see the tile
+         if Map:isTileSeen(x,y) or Map:isTileVisible(x,y) then
+            --shade
+            if not Map:isTileVisible(x,y) then love.graphics.setColor(128,128,128)
+            else love.graphics.setColor(255,255,255) end
+           --draw terrain
+           love.graphics.draw(
+              Map:convertTerraintoTile(x+map_x, y+map_y),
               (x*tile_w)+map_offset_x, 
               (y*tile_h)+map_offset_y)
+           --check if we have any objects to draw
+           if Map:getCellObject(x,y) then
+              --if yes then draw
+              love.graphics.draw(
+                Map:convertObjecttoTile(x+map_x, y+map_y),
+                (x*tile_w)+map_offset_x, 
+                (y*tile_h)+map_offset_y)
+            end
+           --check if we have any actors to draw
+           if Map:getCellActor(x,y) then
+              --if yes then draw
+              love.graphics.draw(
+                Map:convertActortoTile(x+map_x, y+map_y),
+                (x*tile_w)+map_offset_x, 
+                (y*tile_h)+map_offset_y)
+            end
           end
-         --check if we have any actors to draw
-         if Map:getCellActor(x,y) then
-            --if yes then draw
-            love.graphics.draw(
-              Map:convertActortoTile(x+map_x, y+map_y),
-              (x*tile_w)+map_offset_x, 
-              (y*tile_h)+map_offset_y)
-          end
+          --reset color
+          love.graphics.setColor(255, 255, 255)
       end
    end
 end
