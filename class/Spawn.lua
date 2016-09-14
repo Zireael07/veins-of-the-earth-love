@@ -49,6 +49,8 @@ function Spawn:createPlayer(x,y)
 
     --fix player visibility on turn 1
     --player:PlayerMove("left")
+    --update FOV
+    player_temp:update_draw_visibility_new()
 
     print("[Spawn] Created player at ", x,y)
     return Entity:addEntity(player_temp)
