@@ -110,7 +110,7 @@ function _M:addObject(inven_id, o)
     table.insert(inven, #inven +1, o)
 
     --callbacks? onWear and onAddObject?
-    print("Picked up object ", inven)
+    --print("Added object ", inven)
     return true
 end 
 
@@ -120,8 +120,10 @@ function _M:pickupFloor()
     if not inven then return end
 
     if Map:getCellObject(self.x, self.y) then
+        o = Map:getCellObject(self.x, self.y)
         local ok = self:addObject(self.INVEN_INVEN, o)
         if ok then
+            print("Picked up", o.name)
             Map:setCellObject(self.x, self.y, nil)
         end
     else
