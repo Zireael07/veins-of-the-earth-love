@@ -6,8 +6,13 @@ do
     --load stuff
     load = love.filesystem.load("load.lua")
     local loaded = load()
+
     --require
     require "gamefunctions"
+    --create log file
+    make_log_file()
+    open_save()
+    --show menu screen
     loadGamemode("menu")
 end
 

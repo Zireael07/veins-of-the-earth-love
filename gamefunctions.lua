@@ -21,3 +21,15 @@ function loadGamemode(mode, skipQuit)
     print("Gamemode "..mode.." loaded")
     return true
 end
+
+--log files
+--open save folder
+function open_save()
+    love.system.openURL("file://" .. love.filesystem.getSaveDirectory())
+end
+
+--create the log file
+function make_log_file()
+    local time = os.date("%Y-%m-%d %H:%M:%S", os.time())
+    love.filesystem.write("log.txt", "Game started: "..time)
+end
