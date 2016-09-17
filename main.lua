@@ -7,6 +7,9 @@ do
     load = love.filesystem.load("load.lua")
     local loaded = load()
 
+    --require npc test
+    require 'data/npcs'
+
     --require
     require "gamefunctions"
     --create log file
