@@ -37,7 +37,7 @@ end
 
 -- for FOV calculation
 function isVisibleCallback(x,y,r,v)
-    print("Setting as visible", x, y, r, v)
+    --print("Setting as visible", x, y, r, v)
     -- first mark as visible
     Map:setTileVisible(x,y, true)
     -- also mark  as currently seen
