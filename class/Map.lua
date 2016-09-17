@@ -26,6 +26,8 @@ function Map:loadTiles()
     floor_bright = love.graphics.newImage("gfx/tiles/terrain/floor_bright.png")
     player_tile = love.graphics.newImage("gfx/tiles/player/racial_dolls/human_m.png")
     orc = love.graphics.newImage("gfx/tiles/mobiles/orc.png")
+    drow = love.graphics.newImage("gfx/tiles/mobiles/drow.png")
+    human = love.graphics.newImage("gfx/tiles/mobiles/human.png")
     longsword = love.graphics.newImage("gfx/tiles/object/longsword.png")
 end
 
@@ -148,6 +150,8 @@ function Map:convertActortoTile(x,y)
   local string = Map:getCellActor(x,y).image
   if string == "player_tile" then tile = player_tile end
   if string == "orc" then tile = orc end
+  if string == "drow" then tile = drow end
+  if string == "human" then tile = human end
   --print ("Actor tile gotten for x: "..x.."y: "..y)
   return tile
 end
@@ -173,7 +177,7 @@ end
 
 function Map:setTileVisible(x,y, val)
   if not Map:getCell(x,y) then return end
-  print("Map:setTileVisible: ", x, y, val)
+--  print("Map:setTileVisible: ", x, y, val)
   self.cells[x][y]:setVisible(val)
 end
 
@@ -187,7 +191,7 @@ end
 
 function Map:setTileSeen(x,y, val)
   if not Map:getCell(x,y) then return end
-  print("Map:setTileSeen: ", x, y, val)
+--  print("Map:setTileSeen: ", x, y, val)
   self.cells[x][y]:setSeen(val)
 end
 
