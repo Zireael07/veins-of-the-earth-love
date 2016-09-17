@@ -43,6 +43,7 @@ end
 function draw_GUI(player)
   GUI:draw_GUI(player)
   GUI:draw_mouse()
+  GUI:draw_tip()
 end
 
 function drawdebug()

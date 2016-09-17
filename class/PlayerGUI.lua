@@ -48,4 +48,15 @@ function PlayerGUI:draw_mouse(x,y)
     love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y)
 end
 
+function PlayerGUI:draw_tip(x,y)
+    love.graphics.setColor(255, 255, 102)
+    if tile_x and tile_y then
+      if Map:getCellActor(tile_x, tile_y) then
+        a = Map:getCellActor(tile_x, tile_y)
+        love.graphics.print(a.name, 120, 500)
+      end
+    end
+end
+
+
 return PlayerGUI
