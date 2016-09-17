@@ -33,6 +33,9 @@ function _M:generate(level, width, height)
   Spawn:createActor(4, 4)
   Spawn:createActor(10,10)
   
+  --test2
+  Spawn:createActor(6,6, "drow")
+  
   Spawn:createItem(2,2)
   Spawn:createItem(6,6)
   

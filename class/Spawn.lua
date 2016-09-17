@@ -9,12 +9,18 @@ local Entity = require 'class.Entity'
 
 module("Spawn", package.seeall, class.make)
 
-function Spawn:createActor(x,y)
+function Spawn:createActor(x,y, id)
     if not x or not y then print("No location parameters") return end
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
-
-    actor = Actor.new()
+    
+    if id and npc_types[id] then
+      local t = npc_types[id]
+      print("Creating an npc from data", id)
+      actor = Actor.new(t)
+    else
+      actor = Actor.new()
+    end
     actor:move(x,y)
 
     --return actor
