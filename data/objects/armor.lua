@@ -1,6 +1,7 @@
 object_types['padded armor'] = {
     slot = "BODY",
     type = "armor", subtype = "light",
+    name = "padded armor",
     image = "padded",
     desc = "A simple padded armor. Does not offer much protection.",
     encumber = 10,
@@ -14,6 +15,7 @@ object_types['padded armor'] = {
 object_types['leather armor'] = {
     slot = "BODY",
     type = "armor", subtype = "light",
+    name = "leather armor",
     image = "leather",
     desc = "A set of leather armor. Does not offer much protection.",
     encumber = 10,
@@ -27,6 +29,7 @@ object_types['leather armor'] = {
 object_types['studded armor'] = {
     slot = "BODY",
     type = "armor", subtype = "light",
+    name = "studded armor",
     image = "studded",
     desc = "A set of leather armor. Does not offer much protection.",
     encumber = 10,
@@ -41,6 +44,7 @@ object_types['studded armor'] = {
 object_types['chain shirt'] = {
     slot = "BODY",
     type = "armor", subtype = "light",
+    name = "chain shirt",
     image = "chain_shirt",
     desc = "A set of chain links which covers the torso only.\n\n Light armor.",
     encumber = 10,
@@ -55,6 +59,7 @@ object_types['chain shirt'] = {
 object_types['chain mail'] = {
     slot = "BODY",
     type = "armor", subtype = "medium",
+    name = "chain mail",
     image = "chain_mail",
     desc = "A suit of armour made of mail.\n\n Medium armor.",
     encumber = 40,
