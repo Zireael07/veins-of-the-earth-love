@@ -9,6 +9,7 @@ do
 
     --require npc test
     require 'data/npcs'
+    require 'data/objects'
 
     --require
     require "gamefunctions"
