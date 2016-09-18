@@ -53,7 +53,11 @@ function PlayerGUI:draw_tip(x,y)
     if tile_x and tile_y then
       if Map:getCellActor(tile_x, tile_y) then
         a = Map:getCellActor(tile_x, tile_y)
-        love.graphics.print(a.name, 120, 500)
+        love.graphics.print(a.name, mouse.x+10, mouse.y+30)
+      end
+      if Map:getCellObject(tile_x, tile_y) then
+        o = Map:getCellObject(tile_x, tile_y)
+        love.graphics.print(o.name, mouse.x+10, mouse.y+45)
       end
     end
 end
