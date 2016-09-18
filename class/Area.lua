@@ -36,8 +36,11 @@ function _M:generate(level, width, height)
   --test2
   Spawn:createActor(6,6, "drow")
   
-  Spawn:createItem(2,2)
+ -- Spawn:createItem(2,2)
   Spawn:createItem(6,6)
+
+  Spawn:createItem(2,2, "longsword")
+  Spawn:createItem(4,4, "leather armor")
   
 end
 

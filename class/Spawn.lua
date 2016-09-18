@@ -27,12 +27,18 @@ function Spawn:createActor(x,y, id)
     return Entity:addEntity(actor)
 end
 
-function Spawn:createItem(x,y)
+function Spawn:createItem(x,y, id)
     if not x or not y then print("No location parameters") return end
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
 
-    object = Object.new()
+    if id and object_types[id] then
+      local t = object_types[id]
+      print("Creating an object from data", id)
+      object = Object.new(t)
+    else
+      object = Object.new()
+    end
 
     print("[Spawn] Created item at ",x,y)
     object:place(x,y)
