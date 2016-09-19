@@ -3,9 +3,10 @@ require 'T-Engine.class'
 require 'class.Map'
 
 local ActorInventory = require 'interface.ActorInventory'
+local Combat = require 'interface.ActorCombat'
 local ActorAI = require 'interface.ActorAI'
 
-module("Actor", package.seeall, class.inherit(ActorInventory, Entity))
+module("Actor", package.seeall, class.inherit(ActorInventory, Combat, Entity))
 
 function _M:init(t)
     if t then print("We were given a table") end
@@ -19,6 +20,8 @@ function _M:init(t)
     self.image = t.image or "orc"
     self.name = t.name or "orc"
     self.path = nil
+      -- Default melee barehanded damage
+    self.combat = { dam = {1,4} }
     ActorInventory.init(self, t)
 end
 
@@ -83,7 +86,11 @@ end
 
 function _M:canMove(x,y)
   --should call combat
-  if Map:getCellActor(x,y) then return false end
+  if Map:getCellActor(x,y) then 
+    local target = Map:getCellActor(x,y)
+    self:bumpTarget(target)
+    return false 
+  end
   --legit block
   if Map:getCellTerrain(x,y) == "#" then return false end
  -- if x == player.x and y == player.y then return false end
@@ -91,13 +98,17 @@ function _M:canMove(x,y)
 end
 
 function _M:moveAlongPath(path)
-  if not path then return end
+  if not path or not path[2] then return end
   local tx = path[2].x
   local ty = path[2].y
   print("[Actor] Moving along path", tx, ty)
   if self:canMove(tx, ty) then
     self:move(path[2].x, path[2].y)
   end
+end
+
+function _M:bumpTarget(target)
+  self:attackTarget(target)
 end
 
 return _M
