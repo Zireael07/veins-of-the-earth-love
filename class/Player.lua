@@ -5,7 +5,7 @@ local ActorInventory = require 'interface.ActorInventory'
 local ActorFOV = require 'interface.ActorFOV'
 local utils = require 'utils'
 
-module("Player", package.seeall, class.inherit(Actor, ActorInventory, ActorFOV))
+module("Player", package.seeall, class.inherit(Actor, ActorFOV))
 
 function _M:init(t)
     print("Initializing player")
@@ -18,14 +18,14 @@ function _M:init(t)
     self.body = t.body or {}
     --init inherited stuff
     Actor:init(self, t) 
-    ActorInventory.init(self, t)
+    --[[ActorInventory.init(self, t)
     --debug
     if self.body then 
       print("We have a body")
       for k, v in pairs(self.body) do
         print(k, v)
       end
-    end
+    end]]
 end
 
 function _M:PlayerMove(dir_string)

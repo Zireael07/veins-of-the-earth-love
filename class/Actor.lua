@@ -2,9 +2,10 @@ require 'T-Engine.class'
 
 require 'class.Map'
 
+local ActorInventory = require 'interface.ActorInventory'
 local ActorAI = require 'interface.ActorAI'
 
-module("Actor", package.seeall, class.inherit(Entity))
+module("Actor", package.seeall, class.inherit(ActorInventory, Entity))
 
 function _M:init(t)
     if t then print("We were given a table") end
@@ -12,12 +13,13 @@ function _M:init(t)
     --default loc for testing
     self.x = 1
     self.y = 1
-    self.hitpoints = 0
+    self.hitpoints = 10
     self.wounds = t.wounds or 1
     self.display = t.display or "o"
     self.image = t.image or "orc"
     self.name = t.name or "orc"
     self.path = nil
+    ActorInventory.init(self, t)
 end
 
 function _M:act()
