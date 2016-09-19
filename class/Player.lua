@@ -17,15 +17,7 @@ function _M:init(t)
     self.player = true
     self.body = t.body or {}
     --init inherited stuff
-    Actor:init(self, t) 
-    --[[ActorInventory.init(self, t)
-    --debug
-    if self.body then 
-      print("We have a body")
-      for k, v in pairs(self.body) do
-        print(k, v)
-      end
-    end]]
+    Actor:init(self, t)
 end
 
 function _M:PlayerMove(dir_string)
