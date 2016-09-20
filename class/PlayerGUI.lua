@@ -20,8 +20,19 @@ function PlayerGUI:draw_GUI(player)
     love.graphics.draw(stone_bg, 0,0, 0, 0.25, 1)
     love.graphics.draw(stone_bg, 0, 320, 0, 0.25, 1)
 
+    love.graphics.setColor(255, 51, 51)
     love.graphics.print("HP: "..player.hitpoints, 10, 10)
     love.graphics.print("Wounds: "..player.wounds, 10, 25)
+
+    --draw stats
+    love.graphics.setColor(255, 255, 102)
+    love.graphics.print("STR: "..player.stats["STR"].current, 10, 45)
+    love.graphics.print("DEX: "..player.stats["DEX"].current, 10, 60)
+    love.graphics.print("CON: "..player:getStat("CON"), 10, 75)
+    love.graphics.print("INT: "..player:getStat("INT"), 10, 90)
+    love.graphics.print("WIS: "..player:getStat("WIS"), 10, 105)
+    love.graphics.print("CHA: "..player:getStat("CHA"), 10, 120)
+    love.graphics.print("LUC: "..player:getStat("LUC"), 10, 135)
 end
 
 function PlayerGUI:draw_schedule()
@@ -54,11 +65,11 @@ function PlayerGUI:draw_tip(x,y)
       if Map:getCellActor(tile_x, tile_y) then
         a = Map:getCellActor(tile_x, tile_y)
         love.graphics.print(a.name, mouse.x+10, mouse.y+30)
-        love.graphics.print(a.hitpoints, mouse.x+100, mouse.y+30)
+        love.graphics.print(a.hitpoints or "N/A", mouse.x+100, mouse.y+30)
       end
       if Map:getCellObject(tile_x, tile_y) then
         o = Map:getCellObject(tile_x, tile_y)
-        love.graphics.print(o.name, mouse.x+10, mouse.y+45)
+        love.graphics.print(o.name, mouse.x+10, mouse.y+60)
       end
     end
 end
