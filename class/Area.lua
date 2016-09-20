@@ -30,14 +30,13 @@ function _M:generate(level, width, height)
   if path_map then print("Created a path_map successfully!")  end
   
     --test!
-  Spawn:createActor(4, 4)
-  Spawn:createActor(10,10)
+  Spawn:createActor(4, 4, "human")
+  Spawn:createActor(10,10, "human")
   
   --test2
   Spawn:createActor(6,6, "drow")
   
- -- Spawn:createItem(2,2)
-  Spawn:createItem(6,6)
+  Spawn:createItem(6,6, "longsword")
 
   Spawn:createItem(2,2, "longsword")
   Spawn:createItem(4,4, "leather armor")

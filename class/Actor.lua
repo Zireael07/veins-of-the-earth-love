@@ -15,9 +15,9 @@ function _M:init(t)
     --default loc for testing
     self.x = 1
     self.y = 1
-    self.display = t.display or "o"
-    self.image = t.image or "orc"
-    self.name = t.name or "orc"
+    self.display = t.display --or "o"
+    self.image = t.image --or "orc"
+    self.name = t.name --or "orc"
     self.path = nil
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
