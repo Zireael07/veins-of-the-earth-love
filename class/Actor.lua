@@ -5,9 +5,13 @@ require 'class.Map'
 local ActorInventory = require 'interface.ActorInventory'
 local Combat = require 'interface.ActorCombat'
 local ActorLife = require 'interface.ActorLife'
+local ActorStats = require 'interface.ActorStats'
+
+
+--AI
 local ActorAI = require 'interface.ActorAI'
 
-module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife))
+module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats))
 
 function _M:init(t)
     if t then print("We were given a table") end
@@ -24,6 +28,7 @@ function _M:init(t)
     --init inherited stuff
     ActorInventory.init(self, t)
     ActorLife.init(self, t)
+    ActorStats.init(self, t)
 end
 
 function _M:act()
