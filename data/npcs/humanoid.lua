@@ -24,6 +24,7 @@ npc_types['drow'] = {
     skill_spot = 2,
     hit_die = 1,
     challenge = 1,
+    max_hitpoints = 6,
 }
 
 npc_types['orc'] = {
@@ -48,6 +49,7 @@ npc_types['orc'] = {
     skill_spot = 2,
     hit_die = 1,
     challenge = 1,
+    max_hitpoints = 8,
 }
 
 npc_types['human'] = {
@@ -63,4 +65,5 @@ npc_types['human'] = {
     hit_die = 1,
     alignment = "Neutral Good",
     challenge = 1,
+    max_hitpoints = 8,
 }
