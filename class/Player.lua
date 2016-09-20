@@ -9,15 +9,18 @@ module("Player", package.seeall, class.inherit(Actor, ActorFOV))
 
 function _M:init(t)
     print("Initializing player")
+    self.player = true
+    self.body = t.body or {}
+    --init inherited stuff
+    Actor.init(self, t)
     self.hitpoints = 20
     self.display = "@"
     self.image = "player_tile"  --"gfx/player/racial_dolls/human_m.png"
     self.wounds = 20
     self.name = "Player"
-    self.player = true
-    self.body = t.body or {}
-    --init inherited stuff
-    Actor:init(self, t)
+    if self.stats then
+      print("[Player] We have stats")
+    end
 end
 
 function _M:PlayerMove(dir_string)
