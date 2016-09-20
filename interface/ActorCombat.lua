@@ -68,6 +68,8 @@ function ActorCombat:dealDamage(target, weapon, crit)
     dam = math.max(1, dam)
 
     print("Dealing "..dam.." damage")
+
+    target:takeHit(dam, self)
 end 
 
 function ActorCombat:attackMessage(target, hit, d, ac)
