@@ -116,6 +116,17 @@ function rounds()
       love.timer.sleep(.5)
     --gets the number
     c  =s:next()
+    --handle removed entities
+    if not entities[c] then 
+      
+      if c > #entities then
+        c=1 
+      --go back to number 1
+      --if less than total, just advance on
+      else
+        c=c+1
+      end
+    end
     --test 
     curr_ent = entities[c]
     --debug display
@@ -145,9 +156,23 @@ function game_unlock()
     local item = entities[i]
     if item['act'] then item:act() end
   end
+
+    removeDead()
 end
 
 function endTurn()
   game_unlock()
   print("[GAME] Ended our turn")
+end
+
+function removeDead()
+  for i=#entities,1,-1 do
+    local item = entities[i]
+    if item.dead then
+      print("Removing entity from list", i, item.name)
+      table.remove(entities, i)
+      --remove from scheduler, too
+      if s:remove(i) then print("Removed from scheduler", i) end
+    end
+  end
 end
