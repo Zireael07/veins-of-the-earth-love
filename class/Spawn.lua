@@ -19,7 +19,8 @@ function Spawn:createActor(x,y, id)
       print("Creating an npc from data", id)
       actor = Actor.new(t)
     else
-      actor = Actor.new()
+      --actor = Actor.new()
+      print("Id not given, not doing anything") return
     end
     actor:move(x,y)
 
