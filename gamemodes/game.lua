@@ -107,7 +107,21 @@ function gamemode.update()
   }
   tile_x, tile_y = Map:mousetoTile()
   
+  --removeDead()
+  --schedule()
   rounds()
+end
+
+function schedule()
+  --clear the scheduler
+  s:clear()
+  print("Clear the scheduler")
+
+  --put entities into scheduler
+   for i, e in ipairs(entities) do
+      s:add(i,true,i-1) 
+      print("[Scheduler] Added: ", i, e)
+   end
 end
 
 function rounds()
@@ -117,7 +131,7 @@ function rounds()
     --gets the number
     c  =s:next()
     --handle removed entities
-    if not entities[c] then 
+    --[[if not entities[c] then 
       
       if c > #entities then
         c=1 
@@ -126,7 +140,8 @@ function rounds()
       else
         c=c+1
       end
-    end
+    end]]
+    
     --test 
     curr_ent = entities[c]
     --debug display
@@ -158,6 +173,7 @@ function game_unlock()
   end
 
     removeDead()
+    schedule()
 end
 
 function endTurn()
