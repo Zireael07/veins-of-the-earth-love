@@ -19,6 +19,7 @@ function ActorLife:takeHit(value, src)
     --subtract hp
     if value < self.hitpoints and value > 0 then
         self.hitpoints = self.hitpoints - value
+        logMessage({200,200,200, 255}, src.name.." hits "..self.name.." for "..value.." damage!")
     end
     
     --subtract wounds
@@ -31,7 +32,7 @@ function ActorLife:takeHit(value, src)
         self.wounds = self.wounds - wounds_remaining
 
         --log
-        print(src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
+        logMessage({255,0,0, 255}, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
 
         if self.hitpoints <= 1 then value = 0 end
 
