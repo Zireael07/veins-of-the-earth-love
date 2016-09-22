@@ -12,6 +12,10 @@ require 'class.Entity'
 function gamemode.load()
     --list of entities
     entities = {}
+
+    --messages
+    logMessages = {}
+
     --load tiles
     Map:loadTiles()
     --load GUI
@@ -44,6 +48,7 @@ function draw_GUI(player)
   GUI:draw_GUI(player)
   GUI:draw_mouse()
   GUI:draw_tip()
+  GUI:draw_log_messages()
 end
 
 function drawdebug()
@@ -161,6 +166,8 @@ end
 --turn-basedness
 function game_lock()
   game_locked = true
+  --clear log
+  logMessages = {}
 end
 
 function game_unlock()
@@ -191,4 +198,8 @@ function removeDead()
       if s:remove(i) then print("Removed from scheduler", i) end
     end
   end
+end
+
+function logMessage(color,string)
+  table.insert(logMessages,{time=os.clock(),message={color,string}})
 end

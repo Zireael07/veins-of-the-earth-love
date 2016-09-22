@@ -74,5 +74,39 @@ function PlayerGUI:draw_tip(x,y)
     end
 end
 
+function PlayerGUI:draw_log_messages()
+    -- draw log messages
+    local a = 255
+    if #logMessages > 0 then
+        for i, message in ipairs(logMessages) do
+            local myColor = r,g,b,a
+            love.graphics.setColor(a,a,a,a)
+            love.graphics.print(message['message'], 120, 15*i)
+        end    
+
+        for i,message in ipairs(logMessages) do
+            if message['delete'] == true then
+                table.remove(logMessages,i)
+            end
+        end
+
+        --[[for i,message in ipairs(logMessages) do
+            local difference = os.clock() - message['time']
+            a = 355 - (255*string.format("%.2f",difference))
+            if a > 0 then
+                local myColor = r,g,b,a
+                love.graphics.setColor(a,a,a,a)
+                love.graphics.print(message['message'], 120,15*i)
+            else
+                message['delete'] = true
+            end
+        end
+        for i,message in ipairs(logMessages) do
+            if message['delete'] == true then
+                table.remove(logMessages,i)
+            end
+        end]]
+    end
+end
 
 return PlayerGUI
