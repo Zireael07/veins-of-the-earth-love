@@ -28,6 +28,7 @@ function Map:loadTiles()
     orc = love.graphics.newImage("gfx/tiles/mobiles/orc.png")
     drow = love.graphics.newImage("gfx/tiles/mobiles/drow.png")
     human = love.graphics.newImage("gfx/tiles/mobiles/human.png")
+    gnome = love.graphics.newImage("gfx/tiles/mobiles/npc/gnome_fighter.png")
     longsword = love.graphics.newImage("gfx/tiles/object/longsword.png")
     dagger = love.graphics.newImage("gfx/tiles/object/dagger.png")
     spear = love.graphics.newImage("gfx/tiles/object/spear.png")
@@ -159,6 +160,7 @@ function Map:convertActortoTile(x,y)
   if string == "orc" then tile = orc end
   if string == "drow" then tile = drow end
   if string == "human" then tile = human end
+  if string == "gnome" then tile = gnome end
   --print ("Actor tile gotten for x: "..x.."y: "..y)
   return tile
 end
