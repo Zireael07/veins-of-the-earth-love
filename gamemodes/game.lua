@@ -49,6 +49,7 @@ function draw_GUI(player)
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_log_messages()
+  --GUI:draw_inventorytest()
 end
 
 function drawdebug()
