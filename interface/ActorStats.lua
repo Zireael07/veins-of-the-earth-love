@@ -17,7 +17,7 @@ function ActorStats:init(t)
     self.stats = {}
   for _, s in ipairs(ActorStats.stats) do
     self.stats[s] = { current = 10 }
-    print("Actor: stat "..s.." set to ", self.stats[s].current)
+    --print("Actor: stat "..s.." set to ", self.stats[s].current)
     
   end
   print("Actor: initiated stats for ", self.name)
@@ -29,7 +29,7 @@ function ActorStats:getStat(s)
 
     local val
     val = stat.current
-    print("Value is", val)
+    --print("Value is", val)
     return val
 end
 
