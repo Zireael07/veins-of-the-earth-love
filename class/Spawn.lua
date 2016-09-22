@@ -69,4 +69,20 @@ function Spawn:createPlayer(x,y)
     return Entity:addEntity(player_temp)
 end
 
+function Spawn:createEncounter(data, x, y)
+    if not x or not y then print("No location parameters") return end
+    if x > Map:getHeight()-1 then print("X out of bounds") end
+    if y > Map:getWidth()-1 then print("Y out of bounds") end
+
+    for i, id in ipairs(data) do
+      print("[Spawn] creating an encounter actor", id)
+      Spawn:createActor(x,y, id)
+      x = x + 2
+      y = y + 2
+    end
+    
+    print("[Spawn] Creating an encounter")
+end
+
+
 return Spawn

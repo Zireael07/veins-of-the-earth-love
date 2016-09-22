@@ -2,6 +2,7 @@ require 'T-Engine.class'
 
 require 'class.Map'
 local Spawn = require 'class.Spawn'
+local Encounter = require 'class.Encounter'
 require 'interface.Pathfinding'
 
 module("Area", package.seeall, class.make)
@@ -29,7 +30,12 @@ function _M:generate(level, width, height)
   Area:getAreaMap()
   if path_map then print("Created a path_map successfully!")  end
 
-  Area:spawnStuff()
+  --Area:spawnStuff()
+
+  --test
+  Encounter:getNPCsByCR(1/2)
+  local encounter = Encounter:makeEncounter()
+  Spawn:createEncounter(encounter, 5,5)
 end
 
 function Area:fillWalls(width, height)
