@@ -33,7 +33,7 @@ function _M:generate(level, width, height)
   --Area:spawnStuff()
 
   --test
-  Encounter:getNPCsByCR(1/2)
+  Encounter:getNPCsByCR(1)
   local encounter = Encounter:makeEncounter()
   Spawn:createEncounter(encounter, 5,5)
 end
