@@ -16,6 +16,8 @@ function gamemode.load()
     --messages
     logMessages = {}
 
+    popup_dialog = ''
+
     --load tiles
     Map:loadTiles()
     --load GUI
@@ -49,12 +51,18 @@ function draw_GUI(player)
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_log_messages()
-  --GUI:draw_inventorytest()
+  draw_dialogs()
 end
 
 function drawdebug()
   GUI:draw_schedule()
   GUI:draw_drawstats()
+end
+
+function draw_dialogs()
+  if popup_dialog == "inventory" then
+    GUI:draw_inventorytest()
+  end
 end
 
 --shorthand
@@ -72,30 +80,29 @@ end
 
 --input
 function gamemode.keypressed(k)
-    if k == "left" then
-      player:PlayerMove("left")
-       --[[map_x = map_x-1
-       if map_x -1 < 0 then map_x = 0 end
-       print("Pressed left key, map_x: ", map_x)]]
-    elseif k == "right" then
-        player:PlayerMove("right")
-       --[[ map_x = map_x +1
-        if map_x > map_display_w then map_x = map_display_w end
-        print("Pressed right key, map_x: ", map_x)]]
-    elseif k == "down" then
-        player:PlayerMove("down")
-        --[[map_y = map_y+1
-        if map_y > map_h+map_display_h then map_y = map_h+map_display_h end
-        print("Pressed down key, map_y: ", map_y)]]
-    elseif k == "up" then
-        player:PlayerMove("up")
-        --[[map_y = map_y-1
-        if map_y < 0 then map_y = 0 end
-        print("Pressed up key, map_y: ", map_y)]]
-    elseif k == "g" then
-        player:playerPickup()
-    elseif k == "return" then
-        endTurn()
+    --if any dialog then
+    if popup_dialog ~= '' then
+      -- escape to exit
+      if k == "escape" then popup_dialog = '' end
+    --no dialogs
+    else
+      if k == "left" then
+        player:PlayerMove("left")
+      elseif k == "right" then
+          player:PlayerMove("right")
+      elseif k == "down" then
+          player:PlayerMove("down")
+      elseif k == "up" then
+          player:PlayerMove("up")
+      elseif k == "g" then
+          player:playerPickup()
+      elseif k == "return" then
+          endTurn()
+      --dialogs
+      elseif k == 'i' then
+        popup_dialog = 'inventory'
+      end
+
     end
 end
 
