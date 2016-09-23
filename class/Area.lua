@@ -30,7 +30,7 @@ function _M:generate(level, width, height)
   Area:getAreaMap()
   if path_map then print("Created a path_map successfully!")  end
 
-  --Area:spawnStuff()
+  Area:spawnStuff()
 
   --test
   Encounter:getNPCsByCR(1)
@@ -69,11 +69,11 @@ end
 
 function Area:spawnStuff()
       --test!
-  Spawn:createActor(4, 4, "human")
+  --[[Spawn:createActor(4, 4, "human")
   Spawn:createActor(5,5, "human")
   
   --test2
-  Spawn:createActor(6,6, "drow")
+  Spawn:createActor(6,6, "drow")]]
   
   Spawn:createItem(6,6, "longsword")
 
