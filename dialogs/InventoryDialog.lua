@@ -49,46 +49,133 @@ function InventoryDialog:draw(player)
     --top
     if player:getInven(player.INVEN_HELM) then
         love.graphics.draw(head_inv, 210, 50)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_HELM)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 210+5, 50+5)
+            end
+        end
     end
     if player:getInven(player.INVEN_AMULET) then
         love.graphics.draw(amulet_inv, 270, 50)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_AMULET)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 270+5, 50+5)
+            end
+        end
     end
     --2nd line
     if player:getInven(player.INVEN_QUIVER) then
         love.graphics.draw(ammo_inv, 160, 100)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_QUIVER)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 160+5, 100+5)
+            end
+        end
     end
     if player:getInven(player.INVEN_SHOULDER) then
         love.graphics.draw(shoulder_inv, 270, 100)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_SHOULDER)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 270+5, 100+5)
+            end
+        end
     end
     --3rd line
     if player:getInven(player.INVEN_MAIN_HAND) then
         love.graphics.draw(mainhand_inv, 160, 150)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_MAIN_HAND)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 160+5, 150+5)
+            end
+        end
     end
     if player:getInven(player.INVEN_OFF_HAND) then
         love.graphics.draw(offhand_inv, 270, 150)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_OFF_HAND)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 270+5, 150+5)
+            end
+        end
     end
     --4th line
     if player:getInven(player.INVEN_RING) then
         love.graphics.draw(ring_inv, 160, 200)
         love.graphics.draw(ring_inv, 270, 200)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_RING)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 160+5, 200+5)
+            elseif nb == 2 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 270+5, 200+5)
+            end
+        end
     end
     --5th line
     if player:getInven(player.INVEN_CLOAK) then
         love.graphics.draw(cloak_inv, 160, 250)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_CLOAK)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 160+5, 250+5)
+            end
+        end
     end
     if player:getInven(player.INVEN_BELT) then
         love.graphics.draw(belt_inv, 270, 250)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_BELT)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 270+5, 250+5)
+            end
+        end
     end
     --6th line
     if player:getInven(player.INVEN_BOOTS) then
         love.graphics.draw(boots_inv, 270, 300)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_BOOTS)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 270+5, 300+5)
+            end
+        end
     end
     if player:getInven(player.INVEN_LITE) then
         love.graphics.draw(light_inv, 160, 300)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_LITE)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 160+5, 300+5)
+            end
+        end
     end
     --bottom
     if player:getInven(player.INVEN_TOOL) then
         love.graphics.draw(tool_inv, 210, 300)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_TOOL)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 210+5, 300+5)
+            end
+        end
     end
 
     --backpack
@@ -156,7 +243,7 @@ function InventoryDialog:draw(player)
     --dragged items
     if dragged then
         love.graphics.setColor(255, 255, 255)
-        local tile = InventoryDialog:getObjectTile(dragged)
+        local tile = InventoryDialog:getObjectTile(dragged.item)
         love.graphics.draw(tile, mouse.x + 2, mouse.y + 2)
     end
 end
@@ -302,13 +389,16 @@ end
 function InventoryDialog:mouse_pressed(x,y)
     if dragged then
         if slot then
-            print("We are dragging an item and are over a slot ", slot)
+            print("We are dragging an item and are over a slot ", slot:upper())
+            local inven_inven = player["INVEN_"..dragged.inven:upper()]
+            local slot_inven = player["INVEN_"..slot:upper()]
+            player:doWear(inven_inven, dragged.index, dragged.item, slot_inven)
             --not dragging anything anymore
             dragged = nil
         end
     end
     if item then 
-        dragged = item
+        dragged = { item=item, index=index, inven=inven }
         --print("[Inventory] We are dragging an item", item)
     end
 end
