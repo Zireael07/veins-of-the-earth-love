@@ -114,6 +114,14 @@ function _M:addObject(inven_id, o)
     return true
 end 
 
+--item is the index we want to remove from
+function _M:removeObject(inven_id, item)
+    local inven = self:getInven(inven_id)
+
+    local o = inven[item]
+
+    table.remove(inven, item)
+end
 
 function _M:pickupFloor()
     local inven = self:getInven(self.INVEN_INVEN)
@@ -131,5 +139,38 @@ function _M:pickupFloor()
     end    
 
 end
+
+function _M:canWearObject(o, try_slot)
+    print("Checking if we can wear object ", o.name, try_slot)
+    -- check the slot
+    if try_slot and try_slot ~= o.slot then
+        return nil, "wrong equipment slot"
+    end
+
+    return true
+end
+
+function _M:wearObject(o, inven_id)
+--    print("Wearing: ", o, inven_id)
+    local inven = self:getInven(inven_id)
+
+    local ok, err = self:canWearObject(o, inven.name)
+
+    if not ok then
+        print("Can not wear", o.name)
+        return false
+    end
+
+    local added = self:addObject(inven_id, o)
+    if added then
+        print("Wearing "..o.name.." in slot "..inven.name)
+    end
+end
+
+function _M:doWear(inven, item, o, dst)
+    self:removeObject(inven, item)
+    self:wearObject(o, dst)
+end
+
 
 return _M

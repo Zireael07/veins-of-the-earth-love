@@ -14,6 +14,7 @@ function _M:init(t)
     if t.display then print("We were provided a display", t.display) end
     self.image = t.image or "longsword"
     self.name = t.name or "sword"
+    self.slot = t.slot
 end
 
 function _M:act()
