@@ -111,7 +111,9 @@ function gamemode.mousepressed(x,y,b)
   if popup_dialog == '' then
     if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
   elseif popup_dialog == 'inventory' then
-    if b == 1 then print("Pressed a mouse button in inventory") end
+    if b == 1 then 
+      GUI:inventory_mouse_pressed(x,y)
+    end
   end
 end
 

@@ -152,6 +152,13 @@ function InventoryDialog:draw(player)
         love.graphics.setColor(255, 255, 102)
         love.graphics.print(item.name, mouse.x, mouse.y + 20)
     end
+
+    --dragged items
+    if dragged then
+        love.graphics.setColor(255, 255, 255)
+        local tile = InventoryDialog:getObjectTile(dragged)
+        love.graphics.draw(tile, mouse.x + 2, mouse.y + 2)
+    end
 end
 
 function InventoryDialog:getObjectTile(o)
@@ -255,12 +262,12 @@ function InventoryDialog:mousetoSlot()
         y = y + 45
     end
 
-    print("Mousing over slot: ", slot)
+    --print("Mousing over slot: ", slot)
     return slot
 end
 
 function InventoryDialog:slottoIndex(slot)
-    print("Getting index from slot", slot)
+    --print("Getting index from slot", slot)
     if not slot then return end
 
     local i
@@ -282,13 +289,27 @@ end
 
 function InventoryDialog:getItemInSlot(index, inven)
     if inven == nil or index == nil then return end
-    print("Getting item in: ", inven, index)
+    --print("Getting item in: ", inven, index)
     if inven == "inven" then
         for nb, o in ipairs(player:getInven(player.INVEN_INVEN)) do
             if nb == tonumber(index) then
                 return o
             end
         end
+    end
+end
+
+function InventoryDialog:mouse_pressed(x,y)
+    if dragged then
+        if slot then
+            print("We are dragging an item and are over a slot ", slot)
+            --not dragging anything anymore
+            dragged = nil
+        end
+    end
+    if item then 
+        dragged = item
+        --print("[Inventory] We are dragging an item", item)
     end
 end
 

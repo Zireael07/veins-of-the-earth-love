@@ -114,12 +114,18 @@ function PlayerGUI:draw_log_messages()
     end
 end
 
+--handle screens
+--inventory
 function PlayerGUI:draw_inventory_test(player)
     InventoryDialog:draw(player)
 end
 
 function PlayerGUI:inventory_mouse()
     InventoryDialog:mouse()
+end
+
+function PlayerGUI:inventory_mouse_pressed(x,y)
+    InventoryDialog:mouse_pressed(x,y)
 end
 
 return PlayerGUI
