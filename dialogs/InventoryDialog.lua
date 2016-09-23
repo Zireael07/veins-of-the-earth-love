@@ -47,6 +47,17 @@ function InventoryDialog:draw(player)
 
     --draw inventory UI bits
     --top
+    if player:getInven(player.INVEN_BODY) then
+       love.graphics.draw(armor_inv, 160, 50)
+        --if there is an item in the corresponding slot, draw it
+        for nb, o in ipairs(player:getInven(player.INVEN_BODY)) do
+            if nb == 1 then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, 160+5, 50+5)
+            end
+        end
+    end
+
     if player:getInven(player.INVEN_HELM) then
         love.graphics.draw(head_inv, 210, 50)
         --if there is an item in the corresponding slot, draw it
@@ -280,6 +291,9 @@ function InventoryDialog:mousetoSlot()
 
     local slot
     --is there a better way?
+    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 50 and mouse.y < 50+s then
+        slot = "body"
+    end
     if mouse.x > 210 and mouse.x < 210+s and mouse.y > 50 and mouse.y < 50+s then
         slot = "head"
     end
@@ -370,7 +384,7 @@ function InventoryDialog:slottoIndex(slot)
         inven = slot
     end
    -- print("Index is ", i)
-    --print("Inven is ", inven)
+    print("Inven is ", inven)
     return i, inven
 end
 
