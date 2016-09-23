@@ -118,4 +118,8 @@ function PlayerGUI:draw_inventory_test(player)
     InventoryDialog:draw(player)
 end
 
+function PlayerGUI:inventory_mouse()
+    InventoryDialog:mouse()
+end
+
 return PlayerGUI

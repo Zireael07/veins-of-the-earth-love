@@ -146,6 +146,12 @@ function InventoryDialog:draw(player)
 
         y = y + 45
     end
+
+    --tooltip?
+    if item then
+        love.graphics.setColor(255, 255, 102)
+        love.graphics.print(item.name, mouse.x, mouse.y + 20)
+    end
 end
 
 function InventoryDialog:getObjectTile(o)
@@ -164,6 +170,126 @@ function InventoryDialog:getObjectTile(o)
     if string == "chain_mail" then tile = chain_mail end
     --print ("Object tile gotten for o: "..o.name)
     return tile
+end
+
+function InventoryDialog:mouse()
+    slot = InventoryDialog:mousetoSlot()
+    index, inven = InventoryDialog:slottoIndex(slot)
+    item = InventoryDialog:getItemInSlot(index, inven)
+end
+
+
+function InventoryDialog:mousetoSlot()
+    if mouse.x < 150 or mouse.y < 30 then return end
+
+    local s = 42
+
+    local slot
+    --is there a better way?
+    if mouse.x > 210 and mouse.x < 210+s and mouse.y > 50 and mouse.y < 50+s then
+        slot = "head"
+    end
+    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 50 and mouse.y < 50+s then
+        slot = "amulet"
+    end
+    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 100 and mouse.y < 100+s then
+        slot = "quiver"
+    end
+    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 100 and mouse.y < 100+s then
+        slot = "shoulder"
+    end
+    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 150 and mouse.y < 150+s then
+        slot = "main_hand"
+    end
+    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 150 and mouse.y < 150+s then
+        slot = "off_hand"
+    end
+    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 200 and mouse.y < 200+s then
+        slot = "ring_1"
+    end
+    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 200 and mouse.y < 200+s then
+        slot = "ring_2"
+    end
+    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 250 and mouse.y < 250+s then
+        slot = "cloak"
+    end
+    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 250 and mouse.y < 250+s then
+        slot = "belt"
+    end
+    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 300 and mouse.y < 300+s then
+        slot = "lite"
+    end
+    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 300 and mouse.y < 300+s then
+        slot = "boots"
+    end
+    if mouse.x > 210 and mouse.x < 210+s and mouse.y > 300 and mouse.y < 300+s then
+        slot = "tool"
+    end
+    
+    --inventory
+    local x = 160
+    local y = 400
+    for i=1,15 do
+        if mouse.x > x and mouse.x < x + s and mouse.y > y and mouse.y < y + s then
+            slot = "inven_"..i    
+        end
+        x = x + 45
+    end
+
+    y = 470
+    x = 160
+    for i=16,30 do
+        if mouse.x > x and mouse.x < x + s and mouse.y > y and mouse.y < y + s then
+            slot = "inven_"..i    
+        end
+        x = x + 45
+    end
+
+    --ground
+    x = 350
+    y = 120
+    for i=1,5 do
+        if mouse.x > x and mouse.x < x + s and mouse.y > y and mouse.y < y + s then
+            slot = "drop_"..i    
+        end
+        y = y + 45
+    end
+
+    print("Mousing over slot: ", slot)
+    return slot
+end
+
+function InventoryDialog:slottoIndex(slot)
+    print("Getting index from slot", slot)
+    if not slot then return end
+
+    local i
+    local inven
+    if slot:find("inven_") or slot:find("ring_") then
+        local split = slot:split('_')
+        if split[2] then
+            i = split[2]
+            inven = split[1]
+        end
+    else
+        i = 1
+        inven = slot
+    end
+   -- print("Index is ", i)
+    --print("Inven is ", inven)
+    return i, inven
+end
+
+function InventoryDialog:getItemInSlot(index, inven)
+    if inven == nil or index == nil then return end
+    print("Getting item in: ", inven, index)
+    if inven == "inven" then
+        for nb, o in ipairs(player:getInven(player.INVEN_INVEN)) do
+            if nb == tonumber(index) then
+                return o
+            end
+        end
+    end
 end
 
 return InventoryDialog

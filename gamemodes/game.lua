@@ -108,7 +108,11 @@ end
 
 function gamemode.mousepressed(x,y,b)
   print("Calling mousepressed",x,y,b)
-  if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
+  if popup_dialog == '' then
+    if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
+  elseif popup_dialog == 'inventory' then
+    if b == 1 then print("Pressed a mouse button in inventory") end
+  end
 end
 
 --update!
@@ -118,7 +122,12 @@ function gamemode.update()
    x = love.mouse.getX(),
    y = love.mouse.getY()
   }
-  tile_x, tile_y = Map:mousetoTile()
+  
+  if popup_dialog == '' then
+    tile_x, tile_y = Map:mousetoTile()
+  elseif popup_dialog == 'inventory' then
+    GUI:inventory_mouse()
+  end
   
   --removeDead()
   --schedule()
