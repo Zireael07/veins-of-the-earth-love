@@ -3,6 +3,16 @@ require 'T-Engine.class'
 module("InventoryDialog", package.seeall, class.make)
 
 function InventoryDialog:loadTiles()
+    --object tiles
+    longsword = love.graphics.newImage("gfx/tiles/object/longsword.png")
+    dagger = love.graphics.newImage("gfx/tiles/object/dagger.png")
+    spear = love.graphics.newImage("gfx/tiles/object/spear.png")
+    padded = love.graphics.newImage("gfx/tiles/object/armor_padded.png")
+    leather = love.graphics.newImage("gfx/tiles/object/armor_leather.png")
+    studded = love.graphics.newImage("gfx/tiles/object/armor_studded.png")
+    chain_shirt = love.graphics.newImage("gfx/tiles/object/chain_shirt.png")
+    chain_mail = love.graphics.newImage("gfx/tiles/object/chain_armor.png")
+
     stone_bg = love.graphics.newImage("gfx/stone_background.png")
 
     --inventory
@@ -38,27 +48,48 @@ function InventoryDialog:draw(player)
     --draw inventory UI bits
     --top
     if player:getInven(player.INVEN_HELM) then
-        print("[Inventory dialog] We have a helm")
         love.graphics.draw(head_inv, 210, 50)
     end
-    love.graphics.draw(amulet_inv, 270, 50)
+    if player:getInven(player.INVEN_AMULET) then
+        love.graphics.draw(amulet_inv, 270, 50)
+    end
     --2nd line
-    love.graphics.draw(ammo_inv, 160, 100)
-    love.graphics.draw(shoulder_inv, 270, 100)
+    if player:getInven(player.INVEN_QUIVER) then
+        love.graphics.draw(ammo_inv, 160, 100)
+    end
+    if player:getInven(player.INVEN_SHOULDER) then
+        love.graphics.draw(shoulder_inv, 270, 100)
+    end
     --3rd line
-    love.graphics.draw(mainhand_inv, 160, 150)
-    love.graphics.draw(offhand_inv, 270, 150)
+    if player:getInven(player.INVEN_MAIN_HAND) then
+        love.graphics.draw(mainhand_inv, 160, 150)
+    end
+    if player:getInven(player.INVEN_OFF_HAND) then
+        love.graphics.draw(offhand_inv, 270, 150)
+    end
     --4th line
-    love.graphics.draw(ring_inv, 160, 200)
-    love.graphics.draw(ring_inv, 270, 200)
+    if player:getInven(player.INVEN_RING) then
+        love.graphics.draw(ring_inv, 160, 200)
+        love.graphics.draw(ring_inv, 270, 200)
+    end
     --5th line
-    love.graphics.draw(cloak_inv, 160, 250)
-    love.graphics.draw(belt_inv, 270, 250)
+    if player:getInven(player.INVEN_CLOAK) then
+        love.graphics.draw(cloak_inv, 160, 250)
+    end
+    if player:getInven(player.INVEN_BELT) then
+        love.graphics.draw(belt_inv, 270, 250)
+    end
     --6th line
-    love.graphics.draw(boots_inv, 270, 300)
-    love.graphics.draw(light_inv, 160, 300)
+    if player:getInven(player.INVEN_BOOTS) then
+        love.graphics.draw(boots_inv, 270, 300)
+    end
+    if player:getInven(player.INVEN_LITE) then
+        love.graphics.draw(light_inv, 160, 300)
+    end
     --bottom
-    love.graphics.draw(tool_inv, 210, 300)
+    if player:getInven(player.INVEN_TOOL) then
+        love.graphics.draw(tool_inv, 210, 300)
+    end
 
     --backpack
     local x = 160
@@ -78,8 +109,9 @@ function InventoryDialog:draw(player)
         for nb, o in ipairs(player:getInven(player.INVEN_INVEN)) do
             --print("We have an item in inventory slot ", nb)
             if nb == i then
+                local tile = InventoryDialog:getObjectTile(o)
+                love.graphics.draw(tile, x+5, y+5)
                 --print("We are going to draw on slot ", i)
-               -- love.graphics.draw(o.image, x, y)
             end
         end
 
@@ -89,7 +121,7 @@ function InventoryDialog:draw(player)
     --2nd row
     y = 470
     x = 160
-    for i=1,15 do
+    for i=16,30 do
         --black fill
         love.graphics.setColor(0,0,0)
         love.graphics.rectangle('fill', x, y, 42, 42)
@@ -114,6 +146,24 @@ function InventoryDialog:draw(player)
 
         y = y + 45
     end
+end
+
+function InventoryDialog:getObjectTile(o)
+    local string 
+   -- local tile
+    if not o.image then print("Object does not have image defined") return end
+
+    string = o.image
+    if string == "longsword" then tile = longsword end
+    if string == "spear" then tile = spear end
+    if string == "dagger" then tile = dagger end
+    if string == "padded" then tile = padded end
+    if string == "leather" then tile = leather end
+    if string == "studded" then tile = studded end
+    if string == "chain_shirt" then tile = chain_shirt end
+    if string == "chain_mail" then tile = chain_mail end
+    --print ("Object tile gotten for o: "..o.name)
+    return tile
 end
 
 return InventoryDialog
