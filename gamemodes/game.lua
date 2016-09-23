@@ -51,7 +51,7 @@ function draw_GUI(player)
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_log_messages()
-  draw_dialogs()
+  draw_dialogs(player)
 end
 
 function drawdebug()
@@ -59,9 +59,9 @@ function drawdebug()
   GUI:draw_drawstats()
 end
 
-function draw_dialogs()
+function draw_dialogs(player)
   if popup_dialog == "inventory" then
-    GUI:draw_inventorytest()
+    GUI:draw_inventory_test(player)
   end
 end
 
