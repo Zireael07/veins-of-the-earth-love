@@ -58,10 +58,10 @@ end
 
 function PlayerGUI:draw_mouse(x,y)
     love.graphics.setColor(255,255,255)
-   -- love.graphics.print(mouse.x..", "..mouse.y, mouse.x+10, mouse.y)
+    --love.graphics.print(mouse.x..", "..mouse.y, mouse.x + 10, mouse.y)
     love.graphics.print((tile_x or "N/A")..", "..(tile_y or "N/A"), mouse.x+10, mouse.y+15)
     love.graphics.setColor(255, 255, 102)
-    love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y)
+    love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y+35)
 end
 
 function PlayerGUI:draw_tip(x,y)
@@ -76,6 +76,24 @@ function PlayerGUI:draw_tip(x,y)
         o = Map:getCellObject(tile_x, tile_y)
         love.graphics.print(o.name, mouse.x+10, mouse.y+60)
       end
+    end
+end
+
+function PlayerGUI:draw_unit_indicator()
+    for y=0, Map:getWidth()-1 do
+        for x=0, Map:getHeight()-1 do 
+            if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
+                local circle_x = x*(32)+16+120
+                local circle_y = y*(32)+16+0
+                if Map:getCellActor(x,y).player then  
+                    --Map:unitIndicatorCircle(circle_x, circle_y, "player")
+                    Map:unitIndicatorSquare((x*32)+120, (y*32), "player")
+                else
+                    --Map:unitIndicatorCircle(circle_x, circle_y)
+                    Map:unitIndicatorSquare((x*32)+120, (y*32))
+                end
+            end
+        end
     end
 end
 

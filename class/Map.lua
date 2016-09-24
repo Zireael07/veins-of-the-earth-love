@@ -211,6 +211,26 @@ function Map:setTileSeen(x,y, val)
   self.cells[x][y]:setSeen(val)
 end
 
+function Map:unitIndicatorCircle(x,y, val)
+  if val == "player" then
+    --friendly
+    love.graphics.setColor(0, 255, 255)
+  else 
+    love.graphics.setColor(255, 0, 0)
+  end 
+  love.graphics.circle('line', x, y, 18)
+end
+
+function Map:unitIndicatorSquare(x,y, val)
+  if val == "player" then
+    love.graphics.setColor(0, 255, 255)
+  else 
+    love.graphics.setColor(255, 0, 0)
+  end 
+  love.graphics.rectangle('line', x, y, tile_h+1, tile_w+1)
+end
+
+
 --actual display happens here
 function Map:display()
   for y=0, Map:getWidth()-1 do
