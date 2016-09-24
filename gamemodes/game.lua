@@ -80,6 +80,10 @@ end
 
 --input
 function gamemode.keypressed(k)
+    if popup_dialog == "inventory" then
+      print("Pressed key in inventory", k)
+      if k == "escape" then dragged = nil end
+    end
     --if any dialog then
     if popup_dialog ~= '' then
       -- escape to exit
@@ -111,9 +115,7 @@ function gamemode.mousepressed(x,y,b)
   if popup_dialog == '' then
     if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
   elseif popup_dialog == 'inventory' then
-    if b == 1 then 
-      GUI:inventory_mouse_pressed(x,y)
-    end
+      GUI:inventory_mouse_pressed(x,y,b)
   end
 end
 

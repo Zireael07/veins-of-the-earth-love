@@ -124,8 +124,8 @@ function PlayerGUI:inventory_mouse()
     InventoryDialog:mouse()
 end
 
-function PlayerGUI:inventory_mouse_pressed(x,y)
-    InventoryDialog:mouse_pressed(x,y)
+function PlayerGUI:inventory_mouse_pressed(x,y,b)
+    InventoryDialog:mouse_pressed(x,y,b)
 end
 
 return PlayerGUI
