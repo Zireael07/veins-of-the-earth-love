@@ -384,15 +384,15 @@ function InventoryDialog:slottoIndex(slot)
         inven = slot
     end
    -- print("Index is ", i)
-    print("Inven is ", inven)
+    --print("Inven is ", inven)
     return i, inven
 end
 
 function InventoryDialog:getItemInSlot(index, inven)
     if inven == nil or index == nil then return end
-    --print("Getting item in: ", inven, index)
-    if inven == "inven" then
-        for nb, o in ipairs(player:getInven(player.INVEN_INVEN)) do
+    print("Getting item in: ", inven, index)
+    if player:getInven(player["INVEN_"..inven:upper()]) then
+        for nb, o in ipairs(player:getInven(player["INVEN_"..inven:upper()])) do
             if nb == tonumber(index) then
                 return o
             end
@@ -403,10 +403,15 @@ end
 function InventoryDialog:mouse_pressed(x,y)
     if dragged then
         if slot then
-            print("We are dragging an item and are over a slot ", slot:upper())
+            --print("We are dragging an item and are over a slot ", slot:upper())
             local inven_inven = player["INVEN_"..dragged.inven:upper()]
             local slot_inven = player["INVEN_"..slot:upper()]
-            player:doWear(inven_inven, dragged.index, dragged.item, slot_inven)
+
+            if dragged.inven == "inven" and not slot:find("inven") then
+                player:doWear(inven_inven, dragged.index, dragged.item, slot_inven)
+            else
+                player:doTakeoff(inven_inven, dragged.index, dragged.item)
+            end
             --not dragging anything anymore
             dragged = nil
         end

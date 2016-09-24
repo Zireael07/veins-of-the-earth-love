@@ -172,5 +172,21 @@ function _M:doWear(inven, item, o, dst)
     self:wearObject(o, dst)
 end
 
+function _M:takeoffObject(inven_id, item)
+    inven = self:getInven(inven_id)
+    if not inven then return false end
+
+    local o = inven[item]
+
+    self:removeObject(inven, item)
+end
+
+function _M:doTakeoff(inven, item, o)
+    if not self:canAddToInven(self.INVEN_INVEN) then return end
+
+    self:takeoffObject(inven, item)
+    self:addObject(self.INVEN_INVEN, o)
+end
+
 
 return _M
