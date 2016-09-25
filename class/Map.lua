@@ -265,6 +265,12 @@ function Map:display()
               Map:convertTerraintoTile(x+map_x, y+map_y),
               (x*tile_w)+map_offset_x, 
               (y*tile_h)+map_offset_y)
+           --draw grid
+           --love.graphics.setColor(0,0,0)
+           love.graphics.setColor(51, 25, 0)
+           love.graphics.rectangle('line', (x*tile_w)+map_offset_x, (y*tile_h)+map_offset_y, tile_h, tile_w)
+           --reset color
+           love.graphics.setColor(255,255,255)
            --check if we have any objects to draw
            if Map:getCellObject(x,y) then
               --if yes then draw
