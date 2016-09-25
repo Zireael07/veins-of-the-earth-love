@@ -297,6 +297,15 @@ function Map:mousetoTile()
   return tile_x, tile_y
 end
 
+--the inverse of the above
+function Map:tiletolabel(x,y)
+  pixel_x = math.floor((120+(x*32)))
+  --label needs to go *above* the tile, which is every 32px
+  pixel_y = math.floor((y*32)-15)
+  --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
+  return pixel_x, pixel_y
+end
+
 function Map:findFreeGrid(sx, sy, radius)
     for y=0, Map:getWidth()-1 do
       for x=0, Map:getHeight()-1 do 

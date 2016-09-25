@@ -107,6 +107,18 @@ function PlayerGUI:draw_unit_indicator()
     end
 end
 
+function PlayerGUI:draw_labels()
+    for y=0, Map:getWidth()-1 do
+        for x=0, Map:getHeight()-1 do
+            if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
+                a = Map:getCellActor(x, y)
+                love.graphics.print(a.name, Map:tiletolabel(x,y))
+            end
+        end
+    end
+end
+
+
 function PlayerGUI:draw_log_messages()
     love.graphics.setFont(sherwood_font)
     -- draw log messages

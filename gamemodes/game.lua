@@ -60,6 +60,10 @@ function drawdebug()
   GUI:draw_drawstats()
 end
 
+function draw_labels()
+  GUI:draw_labels()
+end
+
 function draw_dialogs(player)
   if popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
@@ -76,6 +80,7 @@ function gamemode.draw()
     draw_map()
     if player then draw_GUI(player) end
     if player then drawdebug() end
+    if player and do_draw_labels == true then draw_labels() end
 end
 
 
@@ -106,6 +111,9 @@ function gamemode.keypressed(k)
       --dialogs
       elseif k == 'i' then
         popup_dialog = 'inventory'
+      elseif k == "tab" then 
+        print("Do draw labels...")       
+        do_draw_labels = true
       end
 
     end
