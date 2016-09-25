@@ -1,4 +1,14 @@
+--file for loading all the stuff that must be accessible to all classes/modules
+
 local ActorInventory = require "interface.ActorInventory"
+
+  --load fonts
+  print('Loading fonts')
+  sherwood_large = love.graphics.newFont("fonts/sherwood.ttf", 20)
+  sherwood_font = love.graphics.newFont("fonts/sherwood.ttf", 14)
+  goldbox_font = love.graphics.newFont("fonts/Gold_Box.ttf", 12)
+  goldbox_large_font = love.graphics.newFont("fonts/Gold_Box.ttf", 16)
+
 
 --inventory
 ActorInventory:defineInventory("MAIN_HAND", "In main hand", true, "Most weapons are wielded in the main hand.", nil, {equipdoll_back="ui/equipdoll/mainhand_inv.png"})

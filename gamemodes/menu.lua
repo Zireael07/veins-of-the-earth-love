@@ -1,7 +1,6 @@
 gamemode = {}
 
 function gamemode.load()
-    love.graphics.setNewFont(14)
     background = love.graphics.newImage("gfx/Veins.png")
     text = "Welcome to Veins of the Earth!"
 end

@@ -16,6 +16,8 @@ function PlayerGUI:loadGUI()
     stone_bg = love.graphics.newImage("gfx/stone_background.png")
 
     InventoryDialog:loadTiles()
+
+    love.graphics.setFont(goldbox_font)
 end
 
 function PlayerGUI:draw_GUI(player)
@@ -24,6 +26,8 @@ function PlayerGUI:draw_GUI(player)
 
     love.graphics.draw(stone_bg, 0,0, 0, 0.25, 1)
     love.graphics.draw(stone_bg, 0, 320, 0, 0.25, 1)
+
+    love.graphics.setFont(goldbox_large_font)
 
     love.graphics.setColor(255, 51, 51)
     love.graphics.print("HP: "..player.hitpoints, 10, 10)
@@ -41,12 +45,14 @@ function PlayerGUI:draw_GUI(player)
 end
 
 function PlayerGUI:draw_schedule()
+    love.graphics.setFont(sherwood_font)
     --if color_r and color_g and color_b then love.graphics.setColor(color_r, color_g, color_b) end
     love.graphics.setColor(128, 255, 0)
-    love.graphics.print(schedule_curr, 700, 2) --draw_y)
+    love.graphics.print(schedule_curr, 680, 2) --draw_y)
 end
 
 function PlayerGUI:draw_drawstats()
+    love.graphics.setFont(sherwood_font)
     love.graphics.setColor(255, 255, 102)
     local stats = love.graphics.getStats()
  
@@ -57,14 +63,16 @@ function PlayerGUI:draw_drawstats()
 end
 
 function PlayerGUI:draw_mouse(x,y)
+    love.graphics.setFont(sherwood_font)
     love.graphics.setColor(255,255,255)
     --love.graphics.print(mouse.x..", "..mouse.y, mouse.x + 10, mouse.y)
-    love.graphics.print((tile_x or "N/A")..", "..(tile_y or "N/A"), mouse.x+10, mouse.y+15)
+    love.graphics.print((tile_x or "N/A")..", "..(tile_y or "N/A"), mouse.x+10, mouse.y)
     love.graphics.setColor(255, 255, 102)
-    love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y+35)
+    love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y+15)
 end
 
 function PlayerGUI:draw_tip(x,y)
+    love.graphics.setFont(sherwood_font)
     love.graphics.setColor(255, 255, 102)
     if tile_x and tile_y then
       if Map:getCellActor(tile_x, tile_y) then
@@ -100,6 +108,7 @@ function PlayerGUI:draw_unit_indicator()
 end
 
 function PlayerGUI:draw_log_messages()
+    love.graphics.setFont(sherwood_font)
     -- draw log messages
     local a = 255
     if #logMessages > 0 then

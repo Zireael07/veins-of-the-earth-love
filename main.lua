@@ -3,7 +3,7 @@ io.stdout:setvbuf('no')
 
 --do stuff
 do
-    --load stuff
+    --load stuff that is necessary for all the classes/modules
     load = love.filesystem.load("load.lua")
     local loaded = load()
 
@@ -23,6 +23,9 @@ end
 --Zerobrane debugging
 function love.load(arg)
   if arg[#arg] == "-debug" then require("mobdebug").start() end
+
+  --set default font (large because of main menu)
+  love.graphics.setFont(sherwood_large)
 end
 
 function love.draw()
