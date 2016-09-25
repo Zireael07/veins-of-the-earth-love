@@ -218,7 +218,9 @@ function Map:unitIndicatorCircle(x,y, val)
   else 
     love.graphics.setColor(255, 0, 0)
   end 
-  love.graphics.circle('line', x, y, 18)
+  --love.graphics.circle('line', x, y, 18)
+  love.graphics.ellipse('line', x, y, 18, 9)
+  --Map:drawHex(x,y, 18)
 end
 
 function Map:unitIndicatorSquare(x,y, val)
@@ -229,6 +231,23 @@ function Map:unitIndicatorSquare(x,y, val)
   end 
   love.graphics.rectangle('line', x, y, tile_h+1, tile_w+1)
 end
+
+
+function Map:drawHex(x,y, size)
+  local lastX = nil
+  local lastY = nil
+  for i=0,6 do
+    local angle = 2 * math.pi / 6 * (i + 0.5)
+    local x = x + size * math.cos(angle)
+    local y = y + size * math.sin(angle)
+    if i > 0 then
+      love.graphics.line(lastX, lastY, x, y)
+    end
+    lastX = x
+    lastY = y
+  end
+end
+
 
 
 --actual display happens here

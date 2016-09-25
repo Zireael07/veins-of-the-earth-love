@@ -83,14 +83,16 @@ function PlayerGUI:draw_unit_indicator()
     for y=0, Map:getWidth()-1 do
         for x=0, Map:getHeight()-1 do 
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
-                local circle_x = x*(32)+16+120
-                local circle_y = y*(32)+16+0
+               -- local circle_x = x*(32)+16+120
+               -- local circle_y = y*(32)+16+0
+                local circle_x = x*32+16+120
+                local circle_y = y*32+26+0
                 if Map:getCellActor(x,y).player then  
-                    --Map:unitIndicatorCircle(circle_x, circle_y, "player")
-                    Map:unitIndicatorSquare((x*32)+120, (y*32), "player")
+                    Map:unitIndicatorCircle(circle_x, circle_y, "player")
+                    --Map:unitIndicatorSquare((x*32)+120, (y*32), "player")
                 else
-                    --Map:unitIndicatorCircle(circle_x, circle_y)
-                    Map:unitIndicatorSquare((x*32)+120, (y*32))
+                    Map:unitIndicatorCircle(circle_x, circle_y)
+                    --Map:unitIndicatorSquare((x*32)+120, (y*32))
                 end
             end
         end
