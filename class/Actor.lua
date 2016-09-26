@@ -41,7 +41,7 @@ end
 function _M:target(player)
   self.path = ActorAI:target(player, self.x, self.y)
   if self.path then 
-      print("[Actor] We have a self path")
+      print_to_log("[Actor] We have a self path")
   
       self:moveAlongPath(self.path)
   end
@@ -50,7 +50,7 @@ end
 function _M:move(x, y)
   if not x or not y then return end
   
-  print("Actor:moving")
+  print_to_log("Actor:moving")
   x = math.floor(x)
 	y = math.floor(y)
   

@@ -31,5 +31,12 @@ end
 --create the log file
 function make_log_file()
     local time = os.date("%Y-%m-%d %H:%M:%S", os.time())
-    love.filesystem.write("log.txt", "Game started: "..time)
+    love.filesystem.write("log.txt", "Game started: "..time.."\n\n")
+end
+
+function print_to_log(data)
+    local time = os.date("%Y-%m-%d %H:%M:%S", os.time())
+    data = "["..time .."] "..data .. "\n"
+
+    love.filesystem.append("log.txt", data)
 end

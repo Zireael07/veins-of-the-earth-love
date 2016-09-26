@@ -325,7 +325,7 @@ function Map:findFreeGrid(sx, sy, radius)
       for x=0, Map:getHeight()-1 do 
         if utils:distance(sx, sy, x, y) < radius then
           if Map:getCellTerrain(x,y) ~= "#" then 
-            print("[MAP]: Found a free grid", x,y)
+            print_to_log("[MAP]: Found a free grid: "..x.." "..y)
             return x, y end
         end
       end
