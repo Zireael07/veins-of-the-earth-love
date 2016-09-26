@@ -218,9 +218,7 @@ function Map:unitIndicatorCircle(x,y, val)
   else 
     love.graphics.setColor(255, 0, 0)
   end 
-  --love.graphics.circle('line', x, y, 18)
-  love.graphics.ellipse('line', x, y, 18, 9)
-  --Map:drawHex(x,y, 18)
+  love.graphics.ellipse('line', x, y, 15, 6)
 end
 
 function Map:unitIndicatorSquare(x,y, val)
@@ -281,7 +279,17 @@ function Map:display()
             end
            --check if we have any actors to draw
            if Map:getCellActor(x,y) then
-              --if yes then draw
+                --attitude indicator
+                local circle_x = x*32+16+120
+                local circle_y = y*32+26+0
+                if Map:getCellActor(x,y).player then  
+                    Map:unitIndicatorCircle(circle_x, circle_y, "player")
+                else
+                    Map:unitIndicatorCircle(circle_x, circle_y)
+                end
+              --reset color
+              love.graphics.setColor(255,255,255)
+              --if actor then draw
               love.graphics.draw(
                 Map:convertActortoTile(x+map_x, y+map_y),
                 (x*tile_w)+map_offset_x, 
