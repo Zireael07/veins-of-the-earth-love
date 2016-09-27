@@ -9,7 +9,7 @@ module("CameraHandler", package.seeall, class.make)
 --based on On the Roadside by rm-code
 
 local cam_speed = 5
-local scroll_margin = 30
+local scroll_margin = 15
 local scroll_speed = 5
 
 function CameraHandler.new(px, py)
@@ -48,8 +48,13 @@ function CameraHandler.new(px, py)
 
         -- Clamp the camera to the map dimensions.
         local w, h = Map:getPixelDimensions()
+        --cut off the last 4 tiles' width (roughly equal to 120 px = our hud)
+        w = w - 32*4
+        -- and 9 tiles height
+        h = h - 32*9
         tx = math.max( 0, math.min( x, w ));
         ty = math.max( 0, math.min( y, h ));
+        --print("[Scroll] Target is ", tx, ty)
     end
 
     function self:update( dt )
