@@ -15,3 +15,5 @@ Place them in /libraries folder.
 [Jumper](https://github.com/Yonaba/Jumper) - a fast pathfinding library (A* and Dijkstra)
 
 [RLDice](https://github.com/timothymtorres/RL-Dice) - a dice rolls library
+
+[HUMP](https://github.com/vrld/hump) - required for camera module (scrolling map)
