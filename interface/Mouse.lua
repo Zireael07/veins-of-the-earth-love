@@ -17,7 +17,13 @@ function Mouse:getGridPosition()
     if mouse.x < 120 then return end
 
     local mx, my = camera:mousePosition()
-    return math.floor((mx-120)/32), math.floor(my/32)
+
+    local x, y = math.floor((mx-120)/32), math.floor(my/32)
+
+    if x < 0 then return end
+    if y < 0 then return end
+
+    return x, y
 end
 
 return Mouse

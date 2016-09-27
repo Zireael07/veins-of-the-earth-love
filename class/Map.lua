@@ -302,24 +302,6 @@ function Map:display()
    end
 end
 
-function Map:mousetoTile()
---120 is the offset at which we start drawing map
-  if mouse.x < 120 then return end
-  tile_x = math.floor ((mouse.x-120)/32)
-  tile_y = math.floor(mouse.y/32)
-  --tile_x, tile_y = math.floor ( mouse.x-120 / 32, mouse.y / 32 )
-  return tile_x, tile_y
-end
-
---the inverse of the above
-function Map:tiletolabel(x,y)
-  pixel_x = math.floor((120+(x*32)))
-  --label needs to go *above* the tile, which is every 32px
-  pixel_y = math.floor((y*32)-15)
-  --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
-  return pixel_x, pixel_y
-end
-
 --needed for scrolling
 function Map:getPixelDimensions()
   local w, h = (Map:getWidth()-1)*32, (Map:getHeight()-1)*32
