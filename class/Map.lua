@@ -320,6 +320,13 @@ function Map:tiletolabel(x,y)
   return pixel_x, pixel_y
 end
 
+--needed for scrolling
+function Map:getPixelDimensions()
+  local w, h = (Map:getWidth()-1)*32, (Map:getHeight()-1)*32
+  --print("[Map] Map pixel dimensions", w, h)
+  return w, h
+end
+
 function Map:findFreeGrid(sx, sy, radius)
     for y=0, Map:getWidth()-1 do
       for x=0, Map:getHeight()-1 do 
@@ -331,3 +338,5 @@ function Map:findFreeGrid(sx, sy, radius)
       end
   end
 end
+
+return Map

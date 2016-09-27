@@ -9,6 +9,9 @@ require 'class.Player'
 local GUI = require 'class.PlayerGUI'
 require 'class.Entity'
 
+local CameraHandler = require 'interface.CameraHandler'
+local Mouse = require 'interface.Mouse'
+
 function gamemode.load()
     --list of entities
     entities = {}
@@ -31,6 +34,12 @@ function gamemode.load()
 
     player = Spawn:createPlayer(player_x, player_y)
 
+    camera = CameraHandler.new(player.x * 32, player.y * 32)
+    --pass the cam to the stuff that needs to be aware of it
+    Mouse:init( camera )
+    GUI:init(player, camera)
+
+
     Map:setupMapView()
     
     --load scheduler
@@ -46,7 +55,7 @@ function draw_map()
    Map:display()
 end
 
-function draw_GUI(player)
+function draw_GUI(player, camera)
   GUI:draw_GUI(player)
  -- GUI:draw_unit_indicator()
   GUI:draw_mouse()
@@ -77,8 +86,14 @@ end
 
 function gamemode.draw()
     love.graphics.setColor(255, 255, 255)
+    --camera
+    camera:attach()
+    --map
     draw_map()
-    if player then draw_GUI(player) end
+    --detach
+    camera:detach()
+    --GUI
+    if player and camera then draw_GUI(player, camera) end
     if player then drawdebug() end
     if player and do_draw_labels == true then draw_labels() end
 end
@@ -112,7 +127,7 @@ function gamemode.keypressed(k)
       elseif k == 'i' then
         popup_dialog = 'inventory'
       elseif k == "tab" then 
-        print("Do draw labels...")       
+        --print("Do draw labels...")       
         do_draw_labels = true
       end
 
@@ -129,7 +144,10 @@ function gamemode.mousepressed(x,y,b)
 end
 
 --update!
-function gamemode.update()
+function gamemode.update(dt)
+  --camera
+  camera:update(dt)
+
   --get mouse coords
     mouse = {
    x = love.mouse.getX(),
@@ -137,7 +155,7 @@ function gamemode.update()
   }
   
   if popup_dialog == '' then
-    tile_x, tile_y = Map:mousetoTile()
+    tile_x, tile_y = Mouse:getGridPosition() --Map:mousetoTile()
   elseif popup_dialog == 'inventory' then
     GUI:inventory_mouse()
   end
