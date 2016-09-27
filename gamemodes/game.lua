@@ -10,7 +10,7 @@ local GUI = require 'class.PlayerGUI'
 require 'class.Entity'
 
 local CameraHandler = require 'interface.CameraHandler'
-local Mouse = require 'interface.Mouse'
+local Mouse = require 'class.Mouse'
 
 function gamemode.load()
     --list of entities
@@ -127,8 +127,12 @@ function gamemode.keypressed(k)
       elseif k == 'i' then
         popup_dialog = 'inventory'
       elseif k == "tab" then 
+        if not do_draw_labels then
         --print("Do draw labels...")       
-        do_draw_labels = true
+          do_draw_labels = true
+        else
+          do_draw_labels = false
+        end
       end
 
     end
