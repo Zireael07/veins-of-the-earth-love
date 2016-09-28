@@ -50,6 +50,7 @@ npc_types['orc'] = {
     hit_die = 1,
     challenge = 1,
     max_hitpoints = 8,
+    faction = "unfriendly"
 }
 
 npc_types['human'] = {
@@ -66,6 +67,7 @@ npc_types['human'] = {
     alignment = "Neutral Good",
     challenge = 1,
     max_hitpoints = 8,
+    faction = "neutral"
 }
 
 npc_types['gnome'] = {
@@ -91,4 +93,5 @@ npc_types['gnome'] = {
     skill_listen = 1,
     skill_spot = 1,
     max_hitpoints = 8,
+    faction = "neutral"
 }
