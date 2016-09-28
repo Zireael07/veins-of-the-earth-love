@@ -213,10 +213,15 @@ function Map:setTileSeen(x,y, val)
 end
 
 function Map:unitIndicatorCircle(x,y, val)
-  if val == "player" then
-    --friendly
+  if val == "player" or val == "helpful" then
     love.graphics.setColor(0, 255, 255)
-  else 
+  elseif val == "friendly" then 
+    love.graphics.setColor(0, 255, 0)
+  elseif val == "neutral" then 
+    love.graphics.setColor(255, 255, 0)
+  elseif val == "unfriendly" then 
+    love.graphics.setColor(255, 119,0)
+  elseif val == "hostile" then
     love.graphics.setColor(255, 0, 0)
   end 
   love.graphics.ellipse('line', x, y, 15, 6)
@@ -283,10 +288,11 @@ function Map:display()
                 --attitude indicator
                 local circle_x = x*32+16+120
                 local circle_y = y*32+26+0
-                if Map:getCellActor(x,y).player then  
+                local a = Map:getCellActor(x,y)
+                if a.player then  
                     Map:unitIndicatorCircle(circle_x, circle_y, "player")
                 else
-                    Map:unitIndicatorCircle(circle_x, circle_y)
+                    Map:unitIndicatorCircle(circle_x, circle_y, a:indicateReaction())
                 end
               --reset color
               love.graphics.setColor(255,255,255)

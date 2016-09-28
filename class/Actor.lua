@@ -128,6 +128,17 @@ function _M:reactionToward(target)
   return Faction:factionReaction(self.faction, target.faction)
 end
 
+function _M:indicateReaction()
+  local str
+  if self:reactionToward(player) > 50 then str = "helpful"
+  elseif self:reactionToward(player) > 0 then str = "friendly"
+  elseif self:reactionToward(player) < -50 then str = "hostile"
+  elseif self:reactionToward(player) < 0 then str = "unfriendly"
+  else str = "neutral" end
+
+  return str
+end
+
 function _M:bumpTarget(target)
   self:attackTarget(target)
 end
