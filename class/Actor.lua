@@ -98,7 +98,7 @@ function _M:canMove(x,y)
     return false 
   end
   --legit block
-  if Map:getCellTerrain(x,y) == "#" then return false end
+  if Map:getCellTerrain(x,y).display == "#" then return false end
  -- if x == player.x and y == player.y then return false end
   return true
 end

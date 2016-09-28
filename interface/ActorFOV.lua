@@ -28,7 +28,7 @@ function lightPassesCallback(coords,qx,qy)
     -- required as otherwise moving near the edge crashes
     if Map:getCell(qx, qy) then
         -- actual check
-        if Map:getCellTerrain(qx, qy) == "." then
+        if Map:getCellTerrain(qx, qy).display == "." then
             return true
         end
     end
