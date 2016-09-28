@@ -11,11 +11,12 @@ function _M:init(t)
     self.x = 1
     self.y = 1
     self.display = t.display or "/"
-    if t.display then print("We were provided a display", t.display) end
+    --if t.display then print("We were provided a display", t.display) end
     self.image = t.image or "longsword"
     self.name = t.name or "sword"
     self.slot = t.slot
     self.combat = t.combat
+    self.wielder = t.wielder
 end
 
 function _M:act()

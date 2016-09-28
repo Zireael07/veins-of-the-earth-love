@@ -164,8 +164,19 @@ function _M:wearObject(o, inven_id)
     local added = self:addObject(inven_id, o)
     if added then
         print("Wearing "..o.name.." in slot "..inven.name)
+        self:onWear(o, self.inven_def[inven.id].short_name)
     end
 end
+
+function _M:onWear(o, inven_id)
+    if o.wielder then
+        for k, e in pairs(o.wielder) do
+            --temporary band-aid
+            self[k] = e
+        end
+    end
+end
+
 
 function _M:doWear(inven, item, o, dst)
     self:removeObject(inven, item)
