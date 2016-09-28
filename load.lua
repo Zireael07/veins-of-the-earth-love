@@ -1,6 +1,7 @@
 --file for loading all the stuff that must be accessible to all classes/modules
 
 local ActorInventory = require "interface.ActorInventory"
+local Faction = require "class.Faction"
 
   --load fonts
   print('Loading fonts')
@@ -8,6 +9,9 @@ local ActorInventory = require "interface.ActorInventory"
   sherwood_font = love.graphics.newFont("fonts/sherwood.ttf", 14)
   goldbox_font = love.graphics.newFont("fonts/Gold_Box.ttf", 12)
   goldbox_large_font = love.graphics.newFont("fonts/Gold_Box.ttf", 16)
+
+--load factions
+dofile("data/factions.lua")
 
 
 --inventory
