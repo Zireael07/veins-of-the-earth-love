@@ -37,6 +37,10 @@ function _M:PlayerMove(dir_string)
 end
 
 function _M:movetoMouse(x,y, self_x, self_y)
+  --handle clicking outside of map
+  if not x then return end
+  if not y then return end
+  
   if x == self_x and y == self_y then print("Error: trying to move to own position") return end
   path = Pathfinding:findPath(x, y, self_x, self_y)
 
