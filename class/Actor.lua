@@ -2,6 +2,8 @@ require 'T-Engine.class'
 
 require 'class.Map'
 
+local Faction = require 'class.Faction'
+
 local ActorInventory = require 'interface.ActorInventory'
 local Combat = require 'interface.ActorCombat'
 local ActorLife = require 'interface.ActorLife'
@@ -23,6 +25,7 @@ function _M:init(t)
     self.image = t.image --or "orc"
     self.name = t.name --or "orc"
     self.path = nil
+    self.faction = t.faction or "enemy"
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
     --init inherited stuff
@@ -119,6 +122,10 @@ function _M:moveAlongPath(path)
   if self:canMove(tx, ty) then
     self:move(path[2].x, path[2].y)
   end
+end
+
+function _M:reactionToward(target)
+  return Faction:factionReaction(self.faction, target.faction)
 end
 
 function _M:bumpTarget(target)
