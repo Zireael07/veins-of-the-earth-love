@@ -15,6 +15,7 @@ function _M:init(t)
     self.image = t.image or "longsword"
     self.name = t.name or "sword"
     self.slot = t.slot
+    self.combat = t.combat
 end
 
 function _M:act()
