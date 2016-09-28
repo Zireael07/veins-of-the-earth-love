@@ -1,6 +1,7 @@
 require 'T-Engine.class'
 
 require 'class.Map'
+local Grid = require 'class.Grid'
 local Spawn = require 'class.Spawn'
 local Encounter = require 'class.Encounter'
 require 'interface.Pathfinding'
@@ -55,12 +56,26 @@ function Area:makeWalled(width, height)
        -- local empty= x>0 and y>0 and x<width and y<height
       local empty= x>0 and y>0 and x<width and y<height
             --dungeon[level].map[x][y] = {}
-      if empty then Map:setCell(x, y, ".")
-      else Map:setCell(x, y, "#")
+      if empty then Area:placeTerrain(x,y, ".") --Map:setCell(x, y, ".")
+      else Area:placeTerrain(x,y, "#") --Map:setCell(x, y, "#")
       end
     end
   end
 end
+
+function Area:placeTerrain(x,y, str)
+    if not x or not y then print("No location parameters") return end
+    if x > Map:getHeight()-1 then print("X out of bounds") end
+    if y > Map:getWidth()-1 then print("Y out of bounds") end
+
+    terrain = Grid.new({display=str})
+
+    print("[Area] Created terrain at ",x,y, str)
+    terrain:place(x,y,str)
+
+    return terrain
+end 
+
 
 function Area:getAreaMap()
   path_map = Pathfinding:create()

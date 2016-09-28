@@ -144,12 +144,13 @@ end
 function Map:convertTerraintoTile(x, y)
   if not Map:getCellTerrain(x,y) then tile = floor_bright 
   else
-    local string = Map:getCellTerrain(x, y)
+    local string = Map:getCellTerrain(x, y).display
+  --  print("Cell terrain string is ", string)
       if string == "." then tile = floor end
       if string == "#" then tile = wall end
     end
     
-    --print("Tile gotten for x: "..x.."y: "..y)
+  --  print("Tile gotten for x: "..x.."y: "..y)
     return tile
 end
 
@@ -313,7 +314,7 @@ function Map:findFreeGrid(sx, sy, radius)
     for y=0, Map:getWidth()-1 do
       for x=0, Map:getHeight()-1 do 
         if utils:distance(sx, sy, x, y) < radius then
-          if Map:getCellTerrain(x,y) ~= "#" then 
+          if Map:getCellTerrain(x,y).display ~= "#" then 
             print_to_log("[MAP]: Found a free grid: "..x.." "..y)
             return x, y end
         end
