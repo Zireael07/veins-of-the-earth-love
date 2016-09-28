@@ -68,6 +68,14 @@ function _M:move(x, y)
   print("Actor:old cell: ", self.old_x, self.old_y) 
   Map:setCellActor(self.old_x, self.old_y, nil)
   Map:setCellActor(x, y, self) --self.image) 
+
+  --trigger on_stand
+  local terrain = Map:getCellTerrain(x,y)
+  if terrain.on_stand then
+    print("[Actor] on_stand effects triggered")
+    terrain.on_stand(terrain, x, y, self)
+  end
+
   --remove ourselves from old cell if we left it
  --[[ if x ~= self.old_x or y ~= self.old_y then
     Map:setCellActor(self.old_x, self.old_y, nil)

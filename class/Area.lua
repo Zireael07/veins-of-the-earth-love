@@ -68,7 +68,13 @@ function Area:placeTerrain(x,y, str)
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
 
-    terrain = Grid.new({display=str})
+    terrain = Grid.new({display=str, 
+      --test
+      --[[on_stand = function(self, x, y, who)
+        who:takeHit(1, {name="fire"})
+      end,]]
+    }
+    )
 
     print("[Area] Created terrain at ",x,y, str)
     terrain:place(x,y,str)

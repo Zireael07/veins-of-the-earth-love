@@ -14,6 +14,7 @@ function _M:init(t)
     --if t.display then print("We were provided a display", t.display) end
     self.image = t.image
     self.name = t.name
+    self.on_stand = t.on_stand
 end
 
 function _M:place(x,y, str)
