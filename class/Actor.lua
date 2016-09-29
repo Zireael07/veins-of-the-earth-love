@@ -102,6 +102,8 @@ function _M:moveDir(dx, dy)
 end
 
 function _M:canMove(x,y)
+  --if no map at x,y then refuse
+  if not Map:getCell(x,y) then return false end
   --should call combat
   if Map:getCellActor(x,y) then 
     local target = Map:getCellActor(x,y)
