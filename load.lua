@@ -1,7 +1,13 @@
 --file for loading all the stuff that must be accessible to all classes/modules
+ROT=require 'libraries/rotLove/rotLove'
 
 local ActorInventory = require "interface.ActorInventory"
 local Faction = require "class.Faction"
+
+--randomness
+rng = ROT.RNG.Twister:new()
+rng:randomseed()
+
 
   --load fonts
   print('Loading fonts')

@@ -25,7 +25,8 @@ function _M:generate(level, width, height)
   Map:init(width+1, height+1)
   
   --test
-  Area:makeWalled(width, height)
+  Area:makeRandom(width, height)
+  --Area:makeWalled(width, height)
   --Area:fillWalls(width, height)
   
   Area:getAreaMap()
@@ -39,6 +40,7 @@ function _M:generate(level, width, height)
   Spawn:createEncounter(encounter, 5,5)
 end
 
+--Simple area generation
 function Area:fillWalls(width, height)
   for x=0, width do
     --dungeon[level].map[x] = {}
@@ -63,6 +65,17 @@ function Area:makeWalled(width, height)
   end
 end
 
+function Area:makeRandom(width, height)
+  for x=0, width do
+    for y=0, height do
+      local str = rng:random(1,2) == 1 and "." or "#"
+      Area:placeTerrain(x, y, str)
+    end
+  end
+end
+
+
+--Generic stuff
 function Area:placeTerrain(x,y, str)
     if not x or not y then print("No location parameters") return end
     if x > Map:getHeight()-1 then print("X out of bounds") end
