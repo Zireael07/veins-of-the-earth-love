@@ -8,6 +8,8 @@ local Faction = require "class.Faction"
 rng = ROT.RNG.Twister:new()
 rng:randomseed()
 
+--colors
+dofile("colors.lua")
 
   --load fonts
   print('Loading fonts')
