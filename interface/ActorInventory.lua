@@ -166,6 +166,7 @@ function _M:wearObject(o, inven_id)
         print("Wearing "..o.name.." in slot "..inven.name)
         self:onWear(o, self.inven_def[inven.id].short_name)
     end
+    return true
 end
 
 function _M:onWear(o, inven_id)
@@ -179,8 +180,10 @@ end
 
 
 function _M:doWear(inven, item, o, dst)
-    self:removeObject(inven, item)
-    self:wearObject(o, dst)
+    if self:wearObject(o, dst) then
+      self:removeObject(inven, item)
+    end
+    
 end
 
 function _M:takeoffObject(inven_id, item)
