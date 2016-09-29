@@ -111,7 +111,7 @@ function PlayerGUI:draw_unit_indicator()
 end
 
 --labels
-function PlayerGUI:tiletolabel(x,y)
+function PlayerGUI:tiletoactorlabel(x,y)
     cam_x, cam_y = camera:cameraCoords(x,y)
     pixel_x = math.floor((120+(cam_x+(x*32))))
 
@@ -121,13 +121,31 @@ function PlayerGUI:tiletolabel(x,y)
     return pixel_x, pixel_y
 end
 
+function PlayerGUI:tiletoobjectlabel(x,y)
+    cam_x, cam_y = camera:cameraCoords(x,y)
+    pixel_x = math.floor((120+(cam_x+(x*32)+20)))
+
+    --label needs to go *above* the tile, which is every 32px
+    pixel_y = math.floor((cam_y+(y*32)))
+    --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
+    return pixel_x, pixel_y
+end
+
 
 function PlayerGUI:draw_labels()
+    --reset color
+    love.graphics.setColor(255, 255, 255)
     for y=0, Map:getWidth()-1 do
         for x=0, Map:getHeight()-1 do
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
                 a = Map:getCellActor(x, y)
-                love.graphics.print(a.name, PlayerGUI:tiletolabel(x,y))
+                love.graphics.setColor(255, 255, 102)
+                love.graphics.print(a.name, PlayerGUI:tiletoactorlabel(x,y))
+            end
+            if Map:isTileSeen(x,y) and Map:getCellObject(x,y) then
+                o = Map:getCellObject(x,y)
+                love.graphics.setColor(255, 255, 255)
+                love.graphics.print(o.name, PlayerGUI:tiletoobjectlabel(x,y))
             end
         end
     end
