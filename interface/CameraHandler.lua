@@ -9,7 +9,7 @@ module("CameraHandler", package.seeall, class.make)
 --based on On the Roadside by rm-code
 
 local cam_speed = 5
-local scroll_margin = 15
+local scroll_margin = 5
 local scroll_speed = 5
 
 function CameraHandler.new(px, py)
@@ -60,9 +60,9 @@ function CameraHandler.new(px, py)
     function self:update( dt )
         if not locked then
             scroll();
-        end
         px = lerp( px, tx, dt * cam_speed );
         py = lerp( py, ty, dt * cam_speed );
+        end
         self:lookAt( math.floor( px ), math.floor( py ));
     end
 

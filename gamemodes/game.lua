@@ -218,6 +218,9 @@ end
 --turn-basedness
 function game_lock()
   game_locked = true
+  --unlock camera
+  camera:unlock();
+  camera:restorePosition();
   --clear log
   logMessages = {}
 end
@@ -225,6 +228,9 @@ end
 function game_unlock()
   if game_locked == false then return end
   game_locked = false
+  --lock camera
+  camera:lock();
+  camera:storePosition();
 
   for i=1,#entities do
     local item = entities[i]
