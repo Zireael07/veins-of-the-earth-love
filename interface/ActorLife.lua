@@ -17,9 +17,9 @@ function ActorLife:takeHit(value, src)
     if value <=0 then return 0 end
 
     --subtract hp
-    if value < self.hitpoints and value > 0 then
+    if value <= self.hitpoints and value > 0 then
         self.hitpoints = self.hitpoints - value
-        logMessage({200,200,200, 255}, src.name.." hits "..self.name.." for "..value.." damage!")
+        logMessage(colors.WHITE, src.name.." hits "..self.name.." for "..value.." damage!")
     end
     
     --subtract wounds
@@ -32,7 +32,7 @@ function ActorLife:takeHit(value, src)
         self.wounds = self.wounds - wounds_remaining
 
         --log
-        logMessage({255,0,0, 255}, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
+        logMessage(colors.LIGHT_RED, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
 
         if self.hitpoints <= 1 then value = 0 end
 
@@ -52,8 +52,9 @@ function ActorLife:takeHit(value, src)
 end
 
 function ActorLife:die(src)
+    print("[ActorLife] die: ", self.name)
     --log
-    print(src.name.." killed "..self.name.."!")
+    logMessage(colors.RED, src.name.." killed "..self.name.."!")
 
     --remove ourselves from map
     if Map:getCellActor(self.x, self.y) then

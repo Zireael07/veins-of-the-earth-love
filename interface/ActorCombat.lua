@@ -21,7 +21,7 @@ function ActorCombat:attackTarget(target)
 
       --No more 'extra-pokey longbows'
       if weapon and weapon.ranged then
-        print("You can't use a ranged weapon in melee!")
+        logMessage(colors.WHITE, "You can't use a ranged weapon in melee!")
         return
       end
 
@@ -52,7 +52,7 @@ function ActorCombat:attackRoll(target, weapon)
       if not (dice.roll('1d20') < ac) then
          crit = true
       else
-          print("Critical confirmation roll failed")
+          logMessage(colors.WHITE, "Critical confirmation roll failed")
       end
    end
 
@@ -67,16 +67,16 @@ function ActorCombat:dealDamage(target, weapon, crit)
   --Minimum 1 point of damage unless Damage Reduction works
     dam = math.max(1, dam)
 
-    print("Dealing "..dam.." damage")
+    --print("Dealing "..dam.." damage")
 
     target:takeHit(dam, self)
 end 
 
 function ActorCombat:attackMessage(target, hit, d, ac)
     if hit then
-        print("Hit "..target.name.." roll "..d.." vs. AC "..ac)
+        logMessage(colors.GOLD, "Hit "..target.name.." roll "..d.." vs. AC "..ac)
     else
-        print("Missed "..target.name.." roll "..d.." vs. AC "..ac)
+        logMessage(colors.LIGHT_BLUE, "Missed "..target.name.." roll "..d.." vs. AC "..ac)
     end
 end
 
