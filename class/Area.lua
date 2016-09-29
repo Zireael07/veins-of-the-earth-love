@@ -25,8 +25,8 @@ function _M:generate(level, width, height)
   Map:init(width+1, height+1)
   
   --test
-  Area:makeRandom(width, height)
-  --Area:makeWalled(width, height)
+  --Area:makeRandom(width, height)
+  Area:makeWalled(width, height)
   --Area:fillWalls(width, height)
   
   Area:getAreaMap()
