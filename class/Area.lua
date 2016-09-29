@@ -46,7 +46,7 @@ function Area:fillWalls(width, height)
     --dungeon[level].map[x] = {}
     for y=0, height do
             --dungeon[level].map[x][y] = {}
-      Map:setCell(x, y, ".")
+      Area:placeTerrain(x, y, ".")
     end
   end
 end
@@ -55,11 +55,10 @@ function Area:makeWalled(width, height)
  for x=0, width do
     --dungeon[level].map[x] = {}
     for y=0, height do
-       -- local empty= x>0 and y>0 and x<width and y<height
       local empty= x>0 and y>0 and x<width and y<height
             --dungeon[level].map[x][y] = {}
-      if empty then Area:placeTerrain(x,y, ".") --Map:setCell(x, y, ".")
-      else Area:placeTerrain(x,y, "#") --Map:setCell(x, y, "#")
+      if empty then Area:placeTerrain(x,y, ".")
+      else Area:placeTerrain(x,y, "#")
       end
     end
   end
@@ -102,12 +101,6 @@ function Area:getAreaMap()
 end
 
 function Area:spawnStuff()
-      --test!
-  --[[Spawn:createActor(4, 4, "human")
-  Spawn:createActor(5,5, "human")
-  
-  --test2
-  Spawn:createActor(6,6, "drow")]]
   
   Spawn:createItem(6,6, "longsword")
 

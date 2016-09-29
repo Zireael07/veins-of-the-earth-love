@@ -34,6 +34,11 @@ function _M:place(x,y)
     if y < 0 then y = 0 end
     if y >= Map:getHeight() then y = Map:getHeight() - 1 end
 
+    --don't place in walls
+    if Map:getCellTerrain(x,y).display == "#" then
+        x, y = Map:findFreeGrid(x, y, 2)
+    end
+
     print("Object: updating map cell: ", x, y)
     Map:setCellObject(x, y, self) --self.image)
 
