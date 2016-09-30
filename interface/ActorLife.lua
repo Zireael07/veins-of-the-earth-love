@@ -9,6 +9,7 @@ function ActorLife:init(t)
     self.hitpoints = t.hitpoints or t.max_hitpoints
     self.max_wounds = t.max_wounds or 1
     self.wounds = t.wounds or 1
+    --print_to_log("[ACTOR LIFE] Inited:", self.max_hitpoints, self.hitpoints)
     --self.die_at = t.die_at or -10
 end
 
@@ -65,6 +66,23 @@ function ActorLife:die(src)
     end
 
     self.dead = true
+end
+
+function ActorLife:gethitpointPerc()
+    return self.hitpoints * 100 / self.max_hitpoints
+end
+
+function ActorLife:getHealthState()
+    local perc = self:gethitpointPerc()
+
+    if perc == 100 then return "Uninjured"
+    elseif perc >= 75 then return "Healthy"
+    elseif perc >= 50 then return "Barely injured"
+    elseif perc >= 25  then return "Injured"
+    elseif perc >= 10 then return "Bloodied"
+    elseif perc >= 1 then return "Severely wounded"
+    else return "Nearly dead"
+    end
 end
 
 return ActorLife
