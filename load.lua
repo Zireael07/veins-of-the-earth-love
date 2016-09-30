@@ -1,6 +1,8 @@
 --file for loading all the stuff that must be accessible to all classes/modules
 ROT=require 'libraries/rotLove/rotLove'
 
+local Tile = require "class.Tile"
+
 local Faction = require "class.Faction"
 local ActorInventory = require "interface.ActorInventory"
 local ActorSkills = require "interface.ActorSkills"
@@ -18,6 +20,12 @@ dofile("colors.lua")
   sherwood_font = love.graphics.newFont("fonts/sherwood.ttf", 14)
   goldbox_font = love.graphics.newFont("fonts/Gold_Box.ttf", 12)
   goldbox_large_font = love.graphics.newFont("fonts/Gold_Box.ttf", 16)
+
+
+--load tiles
+print_to_log("Loading tiles..")
+Tile:loadTiles()
+
 
 --load factions
 dofile("data/factions.lua")
