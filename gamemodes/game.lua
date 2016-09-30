@@ -22,8 +22,6 @@ function gamemode.load()
 
     popup_dialog = ''
 
-    --load tiles
-    Map:loadTiles()
     --load GUI
     GUI:loadGUI()
 

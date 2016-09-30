@@ -3,18 +3,6 @@ require 'T-Engine.class'
 module("InventoryDialog", package.seeall, class.make)
 
 function InventoryDialog:loadTiles()
-    --object tiles
-    longsword = love.graphics.newImage("gfx/tiles/object/longsword.png")
-    dagger = love.graphics.newImage("gfx/tiles/object/dagger.png")
-    spear = love.graphics.newImage("gfx/tiles/object/spear.png")
-    padded = love.graphics.newImage("gfx/tiles/object/armor_padded.png")
-    leather = love.graphics.newImage("gfx/tiles/object/armor_leather.png")
-    studded = love.graphics.newImage("gfx/tiles/object/armor_studded.png")
-    chain_shirt = love.graphics.newImage("gfx/tiles/object/chain_shirt.png")
-    chain_mail = love.graphics.newImage("gfx/tiles/object/chain_armor.png")
-
-    stone_bg = love.graphics.newImage("gfx/stone_background.png")
-
     --inventory
     ammo_inv = love.graphics.newImage("gfx/inventory/ammo_inv.png")
     amulet_inv = love.graphics.newImage("gfx/inventory/amulet_inv.png")
@@ -31,27 +19,24 @@ function InventoryDialog:loadTiles()
     ring_inv = love.graphics.newImage("gfx/inventory/ring_inv.png")
     shoulder_inv = love.graphics.newImage("gfx/inventory/shoulder_inv.png")
     tool_inv = love.graphics.newImage("gfx/inventory/tool_inv.png")
-
-    --player
-    player_tile = love.graphics.newImage("gfx/tiles/player/racial_dolls/human_m.png")
 end
 
 
 function InventoryDialog:drawSlot(inven, x, y)
   local tiles = {
-    BODY = armor_inv,
-    HELM = head_inv,
-    AMULET = amulet_inv,
-    QUIVER = ammo_inv,
-    SHOULDER = shoulder_inv,
-    MAIN_HAND = mainhand_inv,
-    OFF_HAND = offhand_inv,
-    RING = ring_inv,
-    CLOAK = cloak_inv,
-    BELT = belt_inv,
-    BOOTS = boots_inv,
-    LITE = light_inv,
-    TOOL = tool_inv,
+    BODY = loaded_tiles["armor_inv"],
+    HELM = loaded_tiles["head_inv"],
+    AMULET = loaded_tiles["amulet_inv"],
+    QUIVER = loaded_tiles["ammo_inv"],
+    SHOULDER = loaded_tiles["shoulder_inv"],
+    MAIN_HAND = loaded_tiles["mainhand_inv"],
+    OFF_HAND = loaded_tiles["offhand_inv"],
+    RING = loaded_tiles["ring_inv"],
+    CLOAK = loaded_tiles["cloak_inv"],
+    BELT = loaded_tiles["belt_inv"],
+    BOOTS = loaded_tiles["boots_inv"],
+    LITE = loaded_tiles["light_inv"],
+    TOOL = loaded_tiles["tool_inv"],
     }
   
     if player:getInven(player["INVEN_"..inven]) then
@@ -84,15 +69,15 @@ function InventoryDialog:draw(player)
 
     love.graphics.setColor(255,255,255)
     --background
-    love.graphics.draw(stone_bg, 150, 30, 0, 1.5,1.5)
+    love.graphics.draw(loaded_tiles["stone_bg"], 150, 30, 0, 1.5,1.5)
 
     --draw upscaled player tile
-    love.graphics.draw(player_tile, 200,120, 0, 2.5, 2.5)
+    love.graphics.draw(loaded_tiles["player_tile"], 200,120, 0, 2.5, 2.5)
 
     --draw inventory UI bits
     --necessary for the ring slot
     local tiles = {
-      RING = ring_inv
+      RING = loaded_tiles["ring_inv"]
     }
     
     --top
@@ -207,14 +192,7 @@ function InventoryDialog:getObjectTile(o)
     if not o.image then print("Object does not have image defined") return end
 
     string = o.image
-    if string == "longsword" then tile = longsword end
-    if string == "spear" then tile = spear end
-    if string == "dagger" then tile = dagger end
-    if string == "padded" then tile = padded end
-    if string == "leather" then tile = leather end
-    if string == "studded" then tile = studded end
-    if string == "chain_shirt" then tile = chain_shirt end
-    if string == "chain_mail" then tile = chain_mail end
+    tile = loaded_tiles[string]
     --print ("Object tile gotten for o: "..o.name)
     return tile
 end

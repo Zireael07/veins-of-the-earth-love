@@ -19,26 +19,6 @@ function _M:init(width, height)
     end
 end
 
-
-function Map:loadTiles()
-    floor = love.graphics.newImage("gfx/tiles/terrain/floor.png")
-    wall = love.graphics.newImage("gfx/tiles/terrain/wall.png")
-    floor_bright = love.graphics.newImage("gfx/tiles/terrain/floor_bright.png")
-    player_tile = love.graphics.newImage("gfx/tiles/player/racial_dolls/human_m.png")
-    orc = love.graphics.newImage("gfx/tiles/mobiles/orc.png")
-    drow = love.graphics.newImage("gfx/tiles/mobiles/drow.png")
-    human = love.graphics.newImage("gfx/tiles/mobiles/human.png")
-    gnome = love.graphics.newImage("gfx/tiles/mobiles/npc/gnome_fighter.png")
-    longsword = love.graphics.newImage("gfx/tiles/object/longsword.png")
-    dagger = love.graphics.newImage("gfx/tiles/object/dagger.png")
-    spear = love.graphics.newImage("gfx/tiles/object/spear.png")
-    padded = love.graphics.newImage("gfx/tiles/object/armor_padded.png")
-    leather = love.graphics.newImage("gfx/tiles/object/armor_leather.png")
-    studded = love.graphics.newImage("gfx/tiles/object/armor_studded.png")
-    chain_shirt = love.graphics.newImage("gfx/tiles/object/chain_shirt.png")
-    chain_mail = love.graphics.newImage("gfx/tiles/object/chain_armor.png")
-end
-
 function Map:setupMapView()
    --???
    map_w = 2
@@ -142,12 +122,12 @@ end
 
 --convert terrain symbols to tiles
 function Map:convertTerraintoTile(x, y)
-  if not Map:getCellTerrain(x,y) then tile = floor_bright 
+  if not Map:getCellTerrain(x,y) then tile = loaded_tiles["floor_bright"]
   else
     local string = Map:getCellTerrain(x, y).display
   --  print("Cell terrain string is ", string)
-      if string == "." then tile = floor end
-      if string == "#" then tile = wall end
+      if string == "." then tile = loaded_tiles["floor"] end
+      if string == "#" then tile = loaded_tiles["wall"] end
     end
     
   --  print("Tile gotten for x: "..x.."y: "..y)
@@ -157,11 +137,9 @@ end
 --assume we already checked if there is an actor at x,y
 function Map:convertActortoTile(x,y)
   local string = Map:getCellActor(x,y).image
-  if string == "player_tile" then tile = player_tile end
-  if string == "orc" then tile = orc end
-  if string == "drow" then tile = drow end
-  if string == "human" then tile = human end
-  if string == "gnome" then tile = gnome end
+
+  tile = loaded_tiles[string]
+
   --print ("Actor tile gotten for x: "..x.."y: "..y)
   return tile
 end
@@ -171,14 +149,9 @@ end
 --assume we already checked if there is an actor at x,y
 function Map:convertObjecttoTile(x,y)
   local string = Map:getCellObject(x,y).image
-  if string == "longsword" then tile = longsword end
-  if string == "spear" then tile = spear end
-  if string == "dagger" then tile = dagger end
-  if string == "padded" then tile = padded end
-  if string == "leather" then tile = leather end
-  if string == "studded" then tile = studded end
-  if string == "chain_shirt" then tile = chain_shirt end
-  if string == "chain_mail" then tile = chain_mail end
+
+  tile = loaded_tiles[string]
+
   --print ("Object tile gotten for x: "..x.."y: "..y)
   return tile
 end

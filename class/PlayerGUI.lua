@@ -15,12 +15,6 @@ function PlayerGUI:init(player, ncamera)
 end
 
 function PlayerGUI:loadGUI()
-    stone_bg = love.graphics.newImage("gfx/stone_background.png")
-    
-    damage_tile = love.graphics.newImage("gfx/splash_gray.png")
-
-    InventoryDialog:loadTiles()
-
     love.graphics.setFont(goldbox_font)
 end
 
@@ -28,8 +22,8 @@ function PlayerGUI:draw_GUI(player)
     local hp = player.hitpoints
     local wounds = player.wounds
 
-    love.graphics.draw(stone_bg, 0,0, 0, 0.25, 1)
-    love.graphics.draw(stone_bg, 0, 320, 0, 0.25, 1)
+    love.graphics.draw(loaded_tiles["stone_bg"], 0,0, 0, 0.25, 1)
+    love.graphics.draw(loaded_tiles["stone_bg"], 0, 320, 0, 0.25, 1)
 
     love.graphics.setFont(goldbox_large_font)
 
@@ -210,7 +204,7 @@ function PlayerGUI:draw_damage_splashes()
                 if a.damage_taken then
                     local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
                     love.graphics.setColor(colors.RED)
-                    love.graphics.draw(damage_tile, pixel_x-2, pixel_y+5)
+                    love.graphics.draw(loaded_tiles["damage_tile"], pixel_x-2, pixel_y+5)
                     --reset color
                     love.graphics.setColor(255, 255, 255)
                     love.graphics.print(a.damage_taken, pixel_x+8, pixel_y+5)
