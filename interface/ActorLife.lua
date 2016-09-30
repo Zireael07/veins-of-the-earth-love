@@ -16,6 +16,9 @@ function ActorLife:takeHit(value, src)
     --no negative values
     if value <=0 then return 0 end
 
+    --set flags that are used by splash drawing
+    self.damage_taken = value
+
     --subtract hp
     if value <= self.hitpoints and value > 0 then
         self.hitpoints = self.hitpoints - value

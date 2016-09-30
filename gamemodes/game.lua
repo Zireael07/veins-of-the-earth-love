@@ -58,6 +58,7 @@ end
 
 function draw_GUI(player, camera)
   GUI:draw_GUI(player)
+  GUI:draw_damage_splashes()
  -- GUI:draw_unit_indicator()
   GUI:draw_mouse()
   GUI:draw_tip()

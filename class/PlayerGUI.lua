@@ -16,6 +16,8 @@ end
 
 function PlayerGUI:loadGUI()
     stone_bg = love.graphics.newImage("gfx/stone_background.png")
+    
+    damage_tile = love.graphics.newImage("gfx/splash_gray.png")
 
     InventoryDialog:loadTiles()
 
@@ -187,6 +189,34 @@ function PlayerGUI:draw_log_messages()
             end
         end]]
     end
+end
+
+
+function PlayerGUI:tiletosplash(x,y)
+    cam_x, cam_y = camera:cameraCoords(x,y)
+    pixel_x = math.floor(120+(cam_x+(x*32)))
+    pixel_y = math.floor(cam_y+(y*32))
+    return pixel_x, pixel_y
+end
+
+function PlayerGUI:draw_damage_splashes()
+    --reset color
+    love.graphics.setColor(255, 255, 255)
+    for y=0, Map:getWidth()-1 do
+        for x=0, Map:getHeight()-1 do
+            if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
+                a = Map:getCellActor(x, y)
+                if a.damage_taken then
+                    local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
+                    love.graphics.setColor(colors.RED)
+                    love.graphics.draw(damage_tile, pixel_x-2, pixel_y+5)
+                    --reset color
+                    love.graphics.setColor(255, 255, 255)
+                    love.graphics.print(a.damage_taken, pixel_x+8, pixel_y+5)
+                end
+            end
+        end
+    end 
 end
 
 --handle screens
