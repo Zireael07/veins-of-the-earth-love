@@ -59,8 +59,21 @@ function InventoryDialog:drawSlot(inven, x, y)
         --if there is an item in the corresponding slot, draw it
         for nb, o in ipairs(player:getInven(player["INVEN_"..inven])) do
             if nb == 1 then
+                --black background
+                love.graphics.setColor(colors.BLACK)
+                love.graphics.rectangle('fill', x, y, 42, 42)
+                love.graphics.setColor(255, 255, 255)
                 local tile = InventoryDialog:getObjectTile(o)
                 love.graphics.draw(tile, x+5, y+5)
+            end
+        end
+        --draw outline around acceptable slots when dragging
+        if dragged then
+            local slot = dragged.item.slot
+            if inven == slot then
+                love.graphics.setColor(colors.GOLD)
+                love.graphics.rectangle('line', x, y, 42, 42)
+                love.graphics.setColor(255, 255, 255)
             end
         end
     end 
