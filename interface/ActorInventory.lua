@@ -39,7 +39,7 @@ function _M:defineInventory(short_name, name, is_worn, desc, show_equip, infos)
     self.inven_def[#self.inven_def].id = #self.inven_def
     self.inven_def[short_name] = self.inven_def[#self.inven_def]
     self["INVEN_"..short_name:upper()] = #self.inven_def
-    print("[INVENTORY] define slot", #self.inven_def, self.inven_def[#self.inven_def].name)
+    print_to_log("[INVENTORY] define slot", #self.inven_def, self.inven_def[#self.inven_def].name)
 end
 
 -- Auto define the inventory

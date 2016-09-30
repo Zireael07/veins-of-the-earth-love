@@ -64,7 +64,7 @@ end
 
 function _M:setFactionReaction(f1, f2, reaction, mutual)
     reaction = util.bound(reaction, -100, 100)
-    print("[FACTION]", f1, f2, reaction, mutual)
+    print_to_log("[FACTION]", f1, f2, reaction, mutual)
     -- Faction always likes itself
     if f1 == f2 then return end
     if not self.factions[f1] then return end

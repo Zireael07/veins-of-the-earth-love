@@ -39,7 +39,7 @@ function Pathfinding:isunWalkable(x, y)
 end
 
 function Pathfinding:getMap(map)
-    print("We are getting a map")
+    print_to_log("[Pathfinding] We are got an area map")
     return map
 end
 

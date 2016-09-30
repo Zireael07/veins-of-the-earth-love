@@ -52,7 +52,7 @@ function ActorLife:takeHit(value, src)
 end
 
 function ActorLife:die(src)
-    print("[ActorLife] die: ", self.name)
+    print_to_log("[ActorLife] die: ", self.name)
     --log
     logMessage(colors.RED, src.name.." killed "..self.name.."!")
 

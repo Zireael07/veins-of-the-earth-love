@@ -20,7 +20,7 @@ function ActorStats:init(t)
     --print("Actor: stat "..s.." set to ", self.stats[s].current)
     
   end
-  print("Actor: initiated stats for ", self.name)
+  print_to_log("Actor: initiated stats for ", self.name)
 end
 
 function ActorStats:getStat(s)

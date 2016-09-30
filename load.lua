@@ -13,7 +13,7 @@ rng:randomseed()
 dofile("colors.lua")
 
   --load fonts
-  print('Loading fonts')
+  print_to_log('Loading fonts')
   sherwood_large = love.graphics.newFont("fonts/sherwood.ttf", 20)
   sherwood_font = love.graphics.newFont("fonts/sherwood.ttf", 14)
   goldbox_font = love.graphics.newFont("fonts/Gold_Box.ttf", 12)
