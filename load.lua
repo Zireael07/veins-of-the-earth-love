@@ -1,8 +1,9 @@
 --file for loading all the stuff that must be accessible to all classes/modules
 ROT=require 'libraries/rotLove/rotLove'
 
-local ActorInventory = require "interface.ActorInventory"
 local Faction = require "class.Faction"
+local ActorInventory = require "interface.ActorInventory"
+local ActorSkills = require "interface.ActorSkills"
 
 --randomness
 rng = ROT.RNG.Twister:new()
@@ -41,3 +42,6 @@ ActorInventory:defineInventory("SHOULDER", "Shouldered weapon", true, "This is y
 --New
 ActorInventory:defineInventory("LEGS", "On legs", true, "Greaves are worn on your legs", nil, {equipdoll_back="ui/equipdoll/legs_inv.png"})
 ActorInventory:defineInventory("ARMS", "Around arms", true, "Bracers or bracelets are worn on your arms", nil, {equipdoll_back="ui/equipdoll/arms_inv.png"})
+
+--skills
+ActorSkills:loadDefinition('data/skills.lua')

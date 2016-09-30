@@ -8,12 +8,12 @@ local ActorInventory = require 'interface.ActorInventory'
 local Combat = require 'interface.ActorCombat'
 local ActorLife = require 'interface.ActorLife'
 local ActorStats = require 'interface.ActorStats'
-
+local ActorSkills = require 'interface.ActorSkills'
 
 --AI
 local ActorAI = require 'interface.ActorAI'
 
-module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats))
+module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats, ActorSkills))
 
 function _M:init(t)
     if t then print("We were given a table") end
@@ -32,6 +32,7 @@ function _M:init(t)
     ActorInventory.init(self, t)
     ActorLife.init(self, t)
     ActorStats.init(self, t)
+    ActorSkills.init(self, t)
 end
 
 function _M:act()
