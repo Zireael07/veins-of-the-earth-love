@@ -34,7 +34,18 @@ function make_log_file()
     love.filesystem.write("log.txt", "Game started: "..time.."\n\n")
 end
 
-function print_to_log(data)
+function print_to_log(...)
+    local data
+    --grab all the things
+    for i = 1, select("#", ...) do 
+        print("Grabbed part of data", i)
+        if data ~= nil then
+            data = data..tostring(select(i, ...)).." "
+        else
+            data = tostring(select(i, ...)).." "
+        end
+    end
+
     local time = os.date("%Y-%m-%d %H:%M:%S", os.time())
     data = "["..time .."] "..data .. "\n"
 
