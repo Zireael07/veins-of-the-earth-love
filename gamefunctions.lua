@@ -38,7 +38,6 @@ function print_to_log(...)
     local data
     --grab all the things
     for i = 1, select("#", ...) do 
-        print("Grabbed part of data", i)
         if data ~= nil then
             data = data..tostring(select(i, ...)).." "
         else
