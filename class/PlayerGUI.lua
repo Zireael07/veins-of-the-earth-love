@@ -4,6 +4,7 @@ require 'class.Player'
 
 --dialogs
 local InventoryDialog = require 'dialogs.InventoryDialog'
+local LogDialog = require 'dialogs.LogDialog'
 
 module("PlayerGUI", package.seeall, class.make)
 
@@ -156,14 +157,14 @@ function PlayerGUI:draw_log_messages()
     love.graphics.setFont(sherwood_font)
     -- draw log messages
     local a = 255
-    if #logMessages > 0 then
-        for i, message in ipairs(logMessages) do
+    if #visiblelogMessages > 0 then
+        for i, message in ipairs(visiblelogMessages) do
             local myColor = r,g,b,a
             love.graphics.setColor(a,a,a,a)
             love.graphics.print(message['message'], 120, 15*i)
         end    
 
-        for i,message in ipairs(logMessages) do
+        for i,message in ipairs(visiblelogMessages) do
             if message['delete'] == true then
                 table.remove(logMessages,i)
             end
@@ -200,6 +201,11 @@ end
 
 function PlayerGUI:inventory_mouse_pressed(x,y,b)
     InventoryDialog:mouse_pressed(x,y,b)
+end
+
+--log
+function PlayerGUI:draw_log_dialog()
+    LogDialog:draw()
 end
 
 return PlayerGUI

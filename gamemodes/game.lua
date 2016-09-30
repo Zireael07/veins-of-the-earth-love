@@ -18,6 +18,7 @@ function gamemode.load()
 
     --messages
     logMessages = {}
+    visiblelogMessages = {}
 
     popup_dialog = ''
 
@@ -76,7 +77,10 @@ end
 function draw_dialogs(player)
   if popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
+  elseif popup_dialog == "log" then
+    GUI:draw_log_dialog()
   end
+
 end
 
 --shorthand
@@ -126,6 +130,9 @@ function gamemode.keypressed(k)
       --dialogs
       elseif k == 'i' then
         popup_dialog = 'inventory'
+      elseif k == 'l' then
+        popup_dialog = 'log'
+      --labels
       elseif k == "tab" then 
         if not do_draw_labels then
         --print("Do draw labels...")       
@@ -170,14 +177,15 @@ function gamemode.update(dt)
 end
 
 function schedule()
+  print("Cleaning up the scheduler...")
   --clear the scheduler
   s:clear()
-  print("Clear the scheduler")
+  
 
   --put entities into scheduler
    for i, e in ipairs(entities) do
       s:add(i,true,i-1) 
-      print("[Scheduler] Added: ", i, e)
+      --print("[Scheduler] Added: ", i, e)
    end
 end
 
@@ -222,7 +230,7 @@ function game_lock()
   camera:unlock();
   camera:restorePosition();
   --clear log
-  logMessages = {}
+  visiblelogMessages = {}
 end
 
 function game_unlock()
@@ -260,4 +268,5 @@ end
 
 function logMessage(color,string)
   table.insert(logMessages,{time=os.clock(),message={color,string}})
+  table.insert(visiblelogMessages,{time=os.clock(),message={color,string}})
 end
