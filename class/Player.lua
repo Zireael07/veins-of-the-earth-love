@@ -13,6 +13,7 @@ function _M:init(t)
     self.body = t.body or {}
     --init inherited stuff
     Actor.init(self, t)
+    self.max_hitpoints = 20
     self.hitpoints = 20
     self.display = "@"
     self.image = "player_tile"  --"gfx/player/racial_dolls/human_m.png"
