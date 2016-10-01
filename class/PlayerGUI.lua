@@ -42,24 +42,7 @@ function PlayerGUI:draw_GUI(player)
     love.graphics.print("LUC: "..player:getStat("LUC"), 10, 135)
 end
 
-function PlayerGUI:draw_schedule()
-    love.graphics.setFont(sherwood_font)
-    --if color_r and color_g and color_b then love.graphics.setColor(color_r, color_g, color_b) end
-    love.graphics.setColor(128, 255, 0)
-    love.graphics.print(schedule_curr, 680, 2) --draw_y)
-end
-
-function PlayerGUI:draw_drawstats()
-    love.graphics.setFont(sherwood_font)
-    love.graphics.setColor(255, 255, 102)
-    local stats = love.graphics.getStats()
- 
-    local str = string.format("Estimated texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-    love.graphics.print(str, 700, 50)
-    local drawcalls = string.format("Drawcalls: %d", stats.drawcalls)
-    love.graphics.print(drawcalls, 700, 65)
-end
-
+--tooltip stuff
 function PlayerGUI:draw_mouse(x,y)
     love.graphics.setFont(sherwood_font)
     love.graphics.setColor(255,255,255)
@@ -212,6 +195,29 @@ function PlayerGUI:draw_damage_splashes()
             end
         end
     end 
+end
+
+--debugging stuff
+function PlayerGUI:draw_schedule()
+    love.graphics.setFont(sherwood_font)
+    --if color_r and color_g and color_b then love.graphics.setColor(color_r, color_g, color_b) end
+    love.graphics.setColor(128, 255, 0)
+    love.graphics.print(schedule_curr, 680, 2) --draw_y)
+end
+
+function PlayerGUI:draw_drawstats()
+    love.graphics.setFont(sherwood_font)
+    love.graphics.setColor(255, 255, 102)
+    local stats = love.graphics.getStats()
+ 
+    local str = string.format("Estimated texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
+    love.graphics.print(str, 700, 50)
+    local drawcalls = string.format("Drawcalls: %d", stats.drawcalls)
+    love.graphics.print(drawcalls, 700, 65)
+end
+
+function PlayerGUI:draw_pause_debug()
+    love.graphics.print("Non-dialog input locked", 300, 300)
 end
 
 --handle screens

@@ -61,6 +61,9 @@ function draw_GUI(player, camera)
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_log_messages()
+  if not game_locked then
+    GUI:draw_pause_debug()
+  end
   draw_dialogs(player)
 end
 
@@ -114,20 +117,24 @@ function gamemode.keypressed(k)
       if k == "escape" then popup_dialog = '' end
     --no dialogs
     else
-      if k == "left" then
-        player:PlayerMove("left")
-      elseif k == "right" then
-          player:PlayerMove("right")
-      elseif k == "down" then
-          player:PlayerMove("down")
-      elseif k == "up" then
-          player:PlayerMove("up")
-      elseif k == "g" then
-          player:playerPickup()
-      elseif k == "return" then
-          endTurn()
+      --for actions, check if game is locked before doing anything
+      if game_locked then
+        if k == "left" then
+          player:PlayerMove("left")
+        elseif k == "right" then
+            player:PlayerMove("right")
+        elseif k == "down" then
+            player:PlayerMove("down")
+        elseif k == "up" then
+            player:PlayerMove("up")
+        elseif k == "g" then
+            player:playerPickup()
+        elseif k == "return" then
+            endTurn()
+        end
+      end
       --dialogs
-      elseif k == 'i' then
+      if k == 'i' then
         popup_dialog = 'inventory'
       elseif k == 'l' then
         popup_dialog = 'log'
