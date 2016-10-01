@@ -1,3 +1,6 @@
+-- LÖVE Shortcuts
+lg  = love.graphics
+
 --print to console in realtime
 io.stdout:setvbuf('no')
 
