@@ -172,6 +172,12 @@ function InventoryDialog:draw(player)
         y = y + 45
     end
 
+    --fill right hand side
+    love.graphics.setColor(255, 255, 102)
+    love.graphics.print("INVENTORY", 500, 50)
+    love.graphics.print("AC: "..player:getAC(), 500, 100)
+
+
     --tooltip?
     if item then
         love.graphics.setColor(255, 255, 102)
