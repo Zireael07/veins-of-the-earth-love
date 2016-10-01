@@ -12,7 +12,8 @@ rng = ROT.RNG.Twister:new()
 rng:randomseed()
 
 --colors
-dofile("colors.lua")
+local colors = love.filesystem.load("colors.lua")
+colors()
 
   --load fonts
   print_to_log('Loading fonts')
@@ -28,7 +29,8 @@ Tile:loadTiles()
 
 
 --load factions
-dofile("data/factions.lua")
+local factions = love.filesystem.load("data/factions.lua")
+factions()
 
 
 --inventory
