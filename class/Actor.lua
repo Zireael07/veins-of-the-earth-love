@@ -37,6 +37,9 @@ function _M:init(t)
 end
 
 function _M:act()
+  --check if we're alive
+  if self.dead then return false end
+  
   if not self.player == true then 
     --do AI stuff
     self:target(player)
