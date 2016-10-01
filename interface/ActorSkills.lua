@@ -1,7 +1,7 @@
 --Veins of the Earth
 --Zireael 2016
 
-require 'T-engine.class'
+require 'T-Engine.class'
 
 --Handle actor skills
 module("ActorSkills", package.seeall, class.make)
