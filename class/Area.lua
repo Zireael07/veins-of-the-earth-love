@@ -38,6 +38,7 @@ function _M:generate(level, width, height)
   Encounter:getNPCsByCR(1)
   local encounter = Encounter:makeEncounter()
   Spawn:createEncounter(encounter, 5,5)
+  Spawn:createEncounter(encounter, 3,3)
 end
 
 --Simple area generation
