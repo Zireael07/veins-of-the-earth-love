@@ -12,6 +12,7 @@ local ActorSkills = require 'interface.ActorSkills'
 
 --AI
 local ActorAI = require 'interface.ActorAI'
+local Treasure = require 'class.Treasure'
 
 module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats, ActorSkills))
 
@@ -144,6 +145,14 @@ end
 
 function _M:bumpTarget(target)
   self:attackTarget(target)
+end
+
+function _M:on_die(src)
+  print("[ACTOR] on_die")
+  if not self.player == true then 
+    --gen treasure
+    Treasure:getTreasure(1)
+  end
 end
 
 return _M

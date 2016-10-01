@@ -66,6 +66,9 @@ function ActorLife:die(src)
     end
 
     self.dead = true
+
+    --do other stuff
+    self:on_die(src)
 end
 
 function ActorLife:gethitpointPerc()
