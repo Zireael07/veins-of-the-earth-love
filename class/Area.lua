@@ -101,11 +101,12 @@ function Area:getAreaMap()
 end
 
 function Area:spawnStuff()
-  
+  Spawn:createItem(3,3, "buckler")
   Spawn:createItem(6,6, "longsword")
 
   Spawn:createItem(2,2, "longsword")
   Spawn:createItem(4,4, "leather armor")
+  Spawn:createItem(7,7, "light steel shield")
 end
 
 return Area

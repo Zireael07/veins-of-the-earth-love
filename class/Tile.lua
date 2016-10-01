@@ -13,10 +13,12 @@ function Tile:loadTiles()
     wall = love.graphics.newImage("gfx/tiles/terrain/wall.png"),
     floor_bright = love.graphics.newImage("gfx/tiles/terrain/floor_bright.png"),
     player_tile = love.graphics.newImage("gfx/tiles/player/racial_dolls/human_m.png"),
+    --NPCs
     orc = love.graphics.newImage("gfx/tiles/mobiles/orc.png"),
     drow = love.graphics.newImage("gfx/tiles/mobiles/drow.png"),
     human = love.graphics.newImage("gfx/tiles/mobiles/human.png"),
     gnome = love.graphics.newImage("gfx/tiles/mobiles/npc/gnome_fighter.png"),
+    --objects
     longsword = love.graphics.newImage("gfx/tiles/object/longsword.png"),
     dagger = love.graphics.newImage("gfx/tiles/object/dagger.png"),
     spear = love.graphics.newImage("gfx/tiles/object/spear.png"),
@@ -25,7 +27,12 @@ function Tile:loadTiles()
     studded = love.graphics.newImage("gfx/tiles/object/armor_studded.png"),
     chain_shirt = love.graphics.newImage("gfx/tiles/object/chain_shirt.png"),
     chain_mail = love.graphics.newImage("gfx/tiles/object/chain_armor.png"),
-
+    shield_buckler = love.graphics.newImage("gfx/tiles/object/shield_buckler.png"),
+    shield_light_wooden = love.graphics.newImage("gfx/tiles/object/shield_light_wooden.png"),
+    shield_light_steel = love.graphics.newImage("gfx/tiles/object/shield_light_steel.png"),
+    shield_heavy_wooden = love.graphics.newImage("gfx/tiles/object/shield_heavy_wooden.png"),
+    shield_heavy_steel = love.graphics.newImage("gfx/tiles/object/shield_heavy_steel.png"),
+    shield_tower = love.graphics.newImage("gfx/tiles/object/shield_tower.png"),
     --effect
     damage_tile = love.graphics.newImage("gfx/splash_gray.png"),
 
