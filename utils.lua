@@ -32,4 +32,19 @@ function string.capitalize(str)
     end
 end
 
+--necessary for calendar
+function string.ordinal(number)
+    local suffix = "th"
+    number = tonumber(number)
+    local base = number % 10
+    if base == 1 then
+        suffix = "st"
+    elseif base == 2 then
+        suffix = "nd"
+    elseif base == 3 then
+        suffix = "rd"
+    end
+    return number..suffix
+end
+
 return utils

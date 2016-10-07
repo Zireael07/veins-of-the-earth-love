@@ -8,6 +8,8 @@ require 'class.Map'
 require 'class.Player'
 local GUI = require 'class.PlayerGUI'
 require 'class.Entity'
+local utils = require 'utils'
+local Calendar = require "T-Engine.Calendar"
 
 local CameraHandler = require 'interface.CameraHandler'
 local Mouse = require 'class.Mouse'
@@ -47,6 +49,8 @@ function gamemode.load()
     for i, e in ipairs(entities) do
       s:add(i,true,i-1) 
     end
+
+    calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. \nThe time is %02d:%02d.", 1371, 1, 11)
 end
 
 --drawing
@@ -222,9 +226,14 @@ function rounds()
     s:setDuration(dur)
 
     --used by debug display
-    schedule_curr = "TURN: "..curr_ent.name.." ["..c.."] for "..dur.." units of time"
+    if s then
+      local time_elapsed = s:getTime()
+      schedule_curr = "TIME: "..time_elapsed
+    end
+    schedule_curr = "["..schedule_curr.."] TURN: "..curr_ent.name.." ["..c.."] for "..dur.." units of time"
     if curr_ent.player == true then 
       game_lock()
+      if s:getTime() > 0 then onTurn() end
       schedule_curr = "PLAYER "..schedule_curr end
     --draw_y= draw_y< 400 and draw_y +10 or 200
 end
@@ -275,4 +284,12 @@ end
 function logMessage(color,string)
   table.insert(logMessages,{time=os.clock(),message={color,string}})
   table.insert(visiblelogMessages,{time=os.clock(),message={color,string}})
+end
+
+function onTurn()
+  --Calendar
+  if not day_of_year or day_of_year ~= calendar:getDayOfYear(s:getTime()) then
+    logMessage(colors.GOLD, calendar:getTimeDate(s:getTime()))
+    day_of_year = calendar:getDayOfYear(s:getTime())
+  end
 end
