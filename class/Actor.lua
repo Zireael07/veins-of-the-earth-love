@@ -152,6 +152,9 @@ function _M:bumpTarget(target)
     self:attackTarget(target)
   else --if target:reactionToward(self) 
     print("[ACTOR] Bumped nonhostile target")
+    if self.player == true then
+      target.emote = "Hey you!"
+    end
   end
 end
 

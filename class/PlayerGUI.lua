@@ -197,6 +197,23 @@ function PlayerGUI:draw_damage_splashes()
     end 
 end
 
+function PlayerGUI:draw_emotes()
+    love.graphics.setFont(sherwood_font)
+    love.graphics.setColor(colors.GOLD)
+    for y=0, Map:getWidth()-1 do
+        for x=0, Map:getHeight()-1 do
+            if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
+                a = Map:getCellActor(x, y)
+                if a.emote then
+                    local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
+                    love.graphics.setColor(colors.GOLD)
+                    love.graphics.print(a.emote, pixel_x, pixel_y-15)
+                end
+            end
+        end
+    end 
+end
+
 --debugging stuff
 function PlayerGUI:draw_schedule()
     love.graphics.setFont(sherwood_font)
