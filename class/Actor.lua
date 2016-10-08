@@ -147,7 +147,12 @@ function _M:indicateReaction()
 end
 
 function _M:bumpTarget(target)
-  self:attackTarget(target)
+  --check for reaction
+  if target:reactionToward(self) < -50 then
+    self:attackTarget(target)
+  else --if target:reactionToward(self) 
+    print("[ACTOR] Bumped nonhostile target")
+  end
 end
 
 function _M:on_die(src)
