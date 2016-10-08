@@ -50,7 +50,8 @@ npc_types['orc'] = {
     hit_die = 1,
     challenge = 1,
     max_hitpoints = 8,
-    faction = "unfriendly"
+    faction = "unfriendly",
+    text = "I not like you! You not orc! You not ugly enough! You too pretty!"
 }
 
 npc_types['human'] = {
@@ -67,7 +68,8 @@ npc_types['human'] = {
     alignment = "Neutral Good",
     challenge = 1,
     max_hitpoints = 8,
-    faction = "neutral"
+    faction = "neutral",
+    text = "Welcome, adventurer! What are you doing in this dismal place?"
 }
 
 npc_types['gnome'] = {

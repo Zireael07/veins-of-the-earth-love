@@ -14,6 +14,9 @@ local ActorSkills = require 'interface.ActorSkills'
 local ActorAI = require 'interface.ActorAI'
 local Treasure = require 'class.Treasure'
 
+--Player
+local Chat = require 'dialogs.Chat'
+
 module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats, ActorSkills))
 
 function _M:init(t)
@@ -27,6 +30,8 @@ function _M:init(t)
     self.name = t.name --or "orc"
     self.path = nil
     self.faction = t.faction or "enemy"
+    --test
+    self.text = t.text
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
     --init inherited stuff
@@ -151,9 +156,15 @@ function _M:bumpTarget(target)
   if target:reactionToward(self) < -50 then
     self:attackTarget(target)
   else --if target:reactionToward(self) 
-    print("[ACTOR] Bumped nonhostile target")
+    --print("[ACTOR] Bumped nonhostile target")
     if self.player == true then
-      target.emote = "Hey you!"
+      
+      --target.emote = "Hey you!"
+      --set npc
+      print("[PLAYER] should show chat", target.name)
+      --display
+      setDialog("chat", target)
+      --print("[PLAYER] popup_dialog set to", popup_dialog)
     end
   end
 end

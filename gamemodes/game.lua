@@ -81,10 +81,14 @@ function draw_labels()
 end
 
 function draw_dialogs(player)
+  if popup_dialog ~= '' then print("[GAME] popup_dialog is", popup_dialog) end
   if popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
   elseif popup_dialog == "log" then
     GUI:draw_log_dialog()
+  elseif popup_dialog == "chat" then
+    print("[GAME] draw chat")
+    GUI:draw_chat(npc_chat)
   end
 
 end
@@ -292,4 +296,10 @@ function onTurn()
     logMessage(colors.GOLD, calendar:getTimeDate(s:getTime()))
     day_of_year = calendar:getDayOfYear(s:getTime())
   end
+end
+
+function setDialog(str, npc)
+  print("[GAME] set dialog")
+  popup_dialog = str
+  npc_chat = npc
 end
