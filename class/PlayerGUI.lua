@@ -5,6 +5,7 @@ require 'class.Player'
 --dialogs
 local InventoryDialog = require 'dialogs.InventoryDialog'
 local LogDialog = require 'dialogs.LogDialog'
+local Chat = require 'dialogs.Chat'
 
 module("PlayerGUI", package.seeall, class.make)
 
@@ -33,8 +34,8 @@ function PlayerGUI:draw_GUI(player)
 
     --draw stats
     love.graphics.setColor(255, 255, 102)
-    love.graphics.print("STR: "..player.stats["STR"].current, 10, 45)
-    love.graphics.print("DEX: "..player.stats["DEX"].current, 10, 60)
+    love.graphics.print("STR: "..player:getStat("STR"), 10, 45)
+    love.graphics.print("DEX: "..player:getStat("DEX"), 10, 60)
     love.graphics.print("CON: "..player:getStat("CON"), 10, 75)
     love.graphics.print("INT: "..player:getStat("INT"), 10, 90)
     love.graphics.print("WIS: "..player:getStat("WIS"), 10, 105)
@@ -254,6 +255,11 @@ end
 --log
 function PlayerGUI:draw_log_dialog()
     LogDialog:draw()
+end
+
+function PlayerGUI:draw_chat(npc)
+    print("[GUI] draw chat")
+    Chat:draw(npc)
 end
 
 return PlayerGUI
