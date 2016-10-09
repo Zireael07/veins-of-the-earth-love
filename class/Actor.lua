@@ -15,7 +15,7 @@ local ActorAI = require 'interface.ActorAI'
 local Treasure = require 'class.Treasure'
 
 --Player
-local Chat = require 'dialogs.Chat'
+local Chat = require 'class.Chat'
 
 module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats, ActorSkills))
 
@@ -32,6 +32,7 @@ function _M:init(t)
     self.faction = t.faction or "enemy"
     --test
     self.text = t.text
+    self.convo = t.convo
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
     --init inherited stuff
@@ -160,10 +161,14 @@ function _M:bumpTarget(target)
     if self.player == true then
       
       --target.emote = "Hey you!"
+      if target.convo then
+        local chat = Chat.new(target.convo, target, self)
+        chat:invoke()
+      end
       --set npc
-      print("[PLAYER] should show chat", target.name)
+      --print("[PLAYER] should show chat", target.name)
       --display
-      setDialog("chat", target)
+      --setDialog("chat", target)
       --print("[PLAYER] popup_dialog set to", popup_dialog)
     end
   end

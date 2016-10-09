@@ -69,7 +69,8 @@ npc_types['human'] = {
     challenge = 1,
     max_hitpoints = 8,
     faction = "neutral",
-    text = "Welcome, adventurer! What are you doing in this dismal place?"
+    text = "Welcome, adventurer! What are you doing in this dismal place?",
+    convo = "test"
 }
 
 npc_types['gnome'] = {
