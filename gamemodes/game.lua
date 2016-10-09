@@ -310,8 +310,8 @@ function onTurn()
   end
 end
 
-function setDialog(str, npc)
+function setDialog(str, data)
   print("[GAME] set dialog")
   popup_dialog = str
-  npc_chat = npc
+  npc_chat = data
 end

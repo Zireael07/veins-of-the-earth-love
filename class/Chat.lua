@@ -56,11 +56,13 @@ function Chat:get(id)
     return c
 end
 
-function Chat:invoke()
+function Chat:invoke(id)
     --[[if self.npc.onChat then self.npc:onChat() end
     if self.player.onChat then self.player:onChat() end]]
 
     print("[CHAT] invoking")
+
+    setDialog("chat", {chat=self, id=id or self.default_id})
 end
 
 return Chat

@@ -257,9 +257,9 @@ function PlayerGUI:draw_log_dialog()
     LogDialog:draw()
 end
 
-function PlayerGUI:draw_chat(npc)
+function PlayerGUI:draw_chat(npc_chat)
     print("[GUI] draw chat")
-    ChatDialog:draw(npc)
+    ChatDialog:draw(npc_chat.chat, npc_chat.id)
 end
 
 return PlayerGUI
