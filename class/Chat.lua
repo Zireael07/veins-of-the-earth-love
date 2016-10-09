@@ -65,4 +65,8 @@ function Chat:invoke(id)
     setDialog("chat", {chat=self, id=id or self.default_id})
 end
 
+function _M:replace(text)
+    return text
+end
+
 return Chat

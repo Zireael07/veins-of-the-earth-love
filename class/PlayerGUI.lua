@@ -257,9 +257,17 @@ function PlayerGUI:draw_log_dialog()
     LogDialog:draw()
 end
 
+--NPC chat screen
 function PlayerGUI:draw_chat(npc_chat)
-    print("[GUI] draw chat")
     ChatDialog:draw(npc_chat.chat, npc_chat.id)
+end
+
+function PlayerGUI:chat_mouse()
+    ChatDialog:mouse()
+end
+
+function PlayerGUI:chat_mouse_pressed(x,y,b)
+    ChatDialog:mouse_pressed(x,y,b)
 end
 
 return PlayerGUI

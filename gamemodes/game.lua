@@ -81,13 +81,13 @@ function draw_labels()
 end
 
 function draw_dialogs(player)
-  if popup_dialog ~= '' then print("[GAME] popup_dialog is", popup_dialog) end
+  --if popup_dialog ~= '' then print("[GAME] popup_dialog is", popup_dialog) end
   if popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
   elseif popup_dialog == "log" then
     GUI:draw_log_dialog()
   elseif popup_dialog == "chat" then
-    print("[GAME] draw chat")
+    --print("[GAME] draw chat")
     GUI:draw_chat(npc_chat)
   end
 
@@ -165,6 +165,8 @@ function gamemode.mousepressed(x,y,b)
     if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
   elseif popup_dialog == 'inventory' then
       GUI:inventory_mouse_pressed(x,y,b)
+  elseif popup_dialog == "chat" then
+      GUI:chat_mouse_pressed(x,y,b)
   end
 end
 
@@ -195,6 +197,8 @@ function gamemode.update(dt)
     tile_x, tile_y = Mouse:getGridPosition() --Map:mousetoTile()
   elseif popup_dialog == 'inventory' then
     GUI:inventory_mouse()
+  elseif popup_dialog == "chat" then
+    GUI:chat_mouse()
   end
   
   --removeDead()
