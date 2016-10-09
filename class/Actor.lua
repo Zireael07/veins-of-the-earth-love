@@ -169,7 +169,6 @@ function _M:bumpTarget(target)
       --print("[PLAYER] should show chat", target.name)
       --display
       --setDialog("chat", target)
-      --print("[PLAYER] popup_dialog set to", popup_dialog)
     end
   end
 end
