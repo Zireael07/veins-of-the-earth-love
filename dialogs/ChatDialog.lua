@@ -1,8 +1,8 @@
 require 'T-Engine.class'
 
-module("Chat", package.seeall, class.make)
+module("ChatDialog", package.seeall, class.make)
 
-function Chat:draw(npc)
+function ChatDialog:draw(npc)
     print("[CHAT] drawing chat for ", npc, npc.text)
     love.graphics.setColor(255,255,255)
     --background
@@ -12,4 +12,4 @@ function Chat:draw(npc)
 end
 
 
-return Chat
+return ChatDialog

@@ -5,7 +5,7 @@ require 'class.Player'
 --dialogs
 local InventoryDialog = require 'dialogs.InventoryDialog'
 local LogDialog = require 'dialogs.LogDialog'
-local Chat = require 'dialogs.Chat'
+local ChatDialog = require 'dialogs.ChatDialog'
 
 module("PlayerGUI", package.seeall, class.make)
 
@@ -259,7 +259,7 @@ end
 
 function PlayerGUI:draw_chat(npc)
     print("[GUI] draw chat")
-    Chat:draw(npc)
+    ChatDialog:draw(npc)
 end
 
 return PlayerGUI
