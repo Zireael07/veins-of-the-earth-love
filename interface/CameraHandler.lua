@@ -45,7 +45,8 @@ function CameraHandler.new(px, py)
         elseif my > love.graphics.getHeight() - scroll_margin then
             y = y + scroll_speed;
         end
-
+        
+        --print("[Scroll] X,Y are ", x, y)
         -- Clamp the camera to the map dimensions.
         local w, h = Map:getPixelDimensions()
         --cut off the last 4 tiles' width (roughly equal to 120 px = our hud)
@@ -62,6 +63,10 @@ function CameraHandler.new(px, py)
             scroll();
         px = lerp( px, tx, dt * cam_speed );
         py = lerp( py, ty, dt * cam_speed );
+        --safeguard for crazy values
+        if px > tx then px = tx end
+        if py > ty then py = ty end
+       -- print("[Camera] px, py are", px, py)
         end
         self:lookAt( math.floor( px ), math.floor( py ));
     end
