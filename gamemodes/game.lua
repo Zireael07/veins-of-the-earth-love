@@ -168,6 +168,18 @@ function gamemode.mousepressed(x,y,b)
   end
 end
 
+function gamemode.focus(f)
+  local px = player.x * 32
+  local py = player.y * 32
+  if f then 
+     print("[GAME] Focus", px, py)
+    camera:lookAt( math.floor( px ), math.floor( py )) 
+  else
+    camera:lock()
+    print("[GAME] Lock camera on focus lost")
+  end
+end
+
 --update!
 function gamemode.update(dt)
   --camera

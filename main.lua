@@ -63,3 +63,13 @@ function love.mousepressed(x, y, b)
     if gamemode and gamemode.mousepressed then gamemode.mousepressed(x,y,b) end
     if gamemode and gamemode.postmousepressed then gamemode.postmousepressed(cursor.x, cursor.y, b) end
 end
+
+--called when the window is focused
+function love.focus(f)
+    if f then
+        print("Window is focused.")
+    else
+        print("Window is not focused.")
+    end
+    if gamemode and gamemode.focus then gamemode.focus(f) end
+end
