@@ -25,6 +25,7 @@ npc_types['drow'] = {
     hit_die = 1,
     challenge = 1,
     max_hitpoints = 6,
+    languages = {"Undercommon", "Drow"},
 }
 
 npc_types['orc'] = {
@@ -51,7 +52,8 @@ npc_types['orc'] = {
     challenge = 1,
     max_hitpoints = 8,
     faction = "unfriendly",
-    text = "I not like you! You not orc! You not ugly enough! You too pretty!"
+    text = "I not like you! You not orc! You not ugly enough! You too pretty!",
+    languages = {"Orc", "Undercommon"}
 }
 
 npc_types['human'] = {
@@ -70,7 +72,8 @@ npc_types['human'] = {
     max_hitpoints = 8,
     faction = "neutral",
     text = "Welcome, adventurer! What are you doing in this dismal place?",
-    convo = "test"
+    convo = "test",
+    languages = {"Common"},
 }
 
 npc_types['gnome'] = {
@@ -96,5 +99,6 @@ npc_types['gnome'] = {
     skill_listen = 1,
     skill_spot = 1,
     max_hitpoints = 8,
-    faction = "neutral"
+    faction = "neutral",
+    languages = {"Common"},
 }

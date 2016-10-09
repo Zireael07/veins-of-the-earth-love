@@ -55,6 +55,7 @@ function Spawn:createPlayer(x,y)
 
     player_temp = Player.new(
       { faction = "player",
+        languages = {"Undercommon"},
     body = { MAIN_HAND=1, OFF_HAND=1, SHOULDER=1, BODY=1, CLOAK=1, BELT=1, QUIVER=1, GLOVES=1, LEGS=1, ARMS=1, BOOTS=1, HELM=1, RING=2, AMULET=1, LITE=1, TOOL=1, INVEN=30 }
   })
 --    Entity:addEntity(player_temp)

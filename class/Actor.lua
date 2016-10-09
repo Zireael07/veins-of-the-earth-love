@@ -33,6 +33,7 @@ function _M:init(t)
     --test
     self.text = t.text
     self.convo = t.convo
+    self.languages = t.languages
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
     --init inherited stuff
@@ -180,5 +181,35 @@ function _M:on_die(src)
     Treasure:getTreasure(1)
   end
 end
+
+--languages
+function _M:getLanguages()
+  local list = {}
+
+    for i, n in pairs(self.languages) do
+        list[#list+1] = {
+            name = n
+        }
+    end
+
+  return list
+end
+
+function _M:speakLanguage(lg)
+  if type(lg) ~= "string" then return nil end
+
+  for i,t in pairs(self:getLanguages()) do
+    if t.name == lg then return true end
+  end
+  return false
+end
+
+function _M:speakSameLanguage(target)
+  for i, t in pairs(self:getLanguages()) do
+    if target:speakLanguage(t.name) then return true end
+    return false
+  end
+end
+
 
 return _M
