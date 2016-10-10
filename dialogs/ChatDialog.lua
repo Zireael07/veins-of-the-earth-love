@@ -30,11 +30,12 @@ function ChatDialog:draw(chat, id)
         else 
             love.graphics.setColor(colors.WHITE)
         end
-        love.graphics.printf(a.name, x, y, 300)
+        love.graphics.printf(a.name, x, y, 550)
         y = y + 15
     end
 
     --portraits
+    love.graphics.setColor(colors.WHITE)
     if self.npc.portrait then
         local doll = self.npc.portrait
         love.graphics.draw(loaded_tiles[doll], 550, 30)
@@ -61,7 +62,11 @@ function ChatDialog:generateText()
     local nb = 1
     for i, a in ipairs(self.chat:get(self.cur_id).answers) do
         if not a.fallback and (not a.cond or a.cond(self.npc, self.player)) then
-            answers_list[#answers_list+1] = { name=string.char(string.byte('a')+nb-1)..") "..self.chat:replace(a[1], self.player), answer=i, color=a.color}
+            --show skills
+            local text = ""
+            if a.skill then text = "["..a.skill:capitalize().."] " end
+
+            answers_list[#answers_list+1] = { name=string.char(string.byte('a')+nb-1)..") "..text.." "..self.chat:replace(a[1], self.player), answer=i, color=a.color}
             nb = nb + 1
         end
     end
