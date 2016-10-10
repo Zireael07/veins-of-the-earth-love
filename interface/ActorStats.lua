@@ -2,7 +2,7 @@ require 'T-Engine.class'
 
 module("ActorStats", package.seeall, class.make)
 
-ActorStats.stats = { 'STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA', 'LUC' }
+ActorStats.stats = { 'STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA' } --, 'LUC' }
 ActorStats.stat_names = {
   STR = 'Strength',
   DEX = 'Dexterity',

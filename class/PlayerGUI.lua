@@ -40,7 +40,7 @@ function PlayerGUI:draw_GUI(player)
     love.graphics.print("INT: "..player:getStat("INT"), 10, 90)
     love.graphics.print("WIS: "..player:getStat("WIS"), 10, 105)
     love.graphics.print("CHA: "..player:getStat("CHA"), 10, 120)
-    love.graphics.print("LUC: "..player:getStat("LUC"), 10, 135)
+    --love.graphics.print("LUC: "..player:getStat("LUC"), 10, 135)
 end
 
 --tooltip stuff
