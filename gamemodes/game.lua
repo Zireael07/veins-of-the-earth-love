@@ -89,6 +89,8 @@ function draw_dialogs(player)
     GUI:draw_character_creation(player)
   elseif popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
+  elseif popup_dialog == "character_sheet" then
+    GUI:draw_character_sheet(player)
   elseif popup_dialog == "log" then
     GUI:draw_log_dialog()
   elseif popup_dialog == "chat" then
@@ -150,6 +152,8 @@ function gamemode.keypressed(k)
         popup_dialog = 'inventory'
       elseif k == 'l' then
         popup_dialog = 'log'
+      elseif k == 'c' then
+        popup_dialog = "character_sheet"
       --labels
       elseif k == "tab" then 
         if not do_draw_labels then
