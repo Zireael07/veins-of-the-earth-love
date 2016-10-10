@@ -50,3 +50,7 @@ function print_to_log(...)
 
     love.filesystem.append("log.txt", data)
 end
+
+function rng_table(t)
+    return t[love.math.random(1,#t)]
+end
