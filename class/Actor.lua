@@ -58,6 +58,12 @@ function _M:act()
   end
 end
 
+function _M:getName()
+  local name = self.name
+
+  return name
+end
+
 function _M:target(player)
   self.path = ActorAI:target(player, self.x, self.y)
   if self.path then 

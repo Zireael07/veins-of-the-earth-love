@@ -3,6 +3,8 @@
 
 require 'T-Engine.class'
 
+local dice = require('libraries/dice')
+
 --Handle actor skills
 module("ActorSkills", package.seeall, class.make)
 
@@ -44,7 +46,7 @@ function _M:getSkill(skill)
 
 	local penalty_for_skill = { appraise = "no", balance = "yes", bluff = "no", climb = "yes", concentration = "no", craft = "no", diplomacy = "no", disable_device = "no", decipher_script = "no", escape_artist = "yes", handle_animal = "no", heal = "no", hide = "yes", intimidate = "no", intuition = "no", jump = "yes", knowledge = "no", listen = "no", move_silently = "yes", open_lock = "no", pick_pocket = "yes", ride = "no", search = "no", sense_motive = "no", spot = "no", swim = "yes", spellcraft = "no", survival = "no", tumble = "yes", use_magic = "no" }
 
-	local check = (self:attr("skill_"..skill) or 0) + (self:attr("skill_bonus_"..skill) or 0) + self:getSkillMod(skill)
+	local check = (self["skill_"..skill] or 0) + (self["skill_bonus_"..skill] or 0) + self:getSkillMod(skill)
 
 	if not self:isSkillPenalty(skill) then return check end
 
@@ -52,7 +54,7 @@ function _M:getSkill(skill)
 		--[[if self:knowTalent(self.T_ARMOR_OPTIMISATION) and self:attr("armor_penalty") then
 			return check - (self:attr("armor_penalty")/3 or 0) - (self:attr("load_penalty") or 0) --end
 		else]]
-		return check - (self:attr("armor_penalty") or 0) - (self:attr("load_penalty") or 0) --end
+		return check - (self.armor_penalty or 0) - (self.load_penalty or 0) --end
 	end
 
 end
@@ -60,7 +62,7 @@ end
 function _M:skillCheck(skill, dc, silent)
 	local success = false
 
-	local d = rng.dice(1,20)
+	local d = dice.roll('1d20')
 	local result = d + (self:getSkill(skill) or 0)
 
 	if d == 20 then success = true
@@ -68,7 +70,7 @@ function _M:skillCheck(skill, dc, silent)
 	else success = result > dc end
 
 	--Limit logging to the player
-	if not silent and self == game.player then
+	if not silent and self.player == true then
 		local who = self:getName()
 		local s = ("%s check for %s: dice roll %d + bonus %d = %d vs DC %d -> %s"):format(
 			skill:capitalize(), who, d, self:getSkill(skill) or 0, result, dc, success and "#GREEN#success#LAST#" or "#RED#failure#LAST#")
@@ -77,11 +79,11 @@ function _M:skillCheck(skill, dc, silent)
 
 	--XP prize
 	if success then
-		if self:crossClass(skill) then
+		--[[if self:crossClass(skill) then
 			self:gainExp(5)
 		else
 			self:gainExp(10)
-		end
+		end]]
 	end
 
 	return success
@@ -92,19 +94,19 @@ function _M:opposedCheck(skill1, target, skill2)
 
 	local my_skill = self:getSkill(skill1)
 	local enemy_skill = target:getSkill(skill2)
-	local d = rng.dice(1,20)
-	local d2 = rng.dice(1,20)
+	local d = dice.roll("1d20")
+	local d2 = dice.roll("1d20")
 	local enemy_total = d2 + (enemy_skill or 0)
 	local my_total = d + (my_skill or 0)
 
 	if d + (my_skill or 0) > enemy_total then success = true end
 
-	if self == game.player then
+	if self.player == true then
 		local s = ("Opposed check: dice roll %d + bonus %d versus DC %d -> %s"):format(
 			d, my_skill or 0, enemy_total, success and "#GREEN#success#LAST#" or "#RED#failure#LAST#")
 		logMessage(s)
 	end
-	if target == game.player then
+	if target.player == true then
 		local player_success = true
 		if success then player_success = false end
 		local s = ("Opposed check for the monster: %d versus DC %d -> player %s"):format(
@@ -122,7 +124,7 @@ function _M:takeTen(skill, dc, silent)
 	local result = 10 + (self:getSkill(skill) or 0)
 
 	--Limit logging to the player
-	if not silent and self == game.player then
+	if not silent and self.player == true then
 		local who = self:getName()
 		local s = ("%s check for %s: 10 + bonus %d = %d vs DC %d -> %s"):format(
 			skill:capitalize(), who, self:getSkill(skill) or 0, result, dc, success and "#GREEN#success#LAST#" or "#RED#failure#LAST#")
@@ -136,7 +138,7 @@ end
 function _M:staggeredCheck(skill, dc1, dc2, dc3)
 	local success = false
 
-	local d = rng.dice(1,20)
+	local d = dice.roll("1d20")
 	local result = d + (self:getSkill(skill) or 0)
 
 	if result > target3 then success = true ---do stuff
@@ -145,7 +147,7 @@ function _M:staggeredCheck(skill, dc1, dc2, dc3)
 	end
 
 	--Limit logging to the player
-	if not silent and self == game.player then
+	if not silent and self.player == true then
 		local who = self:getName()
 		local s = ("%s check for %s: dice roll %d + bonus %d = %d vs DC %d -> %s"):format(
 			skill:capitalize(), who, d, self:getSkill(skill) or 0, result, dc, success and "#GREEN#success#LAST#" or "#RED#failure#LAST#")
@@ -154,11 +156,11 @@ function _M:staggeredCheck(skill, dc1, dc2, dc3)
 
 	--XP prize
 	if success then
-		if self:crossClass(skill) then
+	--[[	if self:crossClass(skill) then
 			self:gainExp(10)
 		else
 			self:gainExp(20)
-		end
+		end]]
 	end
 end
 
@@ -172,7 +174,7 @@ function _M:getSkillMod(skill)
 		print("Invalid skill "..skill.." requested, no stat")
 		return 0
 	else
-		return math.floor((self:getStat(stat_for_skill[skill])-10)/2)
+		return math.floor((self:getStat(stat_for_skill[skill]:upper())-10)/2)
 	end
 end
 
