@@ -20,8 +20,10 @@ function ActorStats:init(t)
     --print("Actor: stat "..s.." set to ", self.stats[s].current)
   end
 
-  local array = self:setArray()
-  self:applyArray(array)
+  if not self.player then
+    local array = self:setArray()
+    self:applyArray(array)
+  end
 
   print_to_log("Actor: initiated stats for ", self.name)
 end
