@@ -51,6 +51,9 @@ function gamemode.load()
     end
 
     calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. \nThe time is %02d:%02d.", 1371, 1, 11)
+  
+    love.timer.sleep(.5)
+    setDialog("character_creation")
 end
 
 --drawing
@@ -82,12 +85,13 @@ end
 
 function draw_dialogs(player)
   --if popup_dialog ~= '' then print("[GAME] popup_dialog is", popup_dialog) end
-  if popup_dialog == "inventory" then
+  if popup_dialog == "character_creation" then 
+    GUI:draw_character_creation(player)
+  elseif popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
   elseif popup_dialog == "log" then
     GUI:draw_log_dialog()
   elseif popup_dialog == "chat" then
-    --print("[GAME] draw chat")
     GUI:draw_chat(npc_chat)
   end
 
@@ -163,6 +167,8 @@ function gamemode.mousepressed(x,y,b)
   print("Calling mousepressed",x,y,b)
   if popup_dialog == '' then
     if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
+  elseif popup_dialog == "character_creation" then
+    GUI:character_creation_mouse_pressed(x,y,b)
   elseif popup_dialog == 'inventory' then
       GUI:inventory_mouse_pressed(x,y,b)
   elseif popup_dialog == "chat" then
@@ -195,6 +201,8 @@ function gamemode.update(dt)
   
   if popup_dialog == '' then
     tile_x, tile_y = Mouse:getGridPosition() --Map:mousetoTile()
+  elseif popup_dialog == 'character_creation' then
+    GUI:character_creation_mouse()
   elseif popup_dialog == 'inventory' then
     GUI:inventory_mouse()
   elseif popup_dialog == "chat" then
@@ -317,5 +325,7 @@ end
 function setDialog(str, data)
   print("[GAME] set dialog")
   popup_dialog = str
-  npc_chat = data
+  if data then
+    npc_chat = data
+  end
 end

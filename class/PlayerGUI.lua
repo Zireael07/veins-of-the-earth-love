@@ -6,6 +6,7 @@ require 'class.Player'
 local InventoryDialog = require 'dialogs.InventoryDialog'
 local LogDialog = require 'dialogs.LogDialog'
 local ChatDialog = require 'dialogs.ChatDialog'
+local CharacterCreation = require 'dialogs.CharacterCreation'
 
 module("PlayerGUI", package.seeall, class.make)
 
@@ -239,6 +240,19 @@ function PlayerGUI:draw_pause_debug()
 end
 
 --handle screens
+--character creation
+function PlayerGUI:draw_character_creation(player)
+    CharacterCreation:draw(player)
+end
+
+function PlayerGUI:character_creation_mouse()
+    CharacterCreation:mouse()
+end
+
+function PlayerGUI:character_creation_mouse_pressed(x,y,b)
+    CharacterCreation:mouse_pressed(x,y,b)
+end
+
 --inventory
 function PlayerGUI:draw_inventory_test(player)
     InventoryDialog:draw(player)
