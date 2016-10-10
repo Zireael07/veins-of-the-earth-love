@@ -74,6 +74,7 @@ npc_types['human'] = {
     text = "Welcome, adventurer! What are you doing in this dismal place?",
     convo = "test",
     languages = {"Common"},
+    show_portrait = true
 }
 
 npc_types['gnome'] = {

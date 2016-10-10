@@ -34,6 +34,22 @@ function ChatDialog:draw(chat, id)
         y = y + 15
     end
 
+    --portraits
+    if self.npc.portrait then
+        local doll = self.npc.portrait
+        love.graphics.draw(loaded_tiles[doll], 550, 30)
+    end
+    if self.npc.portrait_table then
+        local table = self.npc.portrait_table
+        for i, t in ipairs(table) do
+            if loaded_tiles[t.name] then
+                love.graphics.draw(loaded_tiles[t.name], 550, 30)
+            else
+                print("[PORTRAIT] Requested nonexistent picture", t.name)
+            end
+        end
+    end
+
 end
 
 function ChatDialog:generateText()
