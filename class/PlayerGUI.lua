@@ -34,15 +34,36 @@ function PlayerGUI:draw_GUI(player)
     love.graphics.print("HP: "..player.hitpoints, 10, 10)
     love.graphics.print("Wounds: "..player.wounds, 10, 25)
 
-    --draw stats
-    love.graphics.setColor(255, 255, 102)
-    love.graphics.print("STR: "..player:getStat("STR"), 10, 45)
-    love.graphics.print("DEX: "..player:getStat("DEX"), 10, 60)
-    love.graphics.print("CON: "..player:getStat("CON"), 10, 75)
-    love.graphics.print("INT: "..player:getStat("INT"), 10, 90)
-    love.graphics.print("WIS: "..player:getStat("WIS"), 10, 105)
-    love.graphics.print("CHA: "..player:getStat("CHA"), 10, 120)
-    --love.graphics.print("LUC: "..player:getStat("LUC"), 10, 135)
+    --draw body
+    love.graphics.setColor(colors.GREEN)
+    if player.body_parts then
+        local x = 50
+        local w = 20
+        if player.body_parts["head"] then
+            love.graphics.circle("fill", x+10, 50, 5)
+        end
+        if player.body_parts["torso"] then
+            love.graphics.rectangle("fill", x, 60, w, 25)
+        end
+        if player.body_parts["arms"] then
+            love.graphics.setColor(colors.YELLOW)
+            self:draw_angled_rectangle(x, 60, w/4, 20, 5)
+            self:draw_angled_rectangle(x+w, 60, w/4, 20, -5)
+            --love.graphics.rectangle("fill", x, 60, w/4, 20)
+            --love.graphics.rectangle("fill", x+w, 60, w/4, 20)
+        end
+        if player.body_parts["legs"] then
+            love.graphics.rectangle("fill", x, 85, w/4, 20)
+            love.graphics.rectangle("fill", x+w*0.75, 85, w/4, 20)
+        end
+    end
+end
+
+function PlayerGUI:draw_angled_rectangle(x,y, width, height, skew)
+    love.graphics.line(x,y, x+width, y+skew)
+    love.graphics.line(x,y, x-skew, y+height)
+    love.graphics.line(x+width, y+skew, x+width-skew, y+height)
+    love.graphics.line(x-skew, y+height, x+width-skew, y+height)
 end
 
 --tooltip stuff
