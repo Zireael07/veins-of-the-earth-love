@@ -4,6 +4,9 @@ require 'class.Map'
 
 local Faction = require 'class.Faction'
 
+--needs to be req'd first
+local ActorTemporaryValues = require 'T-Engine.interface.ActorTemporaryValues'
+
 local ActorInventory = require 'interface.ActorInventory'
 local Combat = require 'interface.ActorCombat'
 local ActorLife = require 'interface.ActorLife'
@@ -17,7 +20,8 @@ local Treasure = require 'class.Treasure'
 --Player
 local Chat = require 'class.Chat'
 
-module("Actor", package.seeall, class.inherit(ActorInventory, Combat, ActorLife, ActorStats, ActorSkills))
+module("Actor", package.seeall, class.inherit(ActorTemporaryValues,
+  ActorInventory, Combat, ActorLife, ActorStats, ActorSkills))
 
 function _M:init(t)
     if t then print("We were given a table") end

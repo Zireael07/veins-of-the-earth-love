@@ -121,6 +121,11 @@ function _M:removeObject(inven_id, item)
     local o = inven[item]
 
     table.remove(inven, item)
+
+    -- Do whatever is needed when taking off this object
+    if inven.worn then
+        self:onTakeoff(o, self.inven_def[inven.id].short_name)
+    end
 end
 
 function _M:pickupFloor()
@@ -170,10 +175,14 @@ function _M:wearObject(o, inven_id)
 end
 
 function _M:onWear(o, inven_id)
+    -- Apply wielder properties
+    o.wielded = {}
+
     if o.wielder then
         for k, e in pairs(o.wielder) do
             --temporary band-aid
-            self[k] = e
+            --self[k] = e
+            o.wielded[k] = self:addTemporaryValue(k, e)
         end
     end
 end
@@ -184,6 +193,19 @@ function _M:doWear(inven, item, o, dst)
       self:removeObject(inven, item)
     end
     
+end
+
+function _M:onTakeoff(o, inven_id)
+    if o.wielded then
+        for k, id in pairs(o.wielded) do
+            if type(id) == "table" then
+                self:removeTemporaryValue(id[1], id[2])
+            else
+                self:removeTemporaryValue(k, id)
+            end
+        end
+    end
+    o.wielded = nil
 end
 
 function _M:takeoffObject(inven_id, item)
