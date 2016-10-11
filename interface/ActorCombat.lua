@@ -33,19 +33,22 @@ function ActorCombat:attackRoll(target, weapon)
     local hit = true
     local crit = false
 
+    --get our attack bonus
+    attack, attacklog_add = self:combatAttack(weapon)
+
     local ac = target:getAC()
 
     --Hit check
     --if concealment
     if d == 1 then hit = false
     elseif d == 20 then hit = true
-    elseif d < ac then hit = false
+    elseif d + attack < ac then hit = false
     end
 
      -- Crit check
     local threat = 0 + (weapon and weapon.combat.threat or 0)
     
-    self:attackMessage(target, hit, d, ac)
+    self:attackMessage(target, hit, d, attack, ac)
 
     if hit and d >= 20 - threat then
       -- threatened critical hit confirmation roll
@@ -64,6 +67,15 @@ end
 function ActorCombat:dealDamage(target, weapon, crit)
   local dam = dice.roll(weapon.combat.dam[1].."d"..weapon.combat.dam[2])
 
+  -- Stat damage bonus
+    if weapon and weapon.ranged then
+        strmod = strmod or 0
+    else
+        strmod = strmod or 1
+    end
+
+    dam = dam + (strmod * self:getStatMod("STR"))
+
   --Minimum 1 point of damage unless Damage Reduction works
     dam = math.max(1, dam)
 
@@ -72,17 +84,19 @@ function ActorCombat:dealDamage(target, weapon, crit)
     target:takeHit(dam, self)
 end 
 
-function ActorCombat:attackMessage(target, hit, d, ac)
+function ActorCombat:attackMessage(target, hit, d, attack, ac)
     if hit then
-        logMessage(colors.GOLD, "Hit "..target.name.." roll "..d.." vs. AC "..ac)
+        logMessage(colors.GOLD, "Hit "..target.name.." roll "..d.." + "..attack.." vs. AC "..ac)
     else
-        logMessage(colors.LIGHT_BLUE, "Missed "..target.name.." roll "..d.." vs. AC "..ac)
+        logMessage(colors.LIGHT_BLUE, "Missed "..target.name.." roll "..d.." + "..attack.." vs. AC "..ac)
     end
 end
 
 function ActorCombat:getAC(log, touch)
     --Add logging
     local log_ac = ""
+
+    local dex_bonus = self:getStatMod("DEX")
 
     local ac_bonuses = 0
 
@@ -102,13 +116,40 @@ function ActorCombat:getAC(log, touch)
         if log == true and value > 0 then log_ac = log_ac..string:capitalize().." "..value.." " end
     end
 
+    if self.max_dex_bonus then dex_bonus = math.min(dex_bonus, self.max_dex_bonus) end
+    if log then log_ac = log_ac.."Dex "..dex_bonus.." " end
+
     if log == true then
         return math.floor(10 + ac_bonuses + (dex_bonus or 0)), log_ac
     else
         return math.floor(10 + ac_bonuses + (dex_bonus or 0))
     end
 
-    print(self.name.." AC: ".. log_ac)
+    print_to_log("[COMBAT]"..self.name.." AC: ".. log_ac)
 end
+
+--Get attack mods for the character sheet
+function _M:combatAttack(weapon)
+    --log
+    local attacklog = attacklog or ""
+    local attack = 0
+
+    -- Stat bonuses
+    local stat_used = "STR"
+
+    if weapon and weapon.ranged then
+       stat_used = "DEX"
+    end
+
+    if stat_used == "STR" then
+        local str = self:getStatMod("STR")
+        attacklog = attacklog.." "..str.." Str"
+    end
+
+    attack = attack + (weapon and weapon.combat.magic_bonus or 0) + (self:getStatMod(stat_used) or 0)
+
+    return attack, attacklog
+end
+
 
 return ActorCombat

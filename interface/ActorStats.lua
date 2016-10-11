@@ -38,6 +38,17 @@ function ActorStats:getStat(s)
     return val
 end
 
+function ActorStats:getStatMod(s)
+    local stat = self.stats[s]
+    assert(stat, 'no stat '..s)
+
+    local val
+    val = stat.current
+    val = math.floor((val - 10) /2)
+    --print("Mod value is", val)
+    return val
+end
+
 function ActorStats:setStat(s, val)
   local stat = self.stats[s]
 
