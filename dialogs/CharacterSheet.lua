@@ -28,6 +28,23 @@ function CharacterSheet:draw(player)
     love.graphics.print("WIS: "..player:getStat("WIS"), 155, 200)
     love.graphics.print("CHA: "..player:getStat("CHA"), 155, 225)
 
+    CharacterSheet:drawACForLocations(player)
+
+end
+
+function CharacterSheet:drawACForLocations(player)
+    local locations = { "torso", "arms", "legs", "head" }
+    list = {}
+
+    for i, location in pairs(locations) do
+        ac = player:getAC(true, false, location) or 10
+        list[#list+1] = {loc=location, ac=ac}
+    end
+    y = 50
+    for i, t in ipairs(list) do
+        love.graphics.print(("%s AC : %d"):format(t.loc, t.ac), 300, y)
+        y = y + 25
+    end
 end
 
 return CharacterSheet

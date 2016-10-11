@@ -92,7 +92,7 @@ function ActorCombat:attackMessage(target, hit, d, attack, ac)
     end
 end
 
-function ActorCombat:getAC(log, touch)
+function ActorCombat:getAC(log, touch, location)
     --Add logging
     local log_ac = ""
 
@@ -109,6 +109,11 @@ function ActorCombat:getAC(log, touch)
 
     for i, source in pairs(ac_bonuses_table) do
         local value = self["combat_"..source] or 0
+
+        --only armor is actually locational
+        if (source == "armor" or source == "magic_armor") and location ~= nil then
+            value = self["combat_"..source.."_"..location] or 0
+        end
 
         local string = source:gsub("_", " ")
         ac_bonuses = (ac_bonuses or 0) + value
@@ -150,6 +155,30 @@ function _M:combatAttack(weapon)
 
     return attack, attacklog
 end
+
+--Body parts code
+function _M:randomBodyPart()
+    local roll = rng.dice(1,20)
+
+    if roll >= 19 then return "head"
+    elseif roll >= 16 then return "wing"
+    elseif roll >= 12 then return "torso"
+    elseif roll >= 8 then return "legs"
+    elseif roll >= 5 then return "tail"
+    else return "arms"
+    end
+end
+
+function _M:getLocationAC()
+    local location
+    location = self:randomBodyPart()
+
+    if location == "wing" and not self.body_parts[wing] then location = self:randomBodyPart() end
+    if location == "tail" and not self.body_parts[tail] then location = self:randomBodyPart() end
+
+    return self:getAC(false, false, location)
+end
+
 
 
 return ActorCombat

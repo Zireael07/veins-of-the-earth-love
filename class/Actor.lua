@@ -36,6 +36,9 @@ function _M:init(t)
     self.languages = t.languages
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
+     --Body parts
+    self.body_parts = t.body_parts or {}
+
     --portrait
     self.show_portrait = t.show_portrait or false
     if self.show_portrait then
