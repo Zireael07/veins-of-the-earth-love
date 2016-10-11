@@ -105,6 +105,8 @@ end
 function CharacterCreation:mousetodrag()
     if mouse.x < 350 or mouse.y < 50 then return end
 
+    if not self.rolled then return end
+
     local val
     local index
     if mouse.x > 350 and mouse.x < 400 then
