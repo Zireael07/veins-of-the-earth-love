@@ -28,7 +28,7 @@ function CharacterSheet:draw(player)
     love.graphics.print("WIS: "..player:getStat("WIS"), 155, 200)
     love.graphics.print("CHA: "..player:getStat("CHA"), 155, 225)
 
-    CharacterSheet:drawACForLocations(player)
+    CharacterSheet:drawHPForLocations(player)
 
 end
 
@@ -43,6 +43,21 @@ function CharacterSheet:drawACForLocations(player)
     y = 50
     for i, t in ipairs(list) do
         love.graphics.print(("%s AC : %d"):format(t.loc, t.ac), 300, y)
+        y = y + 25
+    end
+end
+
+function CharacterSheet:drawHPForLocations(player)
+    local locations = { "torso", "arms", "legs", "head" }
+    list = {}
+
+    for i, location in pairs(locations) do
+        hp = player:getBodyPartHP(location)
+        list[#list+1] = {loc=location, hp=hp}
+    end
+    y = 50
+    for i, t in ipairs(list) do
+        love.graphics.print(("%s HP : %d"):format(t.loc, t.hp), 300, y)
         y = y + 25
     end
 end

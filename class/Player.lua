@@ -19,8 +19,9 @@ function _M:init(t)
     self.image = "player_tile"  --"gfx/player/racial_dolls/human_m.png"
     self.wounds = 20
     self.name = "Player"
-    if self.stats then
-      print("[Player] We have stats")
+    --do it again to account for increased hp above
+    if self.body_parts then
+      self:setBodyPartsHP()
     end
 end
 

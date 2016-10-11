@@ -88,4 +88,14 @@ function ActorLife:getHealthState()
     end
 end
 
+function ActorLife:getBodyPartHP(part)
+    local hp
+    if self.body_parts[part] then
+        hp = self["hitpoints_"..part]
+        --print("[ACTOR LIFE] Body part", part, "hp", hp)
+        return hp
+    end
+    return nil
+end
+
 return ActorLife

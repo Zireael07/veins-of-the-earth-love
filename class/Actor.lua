@@ -49,6 +49,10 @@ function _M:init(t)
     ActorLife.init(self, t)
     ActorStats.init(self, t)
     ActorSkills.init(self, t)
+
+    if self.body_parts then
+      self:setBodyPartsHP()
+    end
 end
 
 function _M:act()
@@ -195,6 +199,27 @@ function _M:on_die(src)
     Treasure:getTreasure(1)
   end
 end
+
+function _M:setBodyPartsHP()
+  local hp = self.max_hitpoints
+  if self.body_parts["head"] then 
+    self.max_hitpoints_head = math.floor(hp*0.33)
+    self.hitpoints_head = self.max_hitpoints_head
+  end
+  if self.body_parts["torso"] then
+    self.max_hitpoints_torso = math.floor(hp*0.4)
+    self.hitpoints_torso = self.max_hitpoints_torso
+  end
+  if self.body_parts["arms"] then
+    self.max_hitpoints_arms = math.floor(hp*0.25)
+    self.hitpoints_arms = self.max_hitpoints_arms
+  end
+  if self.body_parts["legs"] then
+    self.max_hitpoints_legs = math.floor(hp*0.25)
+    self.hitpoints_legs = self.max_hitpoints_legs
+  end
+end  
+
 
 --languages
 function _M:getLanguages()
