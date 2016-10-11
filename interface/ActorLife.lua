@@ -21,36 +21,36 @@ function ActorLife:takeHit(value, src)
     self.damage_taken = value
 
     --subtract hp
-    if value <= self.hitpoints and value > 0 then
-        self.hitpoints = self.hitpoints - value
-        logMessage(colors.WHITE, src.name.." hits "..self.name.." for "..value.." damage!")
-    end
-    
-    --subtract wounds
-    if value > self.hitpoints and value > 0 then
+    if value > 0 then
+        if value <= self.hitpoints then
+            self.hitpoints = self.hitpoints - value
+            logMessage(colors.WHITE, src.name.." hits "..self.name.." for "..value.." damage!")
+        else
+        
+            --subtract wounds
+            local wounds_remaining = value - self.hitpoints
+            value = value - self.hitpoints
+            self.hp = 0
 
-        local wounds_remaining = value - self.hitpoints
-        value = value - self.hitpoints
-        self.hp = 0
+            self.wounds = self.wounds - wounds_remaining
 
-        self.wounds = self.wounds - wounds_remaining
+            --log
+            logMessage(colors.LIGHT_RED, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
 
-        --log
-        logMessage(colors.LIGHT_RED, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
+            if self.hitpoints <= 1 then value = 0 end
 
-        if self.hitpoints <= 1 then value = 0 end
-
-        wounds_remaining = 0
-        if self.max_wounds and self.wounds < self.max_wounds then
-            if self.wounds <= self.max_wounds/2 then
-                --disabled
-            else
-                --fatigued
+            wounds_remaining = 0
+            if self.max_wounds and self.wounds < self.max_wounds then
+                if self.wounds <= self.max_wounds/2 then
+                    --disabled
+                else
+                    --fatigued
+                end
             end
-        end
-        --we're out of wounds, die
-        if self.wounds <= 0 and not self.dead then
-            self:die(src)
+            --we're out of wounds, die
+            if self.wounds <= 0 and not self.dead then
+                self:die(src)
+            end
         end
     end
 end

@@ -66,15 +66,17 @@ end
 
 function ActorCombat:dealDamage(target, weapon, crit)
   local dam = dice.roll(weapon.combat.dam[1].."d"..weapon.combat.dam[2])
-
+  --print_to_log("[COMBAT] rolling", weapon.combat.dam[1], weapon.combat.dam[2])
   -- Stat damage bonus
     if weapon and weapon.ranged then
         strmod = strmod or 0
     else
         strmod = strmod or 1
     end
+    --print_to_log("[COMBAT] damage after rolling", dam)
 
     dam = dam + (strmod * self:getStatMod("STR"))
+    --print_to_log("[COMBAT] strength mod:", self:getStatMod("STR"), "total damage:", dam)
 
   --Minimum 1 point of damage unless Damage Reduction works
     dam = math.max(1, dam)
