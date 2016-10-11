@@ -60,17 +60,21 @@ function ChatDialog:generateText()
     -- Makes up the list
     local answers_list = {}
     local nb = 1
-    for i, a in ipairs(self.chat:get(self.cur_id).answers) do
-        if not a.fallback and (not a.cond or a.cond(self.npc, self.player)) then
-            --show skills
-            local text = ""
-            if a.skill then text = "["..a.skill:capitalize().."] " end
+    if self.player:speakSameLanguage(self.npc) then
+        for i, a in ipairs(self.chat:get(self.cur_id).answers) do
+            if not a.fallback and (not a.cond or a.cond(self.npc, self.player)) then
+                --show skills
+                local text = ""
+                if a.skill then text = "["..a.skill:capitalize().."] " end
 
-            answers_list[#answers_list+1] = { name=string.char(string.byte('a')+nb-1)..") "..text.." "..self.chat:replace(a[1], self.player), answer=i, color=a.color}
-            nb = nb + 1
+                answers_list[#answers_list+1] = { name=string.char(string.byte('a')+nb-1)..") "..text.." "..self.chat:getText(a[1]), answer=i, color=a.color}
+                nb = nb + 1
+            end
         end
+    else
+        --guaranteed option
+        answers_list[#answers_list+1] = { name=string.char(string.byte('a')+nb-1)..") ".."[Leave]", answer=i }
     end
-
     self.list = answers_list
 end
 
@@ -117,11 +121,21 @@ function ChatDialog:mouse_pressed(x,y,b)
     if b == 1 then
         if mouse_answer then
             ChatDialog:use(mouse_answer)
+        else
+            ChatDialog:use()
         end
     end
 end
 
 function ChatDialog:use(answer)
+    if not answer then
+        print("[CHAT] clicked default option")
+        --close dialog
+        setDialog('')
+        return
+    end
+
+
     a = self.chat:get(self.cur_id).answers[answer]
     if not a then return end
 

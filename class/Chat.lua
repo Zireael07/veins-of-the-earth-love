@@ -65,6 +65,11 @@ function Chat:invoke(id)
     setDialog("chat", {chat=self, id=id or self.default_id})
 end
 
+--No scrambling, just get text
+function _M:getText(text)
+    return text
+end
+
 function _M:replace(text, actor)
     --languages
     if not self.player:speakSameLanguage(self.npc) then
