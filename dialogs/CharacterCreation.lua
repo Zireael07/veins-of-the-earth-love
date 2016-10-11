@@ -103,7 +103,7 @@ function CharacterCreation:mouse()
 end
 
 function CharacterCreation:mousetodrag()
-    if mouse.x < 350 and mouse.y < 50 then return end
+    if mouse.x < 350 or mouse.y < 50 then return end
 
     local val
     local index
