@@ -29,6 +29,7 @@ function CharacterSheet:draw(player)
     love.graphics.print("CHA: "..player:getStat("CHA"), 155, 225)
 
     CharacterSheet:drawHPForLocations(player)
+    CharacterSheet:drawACForLocations(player)
 
 end
 
@@ -40,7 +41,7 @@ function CharacterSheet:drawACForLocations(player)
         ac = player:getAC(true, false, location) or 10
         list[#list+1] = {loc=location, ac=ac}
     end
-    y = 50
+    y = 200
     for i, t in ipairs(list) do
         love.graphics.print(("%s AC : %d"):format(t.loc, t.ac), 300, y)
         y = y + 25
