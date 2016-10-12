@@ -17,6 +17,7 @@ function Spawn:createActor(x,y, id)
     if id and npc_types[id] then
       local t = npc_types[id]
       print("Creating an npc from data", id)
+      t = Entity:newEntity(t, "actor")
       actor = Actor.new(t)
     else
       --actor = Actor.new()
@@ -38,7 +39,8 @@ function Spawn:createItem(x,y, id)
       print("Creating an object from data", id)
       object = Object.new(t)
     else
-      object = Object.new()
+      --object = Object.new()
+      print("Id not given, not doing anything") return
     end
 
     print("[Spawn] Created item at ",x,y)

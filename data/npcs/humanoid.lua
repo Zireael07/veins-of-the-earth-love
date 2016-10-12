@@ -1,8 +1,12 @@
-npc_types['drow'] = {
+npc_types['humanoid'] = {
     type = "humanoid",
     body = { INVEN = 10, MAIN_HAND = 1, OFF_HAND = 1, BODY = 1, HELM = 1, QUIVER=1 },
     body_parts = { torso=1, arms=1, legs=1, head=1 },
     --emote_anger = "I will kill you!",
+}
+
+npc_types['drow'] = {
+    base = 'humanoid',
 
     name = "drow",
     image = "drow",
@@ -29,10 +33,7 @@ npc_types['drow'] = {
 }
 
 npc_types['orc'] = {
-    type = "humanoid",
-    body = { INVEN = 10, MAIN_HAND = 1, OFF_HAND = 1, BODY = 1, HELM = 1, QUIVER=1 },
-    body_parts = { torso=1, arms=1, legs=1, head=1 },
-   -- emote_anger = "I will kill you!",
+    base = "humanoid",
 
     name = "orc",
     image = "orc",
@@ -57,10 +58,7 @@ npc_types['orc'] = {
 }
 
 npc_types['human'] = {
-    type = "humanoid",
-    body = { INVEN = 10, MAIN_HAND = 1, OFF_HAND = 1, BODY = 1, HELM = 1, QUIVER=1 },
-    body_parts = { torso=1, arms=1, legs=1, head=1 },
-    emote_anger = "I will kill you!",
+    base = "humanoid",
 
     name = "human",
     image = "human",
@@ -78,10 +76,7 @@ npc_types['human'] = {
 }
 
 npc_types['gnome'] = {
-    type = "humanoid",
-    body = { INVEN = 10, MAIN_HAND = 1, OFF_HAND = 1, BODY = 1, HELM = 1, QUIVER=1 },
-    body_parts = { torso=1, arms=1, legs=1, head=1 },
-    emote_anger = "I will kill you!",
+    base = "humanoid",
 
     name = "gnome",
     image = "gnome",
