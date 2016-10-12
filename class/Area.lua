@@ -108,6 +108,9 @@ function Area:spawnStuff()
   Spawn:createItem(2,2, "longsword")
   Spawn:createItem(4,4, "leather armor")
   Spawn:createItem(7,7, "light steel shield")
+  --test
+  Spawn:createItem(1,1, "leather helmet")
+  Spawn:createItem(1,2, "leather armor")
 end
 
 return Area

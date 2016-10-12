@@ -33,6 +33,7 @@ function Tile:loadTiles()
     shield_heavy_wooden = lg.newImage("gfx/tiles/object/shield_heavy_wooden.png"),
     shield_heavy_steel = lg.newImage("gfx/tiles/object/shield_heavy_steel.png"),
     shield_tower = lg.newImage("gfx/tiles/object/shield_tower.png"),
+    helmet_metal = lg.newImage("gfx/tiles/object/helmet_metal.png"),
     --effect
     damage_tile = lg.newImage("gfx/splash_gray.png"),
 
