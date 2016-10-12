@@ -74,6 +74,20 @@ function CharacterCreation:draw(player)
         love.graphics.rectangle('fill', x+100, y, 20, 20)
     end
     love.graphics.print("Male", x+130, y)
+
+    --race selection
+    races = { {name="Human"},  {name="Half-Elf", stats_add = { cha = 2, }}, {name="Dwarf", stats_add = { con = 2, cha = -2}} }
+    local x = 400
+    local y = 100
+    for i, r in ipairs(races) do
+        if i == race then
+            love.graphics.setColor(colors.RED)
+        else
+            love.graphics.setColor(255, 255, 102)
+        end
+        love.graphics.print(r.name, x, y)
+        y = y + 15
+    end
 end
 
 function CharacterCreation:mouse_pressed(x,y,b)
@@ -102,10 +116,21 @@ function CharacterCreation:mouse_pressed(x,y,b)
 
         --gender
         if mouse.x > 400 and mouse.x < 420 then
-            CharacterCreation:setGender("female")
+            if mouse.y > 50 and mouse.y < 75 then
+                CharacterCreation:setGender("female")
+            end
         end
         if mouse.x > 500 and mouse.x < 520 then
-            CharacterCreation:setGender("male")
+            if mouse.y > 50 and mouse.y < 75 then
+                CharacterCreation:setGender("male")
+            end
+        end
+
+        --races
+        if mouse.x > 400 and mouse.x < 450 then
+            if race then
+                CharacterCreation:selectRace(race)
+            end
         end
     --right mouse button
     elseif b == 2 then
@@ -128,6 +153,7 @@ end
 function CharacterCreation:mouse()
     mouse_over, index = CharacterCreation:mousetodrag()
     box = CharacterCreation:mousetobox()
+    race = CharacterCreation:mousetoRace()
 end
 
 function CharacterCreation:mousetodrag()
@@ -213,5 +239,38 @@ end
 function CharacterCreation:setGender(val)
     player.gender = val
 end
+
+function CharacterCreation:mousetoRace()
+    if mouse.x < 400 and mouse.y < 100 then return end
+    local race
+    if mouse.x > 400 and mouse.x < 450 then
+        if mouse.y > 100 and mouse.y < 115 then
+            race = 1 --"Human"
+        end
+        if mouse.y > 115 and mouse.y < 130 then
+            race = 2 --"Half-Elf"
+        end
+        if mouse.y > 130 and mouse.y < 150 then
+            race = 3 --"Dwarf"
+        end
+    end
+
+    return race
+end
+
+function CharacterCreation:selectRace(race)
+    --print("[CHARACTER CREATION] selected race #", race)
+
+    print("Race selected is", races[race].name)
+
+    if races[race].stats_add then
+        for stat, val in pairs(races[race].stats_add) do
+            local curr = player:getStat(stat:upper())
+            --print("Current val for stat", curr, stat, "to add", val)
+            player:setStat(stat:upper(), curr+val)
+        end
+    end
+end
+
 
 return CharacterCreation
