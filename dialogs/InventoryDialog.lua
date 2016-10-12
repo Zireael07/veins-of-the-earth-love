@@ -2,26 +2,6 @@ require 'T-Engine.class'
 
 module("InventoryDialog", package.seeall, class.make)
 
-function InventoryDialog:loadTiles()
-    --inventory
-    ammo_inv = love.graphics.newImage("gfx/inventory/ammo_inv.png")
-    amulet_inv = love.graphics.newImage("gfx/inventory/amulet_inv.png")
-    armor_inv = love.graphics.newImage("gfx/inventory/armor_inv.png")
-    arms_inv = love.graphics.newImage("gfx/inventory/arms_inv.png")
-    belt_inv = love.graphics.newImage("gfx/inventory/belt_inv.png")
-    boots_inv = love.graphics.newImage("gfx/inventory/boots_inv.png")
-    cloak_inv = love.graphics.newImage("gfx/inventory/cloak_inv.png")
-    gloves_inv = love.graphics.newImage("gfx/inventory/gloves_inv.png")
-    head_inv = love.graphics.newImage("gfx/inventory/head_inv.png")
-    light_inv = love.graphics.newImage("gfx/inventory/light_inv.png")
-    mainhand_inv = love.graphics.newImage("gfx/inventory/mainhand_inv.png")
-    offhand_inv = love.graphics.newImage("gfx/inventory/offhand_inv.png")
-    ring_inv = love.graphics.newImage("gfx/inventory/ring_inv.png")
-    shoulder_inv = love.graphics.newImage("gfx/inventory/shoulder_inv.png")
-    tool_inv = love.graphics.newImage("gfx/inventory/tool_inv.png")
-end
-
-
 function InventoryDialog:drawSlot(inven, x, y)
   local tiles = {
     BODY = loaded_tiles["armor_inv"],
@@ -175,13 +155,18 @@ function InventoryDialog:draw(player)
     --fill right hand side
     love.graphics.setColor(255, 255, 102)
     love.graphics.print("INVENTORY", 500, 50)
-    love.graphics.print("AC: "..player:getAC(), 500, 100)
+    --love.graphics.print("AC: "..player:getAC(), 500, 100)
 
 
     --tooltip?
     if item then
         love.graphics.setColor(255, 255, 102)
         love.graphics.print(item.name, mouse.x, mouse.y + 20)
+    end
+
+    if slot then 
+        love.graphics.setColor(colors.RED)
+        love.graphics.print(slot, mouse.x + 10, mouse.y + 30)
     end
 
     --dragged items
