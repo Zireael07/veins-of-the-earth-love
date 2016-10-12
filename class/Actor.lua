@@ -32,6 +32,8 @@ function _M:init(t)
     self.display = t.display --or "o"
     self.image = t.image --or "orc"
     self.name = t.name --or "orc"
+    self.type = t.type
+    self.subtype = t.subtype
     self.path = nil
     self.faction = t.faction or "enemy"
     --test
