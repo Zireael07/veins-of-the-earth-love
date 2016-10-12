@@ -70,3 +70,33 @@ object_types['chain mail'] = {
         armor_penalty = 5
     },
 }
+
+--Actual item generation starts here
+local function newArmor(base, name, rarity, location, encumber, slot, ac, image)
+    object_types[name] = { base = base,
+        name = name,
+        image = image,
+        rarity = rarity,
+        encumber = encumber,
+        slot = slot,
+        wielder = {
+            ["combat_armor_"..location] = ac,
+        }
+    }
+end
+
+newArmor("leather armor", "leather armor", 5, "torso", 10, "BODY", 2, "leather")
+newArmor("chain_mail", "chain mail", 12, "torso", 40, "BODY", 5, "chain_mail")
+--newArmor("plate armor", "plate armor", 18, "torso", 50, "BODY", 7)
+
+newArmor("leather armor", "leather bracers", 5, "arms", 2, "ARMS", 2, "bracers")
+newArmor("chain_mail", "chain bracers", 12, "arms", 8, "ARMS", 5, "bracers")
+--newArmor("plate armor", "plate bracers", 18, "arms", 10, "ARMS", 7, "bracers")
+
+newArmor("leather armor", "leather greaves", 5, "legs", 2, "LEGS", 2, "greaves")
+newArmor("chain_mail", "chain greaves", 12, "legs", 8, "LEGS", 5, "greaves")
+--newArmor("plate armor", "plate greaves", 18, "legs", 10, "LEGS", 7, "greaves")
+
+newArmor("leather armor", "leather helmet", 5, "head", 1, "HELM", 2, "helmet_metal")
+newArmor("chain_mail", "chain helmet", 12, "head", 4, "HELM", 5, "helmet_metal")
+--newArmor("plate armor", "plate helmet", 18, "head", 8, "HELM", 7, "helmet_metal")
