@@ -36,7 +36,7 @@ function _M:init(t)
     self.subtype = t.subtype
     self.path = nil
     self.faction = t.faction or "enemy"
-    --test
+    --dialogue
     self.text = t.text
     self.convo = t.convo
     self.languages = t.languages
@@ -45,6 +45,7 @@ function _M:init(t)
      --Body parts
     self.body_parts = t.body_parts or {}
 
+    self.gender = t.gender or "neuter"
     --portrait
     self.show_portrait = t.show_portrait or false
     if self.show_portrait then

@@ -14,7 +14,7 @@ function CharacterCreation:draw(player)
 
     love.graphics.print("CHARACTER CREATION", 200, 40)
 
-    y = 50
+    local y = 50
     love.graphics.print("STR:", 155, y)
     love.graphics.print("DEX:", 155, y+25)
     love.graphics.print("CON:", 155, y+50)
@@ -34,7 +34,7 @@ function CharacterCreation:draw(player)
         y = y + 25
     end
 
-    y = 50
+    local y = 50
     love.graphics.setColor(255, 255, 102)
     love.graphics.print("REROLL", 250, y+30)
 
@@ -54,6 +54,26 @@ function CharacterCreation:draw(player)
         love.graphics.setColor(colors.GREEN)
         love.graphics.print(drag.val, mouse.x + 10, mouse.y + 2)
     end
+
+    --pick gender
+    local x = 400
+    local y = 50
+
+    love.graphics.setColor(255, 255, 102)
+    if not player.gender then
+        love.graphics.rectangle('line', x, y, 20, 20)
+    elseif player.gender == "female" then
+        love.graphics.rectangle('fill', x, y, 20, 20)
+    end
+    love.graphics.print("Female", x+30, y)
+
+    --love.graphics.rectangle('line', x+100, y, 20, 20)
+    if not player.gender then
+        love.graphics.rectangle('line', x+100, y, 20, 20)
+    elseif player.gender == "male" then
+        love.graphics.rectangle('fill', x+100, y, 20, 20)
+    end
+    love.graphics.print("Male", x+130, y)
 end
 
 function CharacterCreation:mouse_pressed(x,y,b)
@@ -78,6 +98,14 @@ function CharacterCreation:mouse_pressed(x,y,b)
 
         if mouse_over then
             drag = { val = mouse_over, index = index}
+        end
+
+        --gender
+        if mouse.x > 400 and mouse.x < 420 then
+            CharacterCreation:setGender("female")
+        end
+        if mouse.x > 500 and mouse.x < 520 then
+            CharacterCreation:setGender("male")
         end
     --right mouse button
     elseif b == 2 then
@@ -180,6 +208,10 @@ end
 
 function CharacterCreation:removeRolled(index)
     table.remove(self.rolled, index)
+end
+
+function CharacterCreation:setGender(val)
+    player.gender = val
 end
 
 return CharacterCreation
