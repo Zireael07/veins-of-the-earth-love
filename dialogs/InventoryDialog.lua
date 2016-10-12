@@ -206,7 +206,7 @@ function InventoryDialog:mousetoSlot()
         slot = "body"
     end
     if mouse.x > 210 and mouse.x < 210+s and mouse.y > 50 and mouse.y < 50+s then
-        slot = "head"
+        slot = "helm"
     end
     if mouse.x > 270 and mouse.x < 270+s and mouse.y > 50 and mouse.y < 50+s then
         slot = "amulet"

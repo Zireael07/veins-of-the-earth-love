@@ -123,7 +123,7 @@ function _M:removeObject(inven_id, item)
     table.remove(inven, item)
 
     -- Do whatever is needed when taking off this object
-    if inven.worn then
+    if inven.worn and o then
         self:onTakeoff(o, self.inven_def[inven.id].short_name)
     end
 end
@@ -158,6 +158,8 @@ end
 function _M:wearObject(o, inven_id)
 --    print("Wearing: ", o, inven_id)
     local inven = self:getInven(inven_id)
+    --catch errors if any
+    if not inven then return end
 
     local ok, err = self:canWearObject(o, inven.name)
 
