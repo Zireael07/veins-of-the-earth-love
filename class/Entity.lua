@@ -18,7 +18,7 @@ end
 
 --Common functions
 function Entity:importBase(t, base)
-    print("[ENTITY] Importing base:",base, "for", t)
+    --print("[ENTITY] Importing base:",base, "for", t.name)
     local temp = table.clone(base, true)
     table.mergeAppendArray(temp, t, true)
     t = temp
@@ -35,6 +35,8 @@ function Entity:newEntity(t, typ)
         print("[ENTITY] base is", b)
         if typ == "actor" then
             base = npc_types[b]
+        elseif typ == "object" then
+            base = object_types[b]
         end
         print("[ENTITY] Creating new entity with a base")
         t = self:importBase(t, base) 

@@ -5,15 +5,14 @@ require 'class.Map'
 module("Object", package.seeall, class.inherit(Entity))
 
 function _M:init(t)
-    if t then print("We were given a table") end
+    --if t then print("We were given a table") end
     t = t or {}
     --default loc for testing
     self.x = 1
     self.y = 1
     self.display = t.display or "/"
-    --if t.display then print("We were provided a display", t.display) end
-    self.image = t.image or "longsword"
-    self.name = t.name or "sword"
+    self.image = t.image --or "longsword"
+    self.name = t.name --or "sword"
     self.slot = t.slot
     self.combat = t.combat
     self.wielder = t.wielder

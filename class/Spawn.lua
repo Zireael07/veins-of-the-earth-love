@@ -14,6 +14,8 @@ function Spawn:createActor(x,y, id)
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
     
+    local actor
+
     if id and npc_types[id] then
       local t = npc_types[id]
       print("Creating an npc from data", id)
@@ -23,8 +25,10 @@ function Spawn:createActor(x,y, id)
       --actor = Actor.new()
       print("Id not given, not doing anything") return
     end
-    actor:move(x,y)
-
+    if actor then
+      actor:move(x,y)
+    end
+    
     --return actor
     return Entity:addEntity(actor)
 end
@@ -34,17 +38,21 @@ function Spawn:createItem(x,y, id)
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
 
+    local object
     if id and object_types[id] then
       local t = object_types[id]
       print("Creating an object from data", id)
+      t = Entity:newEntity(t, "object")
       object = Object.new(t)
     else
       --object = Object.new()
       print("Id not given, not doing anything") return
     end
 
-    print("[Spawn] Created item at ",x,y)
-    object:place(x,y)
+    if object then
+      print("[Spawn] Created item at ",x,y)
+      object:place(x,y)
+    end
 
     return object
 end
