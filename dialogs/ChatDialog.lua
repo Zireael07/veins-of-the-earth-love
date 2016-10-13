@@ -38,13 +38,16 @@ function ChatDialog:draw(chat, id)
     love.graphics.setColor(colors.WHITE)
     if self.npc.portrait then
         local doll = self.npc.portrait
-        love.graphics.draw(loaded_tiles[doll], 550, 30)
+        local width, height = loaded_tiles[doll]:getDimensions()
+        love.graphics.draw(loaded_tiles[doll], 550, 30, 0, 64/width, 64/height)
     end
     if self.npc.portrait_table then
         local table = self.npc.portrait_table
         for i, t in ipairs(table) do
             if loaded_tiles[t.name] then
-                love.graphics.draw(loaded_tiles[t.name], 550, 30)
+                local width, height = loaded_tiles[t.name]:getDimensions()
+                lg.draw(loaded_tiles[t.name], 550, 30, 0, 64/width, 64/height)
+                --love.graphics.draw(loaded_tiles[t.name], 550, 30)
             else
                 print("[PORTRAIT] Requested nonexistent picture", t.name)
             end
