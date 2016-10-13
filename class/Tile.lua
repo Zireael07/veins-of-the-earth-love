@@ -39,6 +39,8 @@ function Tile:loadTiles()
 
     --UI texture
     stone_bg = lg.newImage("gfx/stone_background.png"),
+    --body picture
+    body_ui = lg.newImage("gfx/body_gray.png"),
 
     --inventory
     ammo_inv = lg.newImage("gfx/inventory/ammo_inv.png"),
