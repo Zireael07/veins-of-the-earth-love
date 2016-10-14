@@ -76,8 +76,8 @@ function PlayerGUI:draw_tip(x,y)
 end
 
 function PlayerGUI:draw_unit_indicator()
-    for y=0, Map:getWidth()-1 do
-        for x=0, Map:getHeight()-1 do 
+    for y=1, Map:getWidth()-1 do
+        for x=1, Map:getHeight()-1 do 
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
                -- local circle_x = x*(32)+16+120
                -- local circle_y = y*(32)+16+0
@@ -120,8 +120,8 @@ end
 function PlayerGUI:draw_labels()
     --reset color
     love.graphics.setColor(255, 255, 255)
-    for y=0, Map:getWidth()-1 do
-        for x=0, Map:getHeight()-1 do
+    for y=1, Map:getWidth()-1 do
+        for x=1, Map:getHeight()-1 do
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
                 a = Map:getCellActor(x, y)
                 love.graphics.setColor(255, 255, 102)
@@ -184,8 +184,8 @@ end
 function PlayerGUI:draw_damage_splashes()
     --reset color
     love.graphics.setColor(255, 255, 255)
-    for y=0, Map:getWidth()-1 do
-        for x=0, Map:getHeight()-1 do
+    for y=1, Map:getWidth()-1 do
+        for x=1, Map:getHeight()-1 do
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
                 a = Map:getCellActor(x, y)
                 if a.damage_taken then
@@ -204,8 +204,8 @@ end
 function PlayerGUI:draw_emotes()
     love.graphics.setFont(sherwood_font)
     love.graphics.setColor(colors.GOLD)
-    for y=0, Map:getWidth()-1 do
-        for x=0, Map:getHeight()-1 do
+    for y=1, Map:getWidth()-1 do
+        for x=1, Map:getHeight()-1 do
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
                 a = Map:getCellActor(x, y)
                 if a.emote then
