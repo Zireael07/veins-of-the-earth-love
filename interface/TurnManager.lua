@@ -27,24 +27,27 @@ function TurnManager:rounds()
     c  =s:next()
     
     --test 
-    curr_ent = entities[c]
-    --debug display
-    local name = curr_ent.name
-
+    curr_ent = TurnManager:getCurrentEntity()
+    
     dur=10 --test
     s:setDuration(dur)
 
+    --debug display
+    local name = curr_ent.name
     --used by debug display
     if s then
       local time_elapsed = s:getTime()
       schedule_curr = "TIME: "..time_elapsed
     end
     schedule_curr = "["..schedule_curr.."] TURN: "..curr_ent.name.." ["..c.."] for "..dur.." units of time"
+    
     if curr_ent.player == true then 
       game_lock()
+      --calendar
       if s:getTime() > 0 then onTurn() end
-    --end
-      schedule_curr = "PLAYER "..schedule_curr end
+
+      schedule_curr = "PLAYER "..schedule_curr 
+    end
 
       self:setDebugString(schedule_curr)
 end
@@ -82,6 +85,16 @@ function TurnManager:removeDead()
             table.remove(entities, i)
         end
     end
+end
+
+function TurnManager:unlocked()
+    for i=1,#entities do
+        local item = entities[i]
+        if item['act'] then item:act() end
+    end
+
+    removeDead()
+    schedule()
 end
 
 return TurnManager

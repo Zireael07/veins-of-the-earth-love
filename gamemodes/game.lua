@@ -98,11 +98,6 @@ function draw_dialogs(player)
 
 end
 
---shorthand
-function celltotile(x, y)
-    return Map:convertTerraintoTile(x,y)
-end
-
 function gamemode.draw()
     love.graphics.setColor(255, 255, 255)
     --camera
@@ -241,13 +236,7 @@ function game_unlock()
   camera:lock();
   camera:storePosition();
 
-  for i=1,#entities do
-    local item = entities[i]
-    if item['act'] then item:act() end
-  end
-
-    removeDead()
-    schedule()
+  TurnManager:unlocked()
 end
 
 function endTurn()
