@@ -112,8 +112,8 @@ function isTilePassable(x,y)
   end
 
   if Map:getCell(x, y) then
-
-    if Map:getCellTerrain(x,y).display == "." then return true end
+    if Map:getCellTerrain(x,y).display == "." then return true 
+    else return false end
     if Map:getCellActor(x,y) then return false end
 
     if x ~= self_x and y ~= self_y then return true end
@@ -183,9 +183,9 @@ function Pathfinding:selectPathNodeColor(map, x,y)
     [2] = "ORANGE",
     [3] = "RED",
     [4] = "RED",
-    [5] = "VIOLET",
-    [6] = "PINK",
-    [7] = "ORCHID",
+    [5] = "LIGHT_RED",
+    [6] = "VIOLET",
+    [7] = "DARK_ORCHID",
     [8] = "PURPLE",
     [9] = "BLUE"
 }
