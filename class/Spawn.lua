@@ -2,7 +2,7 @@ require 'T-Engine.class'
 
 require 'class.Map'
 
-require 'class.Actor'
+require 'class.NPC'
 require 'class.Object'
 
 local Entity = require 'class.Entity'
@@ -20,7 +20,7 @@ function Spawn:createActor(x,y, id)
       local t = npc_types[id]
       print("Creating an npc from data", id)
       t = Entity:newEntity(t, "actor")
-      actor = Actor.new(t)
+      actor = NPC.new(t)
     else
       --actor = Actor.new()
       print("Id not given, not doing anything") return

@@ -65,11 +65,6 @@ end
 function _M:act()
   --check if we're alive
   if self.dead then return false end
-  
-  if not self.player == true then 
-    --do AI stuff
-    self:target(player)
-  end
 end
 
 function _M:getName()
@@ -77,18 +72,6 @@ function _M:getName()
 
   return name
 end
-
-function _M:target(player)
-  dir_x, dir_y = ActorAI:target(player, self.x, self.y)
-  print("[ACTOR] AI moving in dir", dir_x, dir_y)
-  self:moveDir(dir_x, dir_y)
-  --[[self.path = ActorAI:target(player, self.x, self.y)
-  if self.path then 
-      print_to_log("[Actor] We have a self path")
-  
-      self:moveAlongPath(self.path)
-  end]]
-end 
 
 function _M:move(x, y)
   if not x or not y then return end
@@ -203,11 +186,7 @@ function _M:bumpTarget(target)
 end
 
 function _M:on_die(src)
-  print("[ACTOR] on_die")
-  if not self.player == true then 
-    --gen treasure
-    Treasure:getTreasure(1)
-  end
+  --print("[ACTOR] on_die")
 end
 
 function _M:setBodyPartsHP()
