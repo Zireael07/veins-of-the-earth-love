@@ -11,6 +11,8 @@ require 'class.Entity'
 local utils = require 'utils'
 local Calendar = require "T-Engine.Calendar"
 
+local TurnManager = require "interface.TurnManager"
+
 local CameraHandler = require 'interface.CameraHandler'
 local Mouse = require 'class.Mouse'
 
@@ -44,11 +46,8 @@ function gamemode.load()
     Map:setupMapView()
     
     --load scheduler
-    s  =ROT.Scheduler.Action:new()
-    --put entities into scheduler
-    for i, e in ipairs(entities) do
-      s:add(i,true,i-1) 
-    end
+    TurnManager:init(entities)
+    s = TurnManager:getSchedulerClass()
 
     calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. \nThe time is %02d:%02d.", 1371, 1, 11)
   
@@ -213,61 +212,16 @@ function gamemode.update(dt)
     GUI:chat_mouse()
   end
   
-  --removeDead()
-  --schedule()
   rounds()
 end
 
 function schedule()
-  print("Cleaning up the scheduler...")
-  --clear the scheduler
-  s:clear()
-  
-
-  --put entities into scheduler
-   for i, e in ipairs(entities) do
-      s:add(i,true,i-1) 
-      --print("[Scheduler] Added: ", i, e)
-   end
+  TurnManager:schedule()
 end
 
 function rounds()
-    --do nothing if we're locked (waiting for player to finish turn)
-    if game_locked then return end
-      love.timer.sleep(.5)
-    --gets the number
-    c  =s:next()
-    --handle removed entities
-    --[[if not entities[c] then 
-      
-      if c > #entities then
-        c=1 
-      --go back to number 1
-      --if less than total, just advance on
-      else
-        c=c+1
-      end
-    end]]
-    
-    --test 
-    curr_ent = entities[c]
-    --debug display
-    local name = curr_ent.name
-
-    dur=10 --test
-    s:setDuration(dur)
-
-    --used by debug display
-    if s then
-      local time_elapsed = s:getTime()
-      schedule_curr = "TIME: "..time_elapsed
-    end
-    schedule_curr = "["..schedule_curr.."] TURN: "..curr_ent.name.." ["..c.."] for "..dur.." units of time"
-    if curr_ent.player == true then 
-      game_lock()
-      if s:getTime() > 0 then onTurn() end
-      schedule_curr = "PLAYER "..schedule_curr end
-    --draw_y= draw_y< 400 and draw_y +10 or 200
+  TurnManager:rounds()
+  schedule_curr = TurnManager:getDebugString()
 end
 
 --turn-basedness
@@ -302,15 +256,7 @@ function endTurn()
 end
 
 function removeDead()
-  for i=#entities,1,-1 do
-    local item = entities[i]
-    if item.dead then
-      print("Removing entity from list", i, item.name)
-      table.remove(entities, i)
-      --remove from scheduler, too
-      if s:remove(i) then print("Removed from scheduler", i) end
-    end
-  end
+  TurnManager:removeDead()
 end
 
 function logMessage(color,string)
