@@ -2,6 +2,8 @@ require 'T-Engine.class'
 
 local Pathfinding = require "interface.Pathfinding"
 
+local Map = require "class.Map"
+
 module("ActorAI", package.seeall, class.make)
 
 actor_path = {}
@@ -11,11 +13,18 @@ function ActorAI:target(target, self_x, self_y)
     
     print("[ActorAI] running AI")
 
-    actor_path = Pathfinding:findPath(target.x, target.y, self_x, self_y)
+    --test
+    local w = Map:getWidth()-1
+    local h = Map:getHeight()-1
+    dir_x, dir_y = Pathfinding:findPathDijkstra(target.x, target.y, self_x, self_y, w, h)
+
+    return dir_x, dir_y
+
+    --[[actor_path = Pathfinding:findPath(target.x, target.y, self_x, self_y)
     if actor_path then 
       --print("[ActorAI] We have a self path") 
       return ActorAI:getPath()
-    end
+    end]]
 end
 
 function ActorAI:getPath()

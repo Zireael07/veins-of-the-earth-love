@@ -94,4 +94,33 @@ end
   return path
 end
 
+function Pathfinding:findPathDijkstra(target_x, target_y, self_x, self_y, width, height)
+    print("[DIJKSTRA] target x: ", target_x, "y", target_y, "self x", self_x, "y: ", self_y, "width", width, "height", height)
+    player_dijkstra_map = ROT.DijkstraMap:new(target_x, target_y, width, height, isTilePassable)
+    player_dijkstra_map:compute()
+    dir_x, dir_y = player_dijkstra_map:dirTowardsGoal(self_x,self_y)
+    if dir_x == nil then dir_x = 0 end
+    if dir_y == nil then dir_y = 0 end
+    print("[DIJKSTRA] return", dir_x, dir_y)
+
+    return dir_x, dir_y
+end
+
+function isTilePassable(x,y)
+  --print("Calling isTilePassable, x", x, "y", y)
+  if x == nil or y == nil then 
+    print("ERROR: invalid coords for passability check") return
+  end
+
+  if Map:getCell(x, y) then
+
+    if Map:getCellTerrain(x,y).display == "." then return true end
+    if Map:getCellActor(x,y) then return false end
+
+    if x ~= self_x and y ~= self_y then return true end
+  end
+
+  return false
+end
+
 return Pathfinding

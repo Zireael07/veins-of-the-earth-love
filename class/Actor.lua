@@ -79,12 +79,15 @@ function _M:getName()
 end
 
 function _M:target(player)
-  self.path = ActorAI:target(player, self.x, self.y)
+  dir_x, dir_y = ActorAI:target(player, self.x, self.y)
+  print("[ACTOR] AI moving in dir", dir_x, dir_y)
+  self:moveDir(dir_x, dir_y)
+  --[[self.path = ActorAI:target(player, self.x, self.y)
   if self.path then 
       print_to_log("[Actor] We have a self path")
   
       self:moveAlongPath(self.path)
-  end
+  end]]
 end 
 
 function _M:move(x, y)
@@ -129,7 +132,7 @@ function _M:moveDir(dx, dy)
   
   local tx = self.x+dx
   local ty = self.y+dy
-  print("[Player] Move to", tx, ty)
+  print("[Actor] Move to", tx, ty)
   if self:canMove(tx, ty) then
     self:move(tx, ty)
   else
