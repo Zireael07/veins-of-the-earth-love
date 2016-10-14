@@ -122,7 +122,7 @@ function isTilePassable(x,y)
       ret = false 
     end
 
-    if x ~= self_x and y ~= self_y then ret = true end
+    --if x ~= self_x and y ~= self_y then ret = true end
 
     if Map:getCellActor(x,y) then 
       --print("Tile contains actor", x, y)
