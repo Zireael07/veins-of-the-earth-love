@@ -5,7 +5,7 @@ module("Tile", package.seeall, class.make)
 _G.loaded_tiles = {}
 
 function Tile:loadTiles()
-    print("[TILE] Loading tiles")
+    --print("[TILE] Loading tiles")
     --global table
     _G.loaded_tiles= {
     --map

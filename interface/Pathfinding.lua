@@ -39,7 +39,7 @@ function Pathfinding:isunWalkable(x, y)
 end
 
 function Pathfinding:getMap(map)
-    print_to_log("[Pathfinding] We are got an area map")
+    --print_to_log("[Pathfinding] We have got an area map")
     return map
 end
 
@@ -101,7 +101,7 @@ function Pathfinding:findPathDijkstra(target_x, target_y, self_x, self_y, width,
     dir_x, dir_y = player_dijkstra_map:dirTowardsGoal(self_x,self_y)
     if dir_x == nil then dir_x = 0 end
     if dir_y == nil then dir_y = 0 end
-    print("[DIJKSTRA] return", dir_x, dir_y)
+    --print("[DIJKSTRA] return", dir_x, dir_y)
 
     return dir_x, dir_y
 end

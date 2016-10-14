@@ -121,7 +121,7 @@ end
 --input
 function gamemode.keypressed(k)
     if popup_dialog == "inventory" then
-      print("Pressed key in inventory", k)
+      --print("Pressed key in inventory", k)
       if k == "escape" then dragged = nil end
     end
     --if any dialog then
@@ -252,7 +252,7 @@ end
 
 function endTurn()
   game_unlock()
-  print("[GAME] Ended our turn")
+  print_to_log("[GAME] Ended our turn")
 end
 
 function removeDead()

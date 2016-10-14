@@ -5,7 +5,7 @@ require 'class.Map'
 module("Grid", package.seeall, class.make)
 
 function _M:init(t)
-    if t then print("We were given a table") end
+    --if t then print("We were given a table") end
     t = t or {}
     --default loc for testing
     self.x = 1

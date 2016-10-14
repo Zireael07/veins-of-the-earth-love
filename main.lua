@@ -67,9 +67,9 @@ end
 --called when the window is focused
 function love.focus(f)
     if f then
-        print("Window is focused.")
+        --print("Window is focused.")
     else
-        print("Window is not focused.")
+        --print("Window is not focused.")
     end
     if gamemode and gamemode.focus then gamemode.focus(f) end
 end
