@@ -136,11 +136,12 @@ function _M:pickupFloor()
         o = Map:getCellObject(self.x, self.y)
         local ok = self:addObject(self.INVEN_INVEN, o)
         if ok then
-            print("Picked up", o.name)
+            logMessage(colors.WHITE, self.name.." picked up "..o.name)
             Map:setCellObject(self.x, self.y, nil)
+            endTurn()
         end
     else
-        print("Nothing to pick up here")
+        logMessage(colors.WHITE, "Nothing to pick up here")
     end    
 
 end
