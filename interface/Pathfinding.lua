@@ -111,15 +111,28 @@ function isTilePassable(x,y)
     print("ERROR: invalid coords for passability check") return
   end
 
-  if Map:getCell(x, y) then
-    if Map:getCellTerrain(x,y).display == "." then return true 
-    else return false end
-    if Map:getCellActor(x,y) then return false end
+  local ret
 
-    if x ~= self_x and y ~= self_y then return true end
+  if Map:getCell(x, y) then
+    if Map:getCellTerrain(x,y).display == "." then 
+      --print("Tile is floor", x, y) 
+      ret = true 
+    else 
+      --print("Tile is wall", x, y)
+      ret = false 
+    end
+
+    if x ~= self_x and y ~= self_y then ret = true end
+
+    if Map:getCellActor(x,y) then 
+      --print("Tile contains actor", x, y)
+      ret = false 
+    end
+  else
+    ret = false
   end
 
-  return false
+  return ret 
 end
 
 function Pathfinding:makeDijkstraMap(target_x, target_y, self_x, self_y, width, height)
@@ -169,7 +182,7 @@ end
 function Pathfinding:getValuesFromMap(map, x, y)
     local val
     val = map[y][x]
-    print("Val for x", x, 'y', y, "is", val)
+    --print("Val for x", x, 'y', y, "is", val)
     return val
 end
 
@@ -196,7 +209,7 @@ function Pathfinding:selectPathNodeColor(map, x,y)
     else
         color = "DARK_BLUE"
     end
-    print("Djikstra color is", color)
+    --print("Djikstra color is", color)
     return color
 end
 
