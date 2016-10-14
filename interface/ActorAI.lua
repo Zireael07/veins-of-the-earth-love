@@ -11,7 +11,7 @@ actor_path = {}
 function ActorAI:target(tx, ty, self_x, self_y)
     if not tx or not ty then return end
     
-    print("[ActorAI] running AI")
+    print_to_log("[ActorAI] running AI")
 
     --test
     local w = Map:getWidth()-1

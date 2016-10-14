@@ -24,14 +24,14 @@ end
 
 function _M:target(x,y)
   dir_x, dir_y = ActorAI:target(x, y, self.x, self.y)
-  print("[NPC] AI moving in dir", dir_x, dir_y)
+  --print("[NPC] AI moving in dir", dir_x, dir_y)
   self:moveDir(dir_x, dir_y)
 end  
 
 function _M:randomTarget()
     x, y = Map:findRandomStandingGrid()
     dir_x, dir_y = ActorAI:target(x, y, self.x, self.y)
-    print("[NPC] AI moving in dir", dir_x, dir_y)
+    --print("[NPC] AI moving in dir", dir_x, dir_y)
     self:moveDir(dir_x, dir_y)
 end  
 

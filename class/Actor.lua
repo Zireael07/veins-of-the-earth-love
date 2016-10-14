@@ -88,10 +88,10 @@ function _M:move(x, y)
   
   self.old_x, self.old_y = self.x or x, self.y or y
 	self.x, self.y = x, y
-  print("Actor: new x,y : ", self.x, self.y)
+  print_to_log("Actor: new x,y : ", self.x, self.y)
   --update map
-  print("Actor: updating map cell: ", x, y)
-  print("Actor:old cell: ", self.old_x, self.old_y) 
+  print_to_log("Actor: updating map cell: ", x, y)
+  print_to_log("Actor:old cell: ", self.old_x, self.old_y) 
   Map:setCellActor(self.old_x, self.old_y, nil)
   Map:setCellActor(x, y, self) --self.image) 
 
@@ -112,10 +112,11 @@ end
 function _M:moveDir(dx, dy)
   if not dx then dx = 0 end
   if not dy then dy = 0 end
+  print_to_log("[Actor] move in dir", dx, dy)
   
   local tx = self.x+dx
   local ty = self.y+dy
-  print("[Actor] Move to", tx, ty)
+  print_to_log("[Actor] Move to", tx, ty)
   if self:canMove(tx, ty) then
     self:move(tx, ty)
   else

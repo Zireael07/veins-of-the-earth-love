@@ -181,7 +181,7 @@ function gamemode.focus(f)
   local px = player.x * 32
   local py = player.y * 32
   if f then 
-     print("[GAME] Focus", px, py)
+     --print("[GAME] Focus", px, py)
     camera:lookAt( math.floor( px ), math.floor( py )) 
   else
     camera:lock()
@@ -273,8 +273,6 @@ function setDialog(str, data)
 end
 
 function setDijkstra(map)
-  print("[GAME] Set dijkstra")
+  --print("[GAME] Set dijkstra")
   dijkstra = map
-
-  print("[GAME] Dijkstra string is ", dijkstra)
 end

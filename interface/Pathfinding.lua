@@ -94,6 +94,7 @@ end
   return path
 end
 
+--used for NPC movement
 function Pathfinding:findPathDijkstra(target_x, target_y, self_x, self_y, width, height)
     player_dijkstra_map = Pathfinding:makeDijkstraMap(target_x, target_y, self_x, self_y, width, height)
 
@@ -136,7 +137,7 @@ function isTilePassable(x,y)
 end
 
 function Pathfinding:makeDijkstraMap(target_x, target_y, self_x, self_y, width, height)
-    print("[DIJKSTRA] target x: ", target_x, "y", target_y, "self x", self_x, "y: ", self_y, "width", width, "height", height)
+    print_to_log("[DIJKSTRA] target x: ", target_x, "y", target_y, "self x", self_x, "y: ", self_y, "width", width, "height", height)
     player_dijkstra_map = ROT.DijkstraMap:new(target_x, target_y, width, height, isTilePassable)
     player_dijkstra_map:compute()
     --player_dijkstra_map:writeMapToConsole()

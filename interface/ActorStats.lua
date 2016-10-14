@@ -53,7 +53,7 @@ function ActorStats:setStat(s, val)
   local stat = self.stats[s]
 
   stat.current = val
-  print("Set stat", s, "to", val)
+  print_to_log("Set stat", s, "to", val)
 end
 
 
