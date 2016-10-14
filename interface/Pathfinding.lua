@@ -98,6 +98,8 @@ function Pathfinding:findPathDijkstra(target_x, target_y, self_x, self_y, width,
     print("[DIJKSTRA] target x: ", target_x, "y", target_y, "self x", self_x, "y: ", self_y, "width", width, "height", height)
     player_dijkstra_map = ROT.DijkstraMap:new(target_x, target_y, width, height, isTilePassable)
     player_dijkstra_map:compute()
+    player_dijkstra_map:writeMapToConsole()
+
     dir_x, dir_y = player_dijkstra_map:dirTowardsGoal(self_x,self_y)
     if dir_x == nil then dir_x = 0 end
     if dir_y == nil then dir_y = 0 end
