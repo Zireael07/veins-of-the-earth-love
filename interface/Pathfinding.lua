@@ -169,10 +169,15 @@ function Pathfinding:parseDijkstraString(str)
     --print("Row #", i, "is", row)
     dijkstra[i] = {} --this is our y parameter
     local x = 0
-      for s in string.gmatch(row, "%d+") do     
-        x = x + 1
-        --print("Value in row is", s, "x is", x)
-        dijkstra[i][x] = s
+    local vals = row:split(",")
+      
+      for j = 1, #vals do  
+        val = vals[j]   
+        if val ~= '\n' or ' ' then
+          x = x + 1
+          --print("Value in row is", val, "x is", x)
+          dijkstra[i][x] = val
+        end
     end
   end
 
@@ -188,10 +193,12 @@ end
 
 function Pathfinding:selectPathNodeColor(map, x,y)
     val = Pathfinding:getValuesFromMap(map, x, y)
-    val = tonumber(val)
+    if val ~= "inf" then
+      val = tonumber(val)
+    end
 
     values_to_colors = {
-    [0] = "YELLOW",
+    [0] = "GOLD",
     [1] = "YELLOW",
     [2] = "ORANGE",
     [3] = "RED",
@@ -200,7 +207,8 @@ function Pathfinding:selectPathNodeColor(map, x,y)
     [6] = "VIOLET",
     [7] = "DARK_ORCHID",
     [8] = "PURPLE",
-    [9] = "BLUE"
+    [9] = "BLUE",
+    inf = "DARK_UMBER"
 }
 
     local color
