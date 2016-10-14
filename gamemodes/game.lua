@@ -69,6 +69,9 @@ function draw_GUI(player, camera)
   GUI:draw_log_messages()
   if not game_locked then
     GUI:draw_pause_debug()
+    if dijkstra then
+      GUI:draw_dijkstra_overlay(dijkstra)
+    end
   end
   draw_dialogs(player)
 end
@@ -267,4 +270,11 @@ function setDialog(str, data)
   if data then
     npc_chat = data
   end
+end
+
+function setDijkstra(map)
+  print("[GAME] Set dijkstra")
+  dijkstra = map
+
+  print("[GAME] Dijkstra string is ", dijkstra)
 end

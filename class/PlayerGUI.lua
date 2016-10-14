@@ -9,6 +9,9 @@ local ChatDialog = require 'dialogs.ChatDialog'
 local CharacterCreation = require 'dialogs.CharacterCreation'
 local CharacterSheet = require 'dialogs.CharacterSheet'
 
+--for debug overlays
+local Pathfinding = require 'interface.Pathfinding'
+
 module("PlayerGUI", package.seeall, class.make)
 
 local camera
@@ -239,6 +242,24 @@ end
 
 function PlayerGUI:draw_pause_debug()
     love.graphics.print("Non-dialog input locked", 300, 300)
+end
+
+--"map" is a table representing dijkstra map
+function PlayerGUI:draw_dijkstra_overlay(map)
+    for y=1, Map:getWidth()-1 do
+        for x=1, Map:getHeight()-1 do
+            if Map:isTileSeen(x,y) then
+                -- Draws the path overlay
+                local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
+                love.graphics.setBlendMode( 'add' );
+                local color = Pathfinding:selectPathNodeColor(map, x,y)
+                love.graphics.setColor(colors[color])
+                love.graphics.rectangle( 'fill', pixel_x, pixel_y, 32, 32 );
+                love.graphics.setColor( 255, 255, 255, 255 );
+                love.graphics.setBlendMode( 'alpha' );
+            end
+        end
+    end 
 end
 
 --handle screens
