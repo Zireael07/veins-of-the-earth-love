@@ -32,6 +32,15 @@ function TurnManager:rounds()
     dur=10 --test
     s:setDuration(dur)
 
+    --move actors in sync with the debug display
+    for i=1,#entities do
+        local item = entities[i]
+        --is it our round to act?
+        if i == c then
+            if item['act'] then item:act() end
+        end
+    end
+
     --debug display
     local name = curr_ent.name
     --used by debug display
@@ -88,11 +97,6 @@ function TurnManager:removeDead()
 end
 
 function TurnManager:unlocked()
-    for i=1,#entities do
-        local item = entities[i]
-        if item['act'] then item:act() end
-    end
-
     removeDead()
     schedule()
 end
