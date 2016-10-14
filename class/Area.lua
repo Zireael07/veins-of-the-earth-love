@@ -43,9 +43,9 @@ end
 
 --Simple area generation
 function Area:fillWalls(width, height)
-  for x=0, width do
+  for x=1, width do
     --dungeon[level].map[x] = {}
-    for y=0, height do
+    for y=1, height do
             --dungeon[level].map[x][y] = {}
       Area:placeTerrain(x, y, ".")
     end
@@ -53,10 +53,10 @@ function Area:fillWalls(width, height)
 end
 
 function Area:makeWalled(width, height)
- for x=0, width do
+ for x=1, width do
     --dungeon[level].map[x] = {}
-    for y=0, height do
-      local empty= x>0 and y>0 and x<width and y<height
+    for y=1, height do
+      local empty= x>1 and y>1 and x<width and y<height
             --dungeon[level].map[x][y] = {}
       if empty then Area:placeTerrain(x,y, ".")
       else Area:placeTerrain(x,y, "#")
@@ -66,8 +66,8 @@ function Area:makeWalled(width, height)
 end
 
 function Area:makeRandom(width, height)
-  for x=0, width do
-    for y=0, height do
+  for x=1, width do
+    for y=1, height do
       local str = rng:random(1,2) == 1 and "." or "#"
       Area:placeTerrain(x, y, str)
     end
@@ -105,12 +105,12 @@ function Area:spawnStuff()
   Spawn:createItem(3,3, "buckler")
   Spawn:createItem(6,6, "longsword")
 
-  Spawn:createItem(2,2, "longsword")
+  Spawn:createItem(2,3, "longsword")
   Spawn:createItem(4,4, "leather armor")
   Spawn:createItem(7,7, "light steel shield")
   --test
-  Spawn:createItem(1,1, "leather helmet")
-  Spawn:createItem(1,2, "leather armor")
+  Spawn:createItem(2,2, "leather helmet")
+  Spawn:createItem(3,2, "leather armor")
 end
 
 return Area

@@ -11,9 +11,10 @@ function _M:init(width, height)
     self.bounds = { X=0, Y=0, Width=width, Height=height }
 
     -- Initialize the array of cells
-    for x = 0, self.bounds.Width-1 do
+    --Need to start at 1 because that's what Dijkstra wants
+    for x = 1, self.bounds.Width-1 do
         self.cells[x] = {}
-        for y = 0, self.bounds.Height-1 do
+        for y = 1, self.bounds.Height-1 do
             self.cells[x][y] = Cell:new()
         end
     end
@@ -46,11 +47,11 @@ end
 -- renamed functions!!
 function Map:getCell(x, y)
     --print('Map:getCell', x, y)
-    if x > self.bounds.Width - 1 or x < 0 then 
+    if x > self.bounds.Width - 1 or x < 1 then 
     --  print("ERROR: Tried to get cell of "..x.." which is outside bounds!")
       return end
 
-    if y > self.bounds.Height-1 or y < 0 then
+    if y > self.bounds.Height-1 or y < 1 then
     --  print("ERROR: Tried to get cell of "..y.."which is outside bounds!")
       return end
 
@@ -229,8 +230,8 @@ end
 
 --actual display happens here
 function Map:display()
-  for y=0, Map:getWidth()-1 do
-      for x=0, Map:getHeight()-1 do                                                      
+  for y=1, Map:getWidth()-1 do
+      for x=1, Map:getHeight()-1 do                                                      
          --print("Querying: ", x, map_x, y, map_y)
          --do we see the tile
          if Map:isTileSeen(x,y) or Map:isTileVisible(x,y) then
@@ -290,8 +291,8 @@ function Map:getPixelDimensions()
 end
 
 function Map:findFreeGrid(sx, sy, radius)
-    for y=0, Map:getWidth()-1 do
-      for x=0, Map:getHeight()-1 do 
+    for y=1, Map:getWidth()-1 do
+      for x=1, Map:getHeight()-1 do 
         if utils:distance(sx, sy, x, y) < radius then
           if Map:getCellTerrain(x,y).display ~= "#" then 
             print_to_log("[MAP]: Found a free grid: "..x.." "..y)
