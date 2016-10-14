@@ -254,8 +254,8 @@ function PlayerGUI:draw_dijkstra_overlay(map)
                 love.graphics.setBlendMode( 'add' );
                 local color = Pathfinding:selectPathNodeColor(map, x,y)
                 love.graphics.setColor(colors[color])
-                love.graphics.rectangle( 'fill', pixel_x, pixel_y, 32, 32 );
-                love.graphics.setColor( 255, 255, 255, 255 );
+                love.graphics.rectangle('fill', pixel_x-5, pixel_y-5, 32, 32);
+                love.graphics.setColor( 255, 255, 255, 200);
                 love.graphics.setBlendMode( 'alpha' );
             end
         end
