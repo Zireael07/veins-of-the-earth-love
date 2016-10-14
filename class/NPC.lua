@@ -13,14 +13,16 @@ function _M:init(t)
 end
 
 function _M:act()
-    self:target(player)
+    if self:reactionToward(player) < 0 then
+        self:target(player.x, player.y)
+    end
 end
 
-function _M:target(player)
-  dir_x, dir_y = ActorAI:target(player, self.x, self.y)
+function _M:target(x,y)
+  dir_x, dir_y = ActorAI:target(x, y, self.x, self.y)
   print("[NPC] AI moving in dir", dir_x, dir_y)
   self:moveDir(dir_x, dir_y)
-end 
+end  
 
 function _M:on_die(src)
     print("[NPC] on die")

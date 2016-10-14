@@ -8,15 +8,15 @@ module("ActorAI", package.seeall, class.make)
 
 actor_path = {}
 
-function ActorAI:target(target, self_x, self_y)
-    if not target then return end
+function ActorAI:target(tx, ty, self_x, self_y)
+    if not tx or not ty then return end
     
     print("[ActorAI] running AI")
 
     --test
     local w = Map:getWidth()-1
     local h = Map:getHeight()-1
-    dir_x, dir_y = Pathfinding:findPathDijkstra(target.x, target.y, self_x, self_y, w, h)
+    dir_x, dir_y = Pathfinding:findPathDijkstra(tx, ty, self_x, self_y, w, h)
 
     return dir_x, dir_y
 
