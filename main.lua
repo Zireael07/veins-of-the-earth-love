@@ -6,6 +6,8 @@ io.stdout:setvbuf('no')
 
 --do stuff
 do
+    require 'libraries.autobatch'
+
     --require
     require "gamefunctions"
     --create log file

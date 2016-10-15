@@ -19,3 +19,5 @@ Place them in /libraries folder.
 [HUMP](https://github.com/vrld/hump) - required for camera module (scrolling map)
 
 [Astray](https://github.com/SiENcE/astray) - for nice looking dungeon generation
+
+[Autobatch](https://github.com/rxi/autobatch) - for better performance
