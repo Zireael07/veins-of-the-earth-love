@@ -13,6 +13,7 @@ function Tile:loadTiles()
     wall = lg.newImage("gfx/tiles/terrain/wall.png"),
     floor_bright = lg.newImage("gfx/tiles/terrain/floor_bright.png"),
     player_tile = lg.newImage("gfx/tiles/player/racial_dolls/human_m.png"),
+    door = lg.newImage("gfx/tiles/terrain/door.png"),
     --NPCs
     orc = lg.newImage("gfx/tiles/mobiles/orc.png"),
     drow = lg.newImage("gfx/tiles/mobiles/drow.png"),

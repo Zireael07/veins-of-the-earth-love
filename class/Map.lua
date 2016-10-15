@@ -129,6 +129,7 @@ function Map:convertTerraintoTile(x, y)
   --  print("Cell terrain string is ", string)
       if string == "." then tile = loaded_tiles["floor"] end
       if string == "#" then tile = loaded_tiles["wall"] end
+      if string == "+" then tile = loaded_tiles["door"] end
     end
     
   --  print("Tile gotten for x: "..x.."y: "..y)
