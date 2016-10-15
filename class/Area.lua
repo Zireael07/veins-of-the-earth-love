@@ -25,7 +25,6 @@ function _M:generate(level, width, height)
   Map:init(width+1, height+1)
   
   --test
-  --Area:makeRandom(width, height)
   Area:makeWalled(width, height)
   --Area:fillWalls(width, height)
   
@@ -37,8 +36,10 @@ function _M:generate(level, width, height)
   --test
   Encounter:getNPCsByCR(1)
   local encounter = Encounter:makeEncounter()
-  Spawn:createEncounter(encounter, 5,5)
-  Spawn:createEncounter(encounter, 3,3)
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createEncounter(encounter, tx,ty)
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createEncounter(encounter, tx,ty)
 end
 
 --Simple area generation
@@ -65,6 +66,7 @@ function Area:makeWalled(width, height)
   end
 end
 
+--requires A* checking!
 function Area:makeRandom(width, height)
   for x=1, width do
     for y=1, height do
@@ -102,15 +104,22 @@ function Area:getAreaMap()
 end
 
 function Area:spawnStuff()
-  Spawn:createItem(3,3, "buckler")
-  Spawn:createItem(6,6, "longsword")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "buckler")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "longsword")
 
-  Spawn:createItem(2,3, "longsword")
-  Spawn:createItem(4,4, "leather armor")
-  Spawn:createItem(7,7, "light steel shield")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "longsword")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "leather armor")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "light steel shield")
   --test
-  Spawn:createItem(2,2, "leather helmet")
-  Spawn:createItem(3,2, "leather armor")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "leather helmet")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "leather armor")
 end
 
 return Area
