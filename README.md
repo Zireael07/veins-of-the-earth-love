@@ -17,3 +17,5 @@ Place them in /libraries folder.
 [RLDice](https://github.com/timothymtorres/RL-Dice) - a dice rolls library
 
 [HUMP](https://github.com/vrld/hump) - required for camera module (scrolling map)
+
+[Astray](https://github.com/SiENcE/astray) - for nice looking dungeon generation

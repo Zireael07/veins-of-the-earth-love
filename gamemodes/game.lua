@@ -29,7 +29,6 @@ function gamemode.load()
     --load GUI
     GUI:loadGUI()
 
-    --area = Area.new()
     Area:generate(1, 20, 20)
   
       --fix spawning in wall

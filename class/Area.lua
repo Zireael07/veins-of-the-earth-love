@@ -6,6 +6,8 @@ local Spawn = require 'class.Spawn'
 local Encounter = require 'class.Encounter'
 require 'interface.Pathfinding'
 
+local astray=require 'libraries/astray/astray'
+
 module("Area", package.seeall, class.make)
 
 dungeon = {}
@@ -25,7 +27,8 @@ function _M:generate(level, width, height)
   Map:init(width+1, height+1)
   
   --test
-  Area:makeWalled(width, height)
+  Area:makeAstray(width, height)
+  --Area:makeWalled(width, height)
   --Area:fillWalls(width, height)
   
   Area:getAreaMap()
@@ -73,6 +76,26 @@ function Area:makeRandom(width, height)
       local str = rng:random(1,2) == 1 and "." or "#"
       Area:placeTerrain(x, y, str)
     end
+  end
+end
+
+function Area:makeAstray(width, height)
+  local symbols = {Wall="#", Empty=".", DoorN="+", DoorS="+", DoorE="+", DoorW="+"}
+
+  local generator = astray.Astray:new( width-1, height-1, 80, 70, 100, astray.RoomGenerator:new(4,2,3,2,3) )
+  local dungeon = generator:Generate()
+  local tmp_tilemap = generator:CellToTiles(dungeon, symbols )
+  -- the astray generator begins its tilemap at row 0 and column 0 instead of row 1 and column 1, which does not match other lua code
+  for y = 1, #tmp_tilemap[1] do
+  local line = ''
+        for x = 1, #tmp_tilemap do
+          local nx=x-1
+          local ny=y-1
+          if tmp_tilemap[nx] ~= nil and tmp_tilemap[nx][ny] ~= nil then
+               local res = tmp_tilemap[nx][ny]
+               Area:placeTerrain(x, y, res)
+          end
+        end
   end
 end
 
