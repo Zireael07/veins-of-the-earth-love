@@ -320,4 +320,23 @@ function Map:findRandomStandingGrid()
     return found_x, found_y
 end
 
+function Map:drawMaptoLog()
+  title = title or ''
+  print_to_log("================================ " .. title .. " ============================================================")
+  for y=1,#self.cells[2],1 do 
+    local line = ''
+    for x=1,#self.cells,1 do
+      if self.cells[x][y] ~= nil then
+        local cell = Map:getCell(x,y)
+        if cell then
+          line = line .. Map:getCellTerrain(x, y).display
+        end
+      end
+    end
+    print_to_log(line .. " = line #" .. y)
+  end
+  print_to_log("map supplied was " .. #self.cells[2] .. " (columns/first dimension) x " .. #self.cells[1] .. " (rows/second)")
+  print_to_log("============================================================================================================")
+end
+
 return Map

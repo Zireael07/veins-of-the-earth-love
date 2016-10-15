@@ -43,6 +43,8 @@ function _M:generate(level, width, height)
   Spawn:createEncounter(encounter, tx,ty)
   local tx, ty = Map:findRandomStandingGrid()
   Spawn:createEncounter(encounter, tx,ty)
+
+  Map:drawMaptoLog()
 end
 
 --Simple area generation
