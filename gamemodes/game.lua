@@ -210,6 +210,10 @@ function gamemode.update(dt)
   end
   
   rounds()
+
+  if player then
+    camera:cameraFollowPlayer(player)
+  end
 end
 
 function schedule()

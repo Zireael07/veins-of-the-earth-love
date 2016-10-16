@@ -68,7 +68,7 @@ function CameraHandler.new(px, py)
         if py > ty then py = ty end
        -- print("[Camera] px, py are", px, py)
         end
-        self:lookAt( math.floor( px ), math.floor( py ));
+         --self:lookAt( math.floor( px ), math.floor( py ));
     end
 
     function self:setTargetPosition( dx, dy )
@@ -96,6 +96,21 @@ function CameraHandler.new(px, py)
 
     function self:unlock()
         locked = false;
+    end
+
+    function self:camlockWindow(x, y, xmin, xmax, ymin, ymax)
+        return self:lockWindow(x, y, xmin, xmax, ymin, ymax)
+    end
+
+    --viewport
+    function self:cameraFollowPlayer(player)
+      local x, y = player.x, player.y
+      local border_x = 120
+      local border_y = 40
+      local xmin, xmax = border_x, love.graphics.getWidth() - border_x
+      local ymin, ymax = border_y, love.graphics.getHeight() - border_y
+      --local smoother = self.cameraSmoother
+      self:camlockWindow(x, y, xmin, xmax, ymin, ymax)
     end
 
     return self;
