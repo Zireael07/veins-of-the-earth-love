@@ -51,7 +51,7 @@ function TurnManager:rounds()
     schedule_curr = "["..schedule_curr.."] TURN: "..curr_ent.name.." ["..c.."] for "..dur.." units of time"
     
     if curr_ent.player == true then 
-      game_lock()
+      player_lock()
       --calendar
       if s:getTime() > 0 then onTurn() end
 

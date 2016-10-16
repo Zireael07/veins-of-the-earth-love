@@ -49,9 +49,11 @@ function gamemode.load()
     s = TurnManager:getSchedulerClass()
 
     calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. The time is %02d:%02d.", 1371, 1, 11)
-  
+    game_turn = s:getTime()
+
     love.timer.sleep(.5)
     setDialog("character_creation")
+
 end
 
 --drawing
@@ -69,7 +71,7 @@ function draw_GUI(player, camera)
   if not game_locked then
     GUI:draw_pause_debug()
     if dijkstra then
-      GUI:draw_dijkstra_overlay(dijkstra)
+      --GUI:draw_dijkstra_overlay(dijkstra)
     end
   end
   draw_dialogs(player)
@@ -139,6 +141,8 @@ function gamemode.keypressed(k)
             player:PlayerMove("up")
         elseif k == "g" then
             player:playerPickup()
+        elseif k == "r" then
+            player:playerRest()
         elseif k == "return" then
             endTurn()
         end
@@ -226,6 +230,10 @@ function rounds()
 end
 
 --turn-basedness
+function player_lock()
+  player:actPlayer()
+end
+
 function game_lock()
   game_locked = true
   --unlock camera
@@ -236,7 +244,7 @@ function game_lock()
 end
 
 function game_unlock()
-  if game_locked == false then return end
+  --if game_locked == false then return end
   game_locked = false
   --lock camera
   camera:lock();
@@ -247,6 +255,7 @@ end
 
 function endTurn()
   game_unlock()
+  print("[GAME] Ended our turn")
   print_to_log("[GAME] Ended our turn")
 end
 

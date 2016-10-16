@@ -27,6 +27,18 @@ function _M:init(t)
     end
 end
 
+function _M:actPlayer()
+  print("[Player] act")
+  
+  --check for resting
+  if self:restStep() then
+    print("Player: Rest step")
+    endTurn()
+  else
+    game_lock()
+  end
+end
+
 function _M:PlayerMove(dir_string)
   if not dir_string then print("No direction!") 
   else 
