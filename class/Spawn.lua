@@ -13,6 +13,7 @@ function Spawn:createActor(x,y, id)
     if not x or not y then print("No location parameters") return end
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
+    if not Map:getCell(x,y) then print("No cell at x,y") end
     
     local actor
 
@@ -37,6 +38,7 @@ function Spawn:createItem(x,y, id)
     if not x or not y then print("No location parameters") return end
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
+    if not Map:getCell(x,y) then print("No cell at x,y") end
 
     local object
     if id and object_types[id] then
