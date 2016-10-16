@@ -3,9 +3,10 @@ require 'T-Engine.class'
 local Actor = require 'class.Actor'
 local ActorInventory = require 'interface.ActorInventory'
 local ActorFOV = require 'interface.ActorFOV'
+local PlayerRest = require 'interface.PlayerRest'
 local utils = require 'utils'
 
-module("Player", package.seeall, class.inherit(Actor, ActorFOV))
+module("Player", package.seeall, class.inherit(Actor, ActorFOV, PlayerRest))
 
 function _M:init(t)
     print("Initializing player")
@@ -58,6 +59,31 @@ end
 function _M:playerPickup()
   print("Player: pickup")
   self:pickupFloor()
+end
+
+function _M:spotHostiles()
+  print("Player: checking for hostiles")
+  local seen = false
+
+  for y=1, Map:getWidth()-1 do
+      for x=1, Map:getHeight()-1 do 
+        if utils:distance(self.x, self.y, x, y) < 8 then
+          if Map:getCellActor(x,y) then 
+            local a = Map:getCellActor(x,y)
+            if a and self:reactionToward(a) < -50 and Map:isTileVisible(x,y) then
+              seen = true
+              print("[Player] Spotted hostiles")
+            end
+          end
+        end
+      end
+  end
+
+  return seen
+end
+
+function _M:playerRest()
+  self:restInit()
 end
 
 return _M

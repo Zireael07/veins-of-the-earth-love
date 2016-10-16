@@ -37,12 +37,14 @@ end
 
 -- renamed functions!!
 function Map:getCell(x, y)
+    if not x then return end
+    if not y then return end
     --print('Map:getCell', x, y)
-    if x > self.bounds.Width - 1 or x < 1 then 
+    if x > Map:getWidth()-1 or x < 1 then 
     --  print("ERROR: Tried to get cell of "..x.." which is outside bounds!")
       return end
 
-    if y > self.bounds.Height-1 or y < 1 then
+    if y > Map:getHeight()-1 or y < 1 then
     --  print("ERROR: Tried to get cell of "..y.."which is outside bounds!")
       return end
 
