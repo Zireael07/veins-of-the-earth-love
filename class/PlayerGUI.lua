@@ -82,10 +82,10 @@ function PlayerGUI:draw_unit_indicator()
     for y=1, Map:getWidth()-1 do
         for x=1, Map:getHeight()-1 do 
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
-               -- local circle_x = x*(32)+16+120
-               -- local circle_y = y*(32)+16+0
-                local circle_x = x*32+16+120
-                local circle_y = y*32+26+0
+               -- local circle_x = x*(32)+16
+               -- local circle_y = y*(32)+16
+                local circle_x = x*32+16
+                local circle_y = y*32+26
                 if Map:getCellActor(x,y).player then  
                     Map:unitIndicatorCircle(circle_x, circle_y, "player")
                     --Map:unitIndicatorSquare((x*32)+120, (y*32), "player")
@@ -101,7 +101,7 @@ end
 --labels
 function PlayerGUI:tiletoactorlabel(x,y)
     cam_x, cam_y = camera:cameraCoords(x,y)
-    pixel_x = math.floor((120+(cam_x+(x*32))))
+    pixel_x = math.floor(cam_x+(x*32))
 
     --label needs to go *above* the tile, which is every 32px
     pixel_y = math.floor((cam_y+(y*32)-15))
@@ -111,9 +111,8 @@ end
 
 function PlayerGUI:tiletoobjectlabel(x,y)
     cam_x, cam_y = camera:cameraCoords(x,y)
-    pixel_x = math.floor((120+(cam_x+(x*32)+20)))
+    pixel_x = math.floor((cam_x+(x*32)+20))
 
-    --label needs to go *above* the tile, which is every 32px
     pixel_y = math.floor((cam_y+(y*32)))
     --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
     return pixel_x, pixel_y
@@ -179,7 +178,7 @@ end
 
 function PlayerGUI:tiletosplash(x,y)
     cam_x, cam_y = camera:cameraCoords(x,y)
-    pixel_x = math.floor(120+(cam_x+(x*32)))
+    pixel_x = math.floor((cam_x+(x*32)))
     pixel_y = math.floor(cam_y+(y*32))
     return pixel_x, pixel_y
 end
@@ -254,7 +253,7 @@ function PlayerGUI:draw_dijkstra_overlay(map)
                 love.graphics.setBlendMode( 'add' );
                 local color = Pathfinding:selectPathNodeColor(map, x,y)
                 love.graphics.setColor(colors[color])
-                love.graphics.rectangle('fill', pixel_x-5, pixel_y-5, 32, 32);
+                love.graphics.rectangle('fill', pixel_x, pixel_y, 32, 32);
                 love.graphics.setColor( 255, 255, 255, 200);
                 love.graphics.setBlendMode( 'alpha' );
             end

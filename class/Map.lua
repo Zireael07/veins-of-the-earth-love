@@ -21,15 +21,6 @@ function _M:init(width, height)
 end
 
 function Map:setupMapView()
-   --???
-   map_w = 2
-   map_h = 2
-   --scrolling offset
-   map_x = 0
-   map_y = 0
-   --where to draw
-   map_offset_x = 120
-   map_offset_y = 0
    --size in cells
    map_display_w = Map:getWidth()-1
    map_display_h = Map:getHeight()-1
@@ -241,28 +232,28 @@ function Map:display()
             else love.graphics.setColor(255,255,255) end
            --draw terrain
            love.graphics.draw(
-              Map:convertTerraintoTile(x+map_x, y+map_y),
-              (x*tile_w)+map_offset_x, 
-              (y*tile_h)+map_offset_y)
+              Map:convertTerraintoTile(x, y),
+              x*tile_w, 
+              y*tile_h)
            --draw grid
            --love.graphics.setColor(0,0,0)
            love.graphics.setColor(51, 25, 0)
-           love.graphics.rectangle('line', (x*tile_w)+map_offset_x, (y*tile_h)+map_offset_y, tile_h, tile_w)
+           love.graphics.rectangle('line', (x*tile_w), (y*tile_h), tile_h, tile_w)
            --reset color
            love.graphics.setColor(255,255,255)
            --check if we have any objects to draw
            if Map:getCellObject(x,y) then
               --if yes then draw
               love.graphics.draw(
-                Map:convertObjecttoTile(x+map_x, y+map_y),
-                (x*tile_w)+map_offset_x, 
-                (y*tile_h)+map_offset_y)
+                Map:convertObjecttoTile(x, y),
+                (x*tile_w), 
+                (y*tile_h))
             end
            --check if we have any actors to draw
            if Map:getCellActor(x,y) then
                 --attitude indicator
-                local circle_x = x*32+16+120
-                local circle_y = y*32+26+0
+                local circle_x = x*32+16
+                local circle_y = y*32+26
                 local a = Map:getCellActor(x,y)
                 if a.player then  
                     Map:unitIndicatorCircle(circle_x, circle_y, "player")
@@ -273,9 +264,9 @@ function Map:display()
               love.graphics.setColor(255,255,255)
               --if actor then draw
               love.graphics.draw(
-                Map:convertActortoTile(x+map_x, y+map_y),
-                (x*tile_w)+map_offset_x, 
-                (y*tile_h)+map_offset_y)
+                Map:convertActortoTile(x, y),
+                (x*tile_w), 
+                (y*tile_h))
             end
           end
           --reset color
