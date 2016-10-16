@@ -48,7 +48,7 @@ function gamemode.load()
     TurnManager:init(entities)
     s = TurnManager:getSchedulerClass()
 
-    calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. \nThe time is %02d:%02d.", 1371, 1, 11)
+    calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. The time is %02d:%02d.", 1371, 1, 11)
   
     love.timer.sleep(.5)
     setDialog("character_creation")
