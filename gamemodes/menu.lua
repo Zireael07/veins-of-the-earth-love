@@ -16,7 +16,7 @@ end
 function gamemode.draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(background)
-    love.graphics.setColor(255, 130, 0)
+    love.graphics.setColor(colors.ORANGE)
     love.graphics.print(text, 100, 100)
     love.graphics.print("Press ENTER to start game!", 100, 150)
 end
