@@ -35,12 +35,12 @@ function _M:place(x,y)
 
     --don't place in walls
     if Map:getCellTerrain(x,y).display == "#" then
-        x, y = Map:findFreeGrid(x, y, 2)
+        found_x, found_y = Map:findFreeGrid(x, y, 10)
     end
-
-    print("Object: updating map cell: ", x, y)
-    Map:setCellObject(x, y, self) --self.image)
-
+    if found_x and found_y then
+        print("Object: updating map cell: ", found_x, found_y)
+        Map:setCellObject(found_x, found_y, self) --self.image)
+    end
 end
 
 return _M

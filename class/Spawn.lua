@@ -93,6 +93,13 @@ function Spawn:createEncounter(data, x, y)
       Spawn:createActor(x,y, id)
       x = x + 2
       y = y + 2
+      if Map:getCell(x,y) then
+        if Map:getCellTerrain(x,y).display == "#" then
+          found_x, found_y = Map:findFreeGrid(x,y,5)
+          x = found_x
+          y = found_y
+        end
+      end
     end
     
     print("[Spawn] Creating an encounter")
