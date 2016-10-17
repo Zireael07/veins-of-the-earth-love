@@ -22,7 +22,7 @@ end
 function TurnManager:rounds()
     --do nothing if we're locked (waiting for player to finish turn)
     if game_locked then return end
-      love.timer.sleep(.5)
+      --love.timer.sleep(.5)
     --gets the number
     c  =s:next()
     
@@ -59,6 +59,8 @@ function TurnManager:rounds()
     end
 
       self:setDebugString(schedule_curr)
+
+      game_turn = s:getTime()
 end
 
 function TurnManager:getCurrentEntity()
