@@ -61,9 +61,18 @@ function draw_map()
    Map:display()
 end
 
+function draw_map_GUI()
+  GUI:draw_damage_splashes()
+  if not game_locked then
+    if dijkstra then
+      GUI:draw_dijkstra_overlay(dijkstra)
+    end
+  end
+end
+
 function draw_GUI(player, camera)
   GUI:draw_GUI(player)
-  GUI:draw_damage_splashes()
+  --GUI:draw_damage_splashes()
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_emotes()
@@ -108,12 +117,14 @@ function gamemode.draw()
     camera:attach()
     --map
     draw_map()
+    draw_map_GUI()
+    if player and do_draw_labels == true then draw_labels() end
     --detach
     camera:detach()
-    --GUI
+
+    --camera independent GUI
     if player and camera then draw_GUI(player, camera) end
     if player then drawdebug() end
-    if player and do_draw_labels == true then draw_labels() end
 end
 
 
