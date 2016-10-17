@@ -106,11 +106,13 @@ function CameraHandler.new(px, py)
     function self:cameraFollowPlayer(player)
       local x, y = player.x, player.y
       local border_x = 120
-      local border_y = 40
+      local border_y_top = 40
+      local border_y_bottom = 70
       local xmin, xmax = border_x, love.graphics.getWidth() - border_x
-      local ymin, ymax = border_y, love.graphics.getHeight() - border_y
+      local ymin, ymax = border_y_top, love.graphics.getHeight() - border_y_top - border_y_bottom
       --local smoother = self.cameraSmoother
       self:camlockWindow(x, y, xmin, xmax, ymin, ymax)
+      --print("[VIEWPORT] Player x, y", x, y, "ymin", border_y_top, "ymax", ymax)
     end
 
     return self;
