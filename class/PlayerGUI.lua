@@ -206,10 +206,10 @@ function PlayerGUI:draw_damage_splashes()
                 if a.damage_taken then
                     local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
                     love.graphics.setColor(colors.RED)
-                    love.graphics.draw(loaded_tiles["damage_tile"], pixel_x-2, pixel_y)
+                    love.graphics.draw(loaded_tiles["damage_tile"], pixel_x-2, pixel_y+8)
                     --reset color
                     love.graphics.setColor(255, 255, 255)
-                    love.graphics.print(a.damage_taken, pixel_x+8, pixel_y+5)
+                    love.graphics.print(a.damage_taken, pixel_x+8, pixel_y+8)
                 end
             end
         end
