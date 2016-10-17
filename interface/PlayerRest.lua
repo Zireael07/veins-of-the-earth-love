@@ -82,11 +82,11 @@ function _M:restCheck()
     if self:spotHostiles(self) then return false, "hostile spotted" end
 
     --Start healing after having rested for 20 turns
-    if self.resting.cnt > 20 then
+    if self.resting.cnt > 5 then
     end
 
     --Only do the stuff once
-    if self.resting.cnt == 21 then
+    if self.resting.cnt == 6 then
 
         --normal healing
         --use Wis instead of Con if have Mind over Body feat
@@ -111,7 +111,7 @@ function _M:restCheck()
     end
 
     --quit resting after 30 turns total
-    if self.resting.cnt < 30 then return true end
+    if self.resting.cnt < 10 then return true end
 
     return false, "You feel fully rested"
 end
@@ -138,7 +138,7 @@ end
 
 
 function _M:onRestStop()
-    if self.resting.cnt > 20 then
+    if self.resting.cnt > 5 then
     --Passage of time
     game_turn = game_turn + calendar.HOUR * 8
     --Spawn monsters
