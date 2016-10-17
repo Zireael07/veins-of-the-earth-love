@@ -59,7 +59,7 @@ function PlayerGUI:draw_mouse(x,y)
     love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y+15)
 end
 
-function PlayerGUI:draw_tip(x,y)
+function PlayerGUI:draw_tip()
     love.graphics.setFont(sherwood_font)
     love.graphics.setColor(255, 255, 102)
     if tile_x and tile_y then
@@ -79,6 +79,15 @@ function PlayerGUI:draw_tip(x,y)
         love.graphics.print(o.name, mouse.x+10, mouse.y+60)
       end
     end
+end
+
+function PlayerGUI:draw_border_mousetile()
+    --reset color
+    love.graphics.setColor(255, 255, 255)
+    if tile_x and tile_y then
+        love.graphics.setColor(colors.GOLD)
+        love.graphics.rectangle('line', tile_x*32, tile_y*32, 32, 32)
+    end    
 end
 
 function PlayerGUI:draw_unit_indicator()

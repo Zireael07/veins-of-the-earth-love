@@ -63,6 +63,7 @@ end
 
 function draw_map_GUI()
   GUI:draw_damage_splashes()
+  GUI:draw_border_mousetile()
   if not game_locked then
     if dijkstra then
       GUI:draw_dijkstra_overlay(dijkstra)
