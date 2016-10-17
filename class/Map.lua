@@ -241,6 +241,8 @@ function Map:display()
            --love.graphics.setColor(0,0,0)
            love.graphics.setColor(51, 25, 0)
            love.graphics.rectangle('line', (x*tile_w), (y*tile_h), tile_h, tile_w)
+         end
+         if Map:isTileVisible(x,y) then
            --reset color
            love.graphics.setColor(255,255,255)
            --check if we have any objects to draw
@@ -250,7 +252,7 @@ function Map:display()
                 Map:convertObjecttoTile(x, y),
                 (x*tile_w), 
                 (y*tile_h))
-            end
+            end  
            --check if we have any actors to draw
            if Map:getCellActor(x,y) then
                 --attitude indicator
