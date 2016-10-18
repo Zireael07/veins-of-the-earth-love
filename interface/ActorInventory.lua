@@ -128,16 +128,16 @@ function _M:removeObject(inven_id, item)
     end
 end
 
-function _M:pickupFloor()
+function _M:pickupFloor(i)
     local inven = self:getInven(self.INVEN_INVEN)
     if not inven then return end
 
-    if Map:getCellObject(self.x, self.y) then
-        o = Map:getCellObject(self.x, self.y)
+    if Map:getCellObject(self.x, self.y, i) then
+        o = Map:getCellObject(self.x, self.y, i)
         local ok = self:addObject(self.INVEN_INVEN, o)
         if ok then
             logMessage(colors.WHITE, self.name.." picked up "..o.name)
-            Map:setCellObject(self.x, self.y, nil)
+            Map:setCellObjectbyIndex(self.x, self.y, nil, i)
             endTurn()
         end
     else

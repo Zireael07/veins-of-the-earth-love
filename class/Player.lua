@@ -70,7 +70,15 @@ end
 
 function _M:playerPickup()
   print("Player: pickup")
-  self:pickupFloor()
+    if Map:getCell(self.x,self.y):getNbObjects() > 1 then
+      --should draw pickup list
+      --for now pick all at once
+      for i, o in pairs(Map:getCell(self.x,self.y):getObjects()) do
+        self:pickupFloor(i)
+      end
+    else
+    self:pickupFloor(1)
+    end
 end
 
 function _M:spotHostiles()
