@@ -35,6 +35,7 @@ function _M:generate(level, width, height)
   if path_map then print("Created a path_map successfully!")  end
 
   Area:spawnStuff()
+  Area:spawnTest()
 
   --test
   Encounter:getNPCsByCR(1)
@@ -145,6 +146,12 @@ function Area:spawnStuff()
   Spawn:createItem(tx,ty, "leather helmet")
   local tx, ty = Map:findRandomStandingGrid()
   Spawn:createItem(tx,ty, "leather armor")
+end
+
+function Area:spawnTest()
+  Spawn:createItem(3,3, "light wooden shield")
+  Spawn:createItem(3,3, "leather armor")
+
 end
 
 return Area
