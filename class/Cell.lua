@@ -7,7 +7,7 @@ function Cell:init()
     --see what we contain
     self.terrain = nil
     self.actor = nil
-    self.object = nil
+    self.object = {}
 
     --FOV
     self.seen = false
@@ -31,12 +31,31 @@ function Cell:setActor(val)
     self.actor = val
 end
 
-function Cell:getObject()
-    return self.object
+function Cell:getObjects()
+    if #self.object > 0 then return self.object
+    else return false end
 end
 
-function Cell:setObject(val)
-    self.object = val
+function Cell:getNbObjects()
+    if #self.object > 0 then
+        local i = 0
+        --print("[Cell] we have a self.object table")
+        for k,v in pairs(self.object) do
+            i = i + 1
+        end
+        --print("[Cell] Number of objects is", i)
+        return i
+    else 
+        return 0 end
+end
+
+function Cell:getObject(i)
+    return self.object[i]
+end
+
+function Cell:setObject(val, i)
+    if not i then i = 1 end
+    self.object[i] = val
 end
 
 --FOV

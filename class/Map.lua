@@ -67,7 +67,15 @@ end
 
 function Map:setCellObject(x, y, value)
   print("Map:setCellObject: ", x, y, value)
-  self.cells[x][y]:setObject(value)
+  local i = 1
+  while self.cells[x][y]:getObject(i) do i = i + 1 end
+  self.cells[x][y]:setObject(value, i)
+  print("Object index is ", i, "val", value)
+end
+
+function Map:setCellObjectbyIndex(x,y,value, i)
+  print("Map:setCellObjectbyIndex: ", x, y, value, i)
+  self.cells[x][y]:setObject(value, i)
 end
 
 --getters
@@ -93,12 +101,23 @@ function Map:getCellActor(x,y)
     end
 end
 
-function Map:getCellObject(x,y)
+function Map:getCellObject(x,y, i)
    local res
   if not Map:getCell(x,y) then return nil 
   else 
     local cell = Map:getCell(x,y)
-    res = cell:getObject()
+    res = cell:getObject(i)
+    --if res then print("Object for cell: "..x.." "..y.." is..", res) end
+    return res
+    end
+end
+
+function Map:getCellObjects(x,y)
+     local res
+    if not Map:getCell(x,y) then return nil 
+    else 
+    local cell = Map:getCell(x,y)
+    res = cell:getObjects()
     --if res then print("Object for cell: "..x.." "..y.." is..", res) end
     return res
     end
@@ -142,8 +161,8 @@ end
 
 
 --assume we already checked if there is an actor at x,y
-function Map:convertObjecttoTile(x,y)
-  local string = Map:getCellObject(x,y).image
+function Map:convertObjecttoTile(x,y, i)
+  local string = Map:getCellObject(x,y,i).image
 
   tile = loaded_tiles[string]
 
@@ -246,12 +265,21 @@ function Map:display()
            --reset color
            love.graphics.setColor(255,255,255)
            --check if we have any objects to draw
-           if Map:getCellObject(x,y) then
+           if Map:getCellObjects(x,y) then
               --if yes then draw
+              if Map:getCell(x,y):getNbObjects() > 1 then
+                print("We have more than one object in cell", x,y)
+                love.graphics.draw(
+                  --should be the topmost item
+                  Map:convertObjecttoTile(x,y,2),
+                  (x*tile_w), 
+                  (y*tile_h))
+              else
               love.graphics.draw(
-                Map:convertObjecttoTile(x, y),
+                Map:convertObjecttoTile(x,y, 1),
                 (x*tile_w), 
                 (y*tile_h))
+              end
             end  
            --check if we have any actors to draw
            if Map:getCellActor(x,y) then
