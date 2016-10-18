@@ -74,8 +74,8 @@ function PlayerGUI:draw_tip()
         love.graphics.print(a.hitpoints or "N/A", mouse.x+100, mouse.y+30)
         love.graphics.print(a:getHealthState(), mouse.x+90, mouse.y+40)
       end
-      if Map:getCellObject(tile_x, tile_y) then
-        o = Map:getCellObject(tile_x, tile_y)
+      if Map:getCellObject(tile_x, tile_y, 1) then
+        o = Map:getCellObject(tile_x, tile_y, 1)
         love.graphics.print(o.name, mouse.x+10, mouse.y+60)
       end
     end
