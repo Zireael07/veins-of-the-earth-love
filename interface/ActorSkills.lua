@@ -11,7 +11,7 @@ module("ActorSkills", package.seeall, class.make)
 _M.skill_defs = {}
 
 function _M:loadDefinition(file, env)
-	local f, err = loadfile(file)
+	local f, err = love.filesystem.load(file) --loadfile(file)
 	if not f and err then error(err) end
 	setfenv(f, setmetatable(env or {
 		newSkill = function(t) self:newSkill(t) end,
