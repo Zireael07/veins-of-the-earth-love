@@ -39,8 +39,6 @@ function gamemode.load()
     camera = CameraHandler.new(player.x * 32, player.y * 32)
     --pass the cam to the stuff that needs to be aware of it
     Mouse:init( camera )
-    GUI:init(player, camera)
-
 
     Map:setupMapView()
     
@@ -71,7 +69,7 @@ function draw_map_GUI()
   end
 end
 
-function draw_GUI(player, camera)
+function draw_GUI(player)
   GUI:draw_GUI(player)
   --GUI:draw_damage_splashes()
   GUI:draw_mouse()
@@ -80,9 +78,6 @@ function draw_GUI(player, camera)
   GUI:draw_log_messages()
   if not game_locked then
     GUI:draw_pause_debug()
-    if dijkstra then
-      --GUI:draw_dijkstra_overlay(dijkstra)
-    end
   end
   draw_dialogs(player)
 end
@@ -124,7 +119,7 @@ function gamemode.draw()
     camera:detach()
 
     --camera independent GUI
-    if player and camera then draw_GUI(player, camera) end
+    if player then draw_GUI(player) end
     if player then drawdebug() end
 end
 

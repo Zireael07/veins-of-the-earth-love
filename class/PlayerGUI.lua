@@ -14,12 +14,6 @@ local Pathfinding = require 'interface.Pathfinding'
 
 module("PlayerGUI", package.seeall, class.make)
 
-local camera
-
-function PlayerGUI:init(player, ncamera)
-    camera = ncamera
-end
-
 function PlayerGUI:loadGUI()
     love.graphics.setFont(goldbox_font)
 end
@@ -112,22 +106,15 @@ end
 
 --labels
 function PlayerGUI:tiletoactorlabel(x,y)
-    cam_x, cam_y = camera:cameraCoords(x,y)
-    --pixel_x = math.floor(cam_x+(x*32))
     pixel_x = math.floor(x*32)
     --label needs to go *above* the tile, which is every 32px
-    --pixel_y = math.floor((cam_y+(y*32)-15))
     pixel_y = math.floor((y*32)-15)
     --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
     return pixel_x, pixel_y
 end
 
 function PlayerGUI:tiletoobjectlabel(x,y)
-    cam_x, cam_y = camera:cameraCoords(x,y)
-    --pixel_x = math.floor((cam_x+(x*32)+20))
     pixel_x = math.floor((x*32)+20)
-
-    --pixel_y = math.floor((cam_y+(y*32)))
     pixel_y = math.floor(y*32)
     --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
     return pixel_x, pixel_y
@@ -197,10 +184,7 @@ end
 
 
 function PlayerGUI:tiletosplash(x,y)
-    cam_x, cam_y = camera:cameraCoords(x,y)
-    --pixel_x = math.floor((cam_x+(x*32)))
     pixel_x = math.floor(x*32)
-    --pixel_y = math.floor(cam_y+(y*32))
     pixel_y = math.floor(y*32)
     return pixel_x, pixel_y
 end
