@@ -9,11 +9,11 @@ function Mouse:init( ncamera )
 end
 
 function Mouse:getWorldPosition()
-    return camera:worldCoords( love.mouse.getPosition() );
+    return camera:toWorld(love.mouse.getPosition())
 end
 
 function Mouse:getGridPosition()
-    local mx, my = camera:mousePosition()
+    local mx, my = Mouse:getWorldPosition()
 
     local x, y = math.floor(mx/32), math.floor(my/32)
 

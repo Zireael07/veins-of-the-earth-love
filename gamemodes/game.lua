@@ -13,7 +13,7 @@ local Calendar = require "T-Engine.Calendar"
 
 local TurnManager = require "interface.TurnManager"
 
-local CameraHandler = require 'interface.CameraHandler'
+local gamera = require 'libraries.gamera'
 local Mouse = require 'class.Mouse'
 
 function gamemode.load()
@@ -36,9 +36,14 @@ function gamemode.load()
 
     player = Spawn:createPlayer(player_x, player_y)
 
-    camera = CameraHandler.new(player.x * 32, player.y * 32)
+    --set up gamera
+    cam1 = gamera.new(0, 0, Map:getWidth()*32, Map:getHeight()*32)
+    local view_w = 10
+    local view_h = 10
+    cam1:setWindow(120,0,640,640)
+
     --pass the cam to the stuff that needs to be aware of it
-    Mouse:init( camera )
+    Mouse:init(cam1)
 
     Map:setupMapView()
     
@@ -71,7 +76,6 @@ end
 
 function draw_GUI(player)
   GUI:draw_GUI(player)
-  --GUI:draw_damage_splashes()
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_emotes()
@@ -110,13 +114,12 @@ end
 function gamemode.draw()
     love.graphics.setColor(255, 255, 255)
     --camera
-    camera:attach()
-    --map
-    draw_map()
-    draw_map_GUI()
-    if player and do_draw_labels == true then draw_labels() end
-    --detach
-    camera:detach()
+    cam1:draw(function(l,t,w,h)
+      --map
+      draw_map()
+      draw_map_GUI()
+      if player and do_draw_labels == true then draw_labels() end
+  end)
 
     --camera independent GUI
     if player then draw_GUI(player) end
@@ -192,18 +195,19 @@ function gamemode.focus(f)
   local py = player.y * 32
   if f then 
      --print("[GAME] Focus", px, py)
-    camera:lookAt( math.floor( px ), math.floor( py )) 
+     cam1:setPosition(px, py)
   else
-    camera:lock()
-    print("[GAME] Lock camera on focus lost")
+    --print("[GAME] Lock camera on focus lost")
   end
+end
+
+function updateCamera(dt)
+  --print("Player world position", player.x, player.y)
+  cam1:setPosition(player.x*32, player.y*32)
 end
 
 --update!
 function gamemode.update(dt)
-  --camera
-  camera:update(dt)
-
   --get mouse coords
     mouse = {
    x = love.mouse.getX(),
@@ -223,7 +227,7 @@ function gamemode.update(dt)
   rounds()
 
   if player then
-    camera:cameraFollowPlayer(player)
+    updateCamera(dt)
   end
 end
 
@@ -243,9 +247,6 @@ end
 
 function game_lock()
   game_locked = true
-  --unlock camera
-  camera:unlock();
-  camera:restorePosition();
   --clear log
   visiblelogMessages = {}
 end
@@ -253,9 +254,6 @@ end
 function game_unlock()
   --if game_locked == false then return end
   game_locked = false
-  --lock camera
-  camera:lock();
-  camera:storePosition();
 
   TurnManager:unlocked()
 end
