@@ -242,7 +242,7 @@ end
 
 
 --actual display happens here
-function Map:display()
+--[[function Map:display()
   for y=1, Map:getWidth()-1 do
       for x=1, Map:getHeight()-1 do                                                      
          --print("Querying: ", x, map_x, y, map_y)
@@ -305,13 +305,86 @@ function Map:display()
           love.graphics.setColor(255, 255, 255)
       end
    end
+end]]
+
+function Map:display(x,y,w,h)
+  local left, top = Map:getPixeltoTile(x,y)                                                     
+  local right, bottom = left + w/tile_w, top + h / tile_h
+  for x =left, right do
+    for y = top, bottom do
+         print("Drawing X within : ", left, right, " Y within", top, bottom)
+         --do we see the tile
+         if Map:isTileSeen(x,y) or Map:isTileVisible(x,y) then
+            --shade
+            if not Map:isTileVisible(x,y) then love.graphics.setColor(128,128,128)
+            else love.graphics.setColor(255,255,255) end
+           --draw terrain
+           love.graphics.draw(
+              Map:convertTerraintoTile(x, y),
+              x*tile_w, 
+              y*tile_h)
+           --draw grid
+           --love.graphics.setColor(0,0,0)
+           love.graphics.setColor(51, 25, 0)
+           love.graphics.rectangle('line', (x*tile_w), (y*tile_h), tile_h, tile_w)
+         end
+         if Map:isTileVisible(x,y) then
+           --reset color
+           love.graphics.setColor(255,255,255)
+           --check if we have any objects to draw
+           if Map:getCellObjects(x,y) then
+              --if yes then draw
+              if Map:getCell(x,y):getNbObjects() > 1 then
+                print("We have more than one object in cell", x,y)
+                love.graphics.draw(
+                  --should be the topmost item
+                  Map:convertObjecttoTile(x,y,2),
+                  (x*tile_w), 
+                  (y*tile_h))
+              else
+              love.graphics.draw(
+                Map:convertObjecttoTile(x,y, 1),
+                (x*tile_w), 
+                (y*tile_h))
+              end
+            end  
+           --check if we have any actors to draw
+           if Map:getCellActor(x,y) then
+                --attitude indicator
+                local circle_x = x*32+16
+                local circle_y = y*32+26
+                local a = Map:getCellActor(x,y)
+                if a.player then  
+                    Map:unitIndicatorCircle(circle_x, circle_y, "player")
+                else
+                    Map:unitIndicatorCircle(circle_x, circle_y, a:indicateReaction())
+                end
+              --reset color
+              love.graphics.setColor(255,255,255)
+              --if actor then draw
+              love.graphics.draw(
+                Map:convertActortoTile(x, y),
+                (x*tile_w), 
+                (y*tile_h))
+            end
+          end
+          --reset color
+          love.graphics.setColor(255, 255, 255)
+      end
+   end
 end
+
 
 --needed for scrolling
 function Map:getPixelDimensions()
   local w, h = (Map:getWidth()-1)*32, (Map:getHeight()-1)*32
   --print("[Map] Map pixel dimensions", w, h)
   return w, h
+end
+
+function Map:getPixeltoTile(x,y)
+  local x, y = math.floor(x/32), math.floor(y/32)
+  return x, y
 end
 
 function Map:findFreeGrid(sx, sy, radius)

@@ -29,7 +29,7 @@ function gamemode.load()
     --load GUI
     GUI:loadGUI()
 
-    Area:generate(1, 20, 20)
+    Area:generate(1, 40, 40)
   
       --fix spawning in wall
     player_x, player_y = Map:findFreeGrid(1, 1, 5)
@@ -60,8 +60,8 @@ function gamemode.load()
 end
 
 --drawing
-function draw_map()
-   Map:display()
+function draw_map(l,t,w,h)
+   Map:display(l,t,w,h)
 end
 
 function draw_map_GUI()
@@ -116,7 +116,7 @@ function gamemode.draw()
     --camera
     cam1:draw(function(l,t,w,h)
       --map
-      draw_map()
+      draw_map(l,t,w,h)
       draw_map_GUI()
       if player and do_draw_labels == true then draw_labels() end
   end)
