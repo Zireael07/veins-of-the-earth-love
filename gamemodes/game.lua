@@ -66,7 +66,12 @@ end
 
 function draw_map_GUI()
   GUI:draw_damage_splashes()
-  GUI:draw_border_mousetile()
+  if not mouse_mode then
+    GUI:draw_border_mousetile()
+  else
+    --if mouse_mode
+    GUI:draw_targeting_overlay()
+  end
   if not game_locked then
     if dijkstra then
       GUI:draw_dijkstra_overlay(dijkstra)
@@ -76,6 +81,7 @@ end
 
 function draw_GUI(player)
   GUI:draw_GUI(player)
+  GUI:draw_hotbar()
   GUI:draw_mouse()
   GUI:draw_tip()
   GUI:draw_emotes()
@@ -180,7 +186,13 @@ end
 function gamemode.mousepressed(x,y,b)
   print("Calling mousepressed",x,y,b)
   if popup_dialog == '' then
-    if b == 1 then player:movetoMouse(tile_x, tile_y, player.x, player.y) end
+    if b == 1 then 
+      if mouse.x > 120 and mouse.y < (love.graphics.getHeight() - 70) then
+        player:movetoMouse(tile_x, tile_y, player.x, player.y) 
+      else
+        GUI:hotbar_mouse_pressed(x,y,b)
+      end
+    end
   elseif popup_dialog == "character_creation" then
     GUI:character_creation_mouse_pressed(x,y,b)
   elseif popup_dialog == 'inventory' then
@@ -215,7 +227,11 @@ function gamemode.update(dt)
   }
   
   if popup_dialog == '' then
-    tile_x, tile_y = Mouse:getGridPosition() --Map:mousetoTile()
+    if mouse.x > 120 and mouse.y < (love.graphics.getHeight() - 70) then
+      tile_x, tile_y = Mouse:getGridPosition() --Map:mousetoTile()
+    else
+      GUI:hotbar_mouse()
+    end
   elseif popup_dialog == 'character_creation' then
     GUI:character_creation_mouse()
   elseif popup_dialog == 'inventory' then
@@ -292,4 +308,8 @@ end
 function setDijkstra(map)
   --print("[GAME] Set dijkstra")
   dijkstra = map
+end
+
+function setMouseMode(mode)
+  mouse_mode = mode
 end

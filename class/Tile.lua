@@ -42,6 +42,9 @@ function Tile:loadTiles()
     stone_bg = lg.newImage("gfx/stone_background.png"),
     --body picture
     body_ui = lg.newImage("gfx/body_gray.png"),
+    --hotbar icons
+    hotbar_attack = lg.newImage("gfx/hotbar/attack.png"),
+    hotbar_skills = lg.newImage("gfx/hotbar/skills.png"),
 
     --inventory
     ammo_inv = lg.newImage("gfx/inventory/ammo_inv.png"),

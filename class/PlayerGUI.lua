@@ -2,6 +2,9 @@ require 'T-Engine.class'
 
 require 'class.Player'
 
+--bar
+local Hotbar = require 'class.Hotbar'
+
 --dialogs
 local InventoryDialog = require 'dialogs.InventoryDialog'
 local LogDialog = require 'dialogs.LogDialog'
@@ -43,6 +46,18 @@ function PlayerGUI:draw_GUI(player)
     end
 end
 
+function PlayerGUI:draw_hotbar()
+    Hotbar:draw()
+end
+
+function PlayerGUI:hotbar_mouse()
+    Hotbar:mouse()
+end
+
+function PlayerGUI:hotbar_mouse_pressed(x,y,b)
+    Hotbar:mouse_pressed(x,y,b)
+end
+
 --tooltip stuff
 function PlayerGUI:draw_mouse(x,y)
     love.graphics.setFont(sherwood_font)
@@ -82,6 +97,15 @@ function PlayerGUI:draw_border_mousetile()
         love.graphics.setColor(colors.GOLD)
         love.graphics.rectangle('line', tile_x*32, tile_y*32, 32, 32)
     end    
+end
+
+function PlayerGUI:draw_targeting_overlay()
+    --reset color
+    love.graphics.setColor(255, 255, 255)
+    if tile_x and tile_y then
+        love.graphics.setColor(colors.LIGHT_BLUE)
+        love.graphics.rectangle('line', tile_x*32, tile_y*32, 32, 32)
+    end
 end
 
 function PlayerGUI:draw_unit_indicator()
