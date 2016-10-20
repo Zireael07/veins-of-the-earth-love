@@ -188,7 +188,16 @@ function gamemode.mousepressed(x,y,b)
   if popup_dialog == '' then
     if b == 1 then 
       if mouse.x > 120 and mouse.y < (love.graphics.getHeight() - 70) then
-        player:movetoMouse(tile_x, tile_y, player.x, player.y) 
+        if not mouse_mode then
+        player:movetoMouse(tile_x, tile_y, player.x, player.y)
+        else
+           if Map:getCellActor(tile_x, tile_y) then
+            a = Map:getCellActor(tile_x, tile_y)
+            player:archery_attack(a)
+            --nullify mouse mode
+            setMouseMode(nil)
+          end
+        end
       else
         GUI:hotbar_mouse_pressed(x,y,b)
       end

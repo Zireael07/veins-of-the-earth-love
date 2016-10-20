@@ -17,6 +17,7 @@ function _M:init(t)
     self.slot = t.slot
     self.combat = t.combat
     self.wielder = t.wielder
+    self.ammo_type = t.ammo_type
     --flags
     self.ranged = t.ranged or false
 end

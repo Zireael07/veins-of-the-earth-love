@@ -181,6 +181,79 @@ function _M:getLocationAC()
     return self:getAC(false, false, location)
 end
 
+--Ranged combat
+function _M:checkRangedWeapons()
+  local weapon = self:getInven("MAIN_HAND") and self:getInven("MAIN_HAND")[1]
+  local ammo = self:getInven("QUIVER") and self:getInven("QUIVER")[1]
 
+  if not (weapon and weapon.combat and weapon.combat.range) then
+      if not silent then logMessage(colors.WHITE, "You need a ranged weapon to shoot") end return nil end
+  if not weapon or not weapon.ranged then
+      if not silent then logMessage(colors.WHITE, "You need a ranged weapon to shoot with!") end return nil end
+  if weapon and weapon.ammo_type and not ammo then
+      if not silent then logMessage(colors.WHITE, "Your weapon requires ammo!") end return nil end
+  if weapon and ammo and not weapon.ammo_type == ammo.archery_ammo then
+      if not silent then logMessage(colors.WHITE, "You have the wrong ammo type equipped!") end return nil end
+  if ammo and ammo.combat.capacity <= 0 then
+      if not silent then logMessage("You're out of ammo!") end return nil end
+
+
+  return true
+end
+
+function _M:getShootRange()
+  return self:getInven("MAIN_HAND")[1].combat.range
+end
+
+function _M:archery_attack(target)
+  if self:checkRangedWeapons() then
+    print_to_log("[COMBAT] archery attack!")
+    local range = self:getShootRange()
+    if utils:distance(self.x, self.y, target.x, target.y) < range then
+      local weapon = self:getInven("MAIN_HAND")[1]
+      local ammo = self:getInven("QUIVER")[1]
+
+       --Use the ammo up!
+      if ammo and weapon.ammo_type and ammo.combat.capacity then --and not ammo.infinite then
+        print_to_log("[COMBAT] Use up ammo!")
+        ammo.combat.capacity = ammo.combat.capacity - 1
+      end
+
+      if ammo and ammo.combat.capacity <= 0 then
+        self:removeObject(self:getInven("QUIVER"), 1)
+      end
+
+      --if thrown then remove the item
+      --[[if not weapon.ammo_type and not weapon.returning then
+          self:removeObject(self:getInven("MAIN_HAND"), 1)
+    --  self:addObject(self.INVEN_INVEN, weapon)
+    --  self:sortInven()
+      end]]
+
+      --Check range for shooting opponents in melee range
+      --[[if self:isNear(tx, ty, 1) and not self:knowTalent(self.T_PRECISE_SHOT)  then
+          attackmod = -4
+      end]]
+
+      --do we hit?
+      local hit, crit = self:attackRoll(target, weapon) --, attackmod)
+      if hit then
+          local damage = dice.roll(weapon.combat.dam[1].."d"..weapon.combat.dam[2])
+          if crit then
+              damage = damage * (weapon and weapon.combat.critical or 2) 
+          end
+
+          --Minimum 1 point of damage unless Damage Reduction works
+          dam = math.max(1, dam)
+
+          --print("Dealing "..dam.." damage")
+
+          target:takeHit(dam, self)
+      end
+    end
+  end
+
+  endTurn()
+end
 
 return ActorCombat
