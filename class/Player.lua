@@ -17,7 +17,7 @@ function _M:init(t)
     self.max_hitpoints = 20
     self.hitpoints = 20
     self.display = "@"
-    self.image = "player_tile"  --"gfx/player/racial_dolls/human_m.png"
+    self.image = "player_tile"
     self.wounds = 20
     self.name = "Player"
     self.gender = nil
@@ -28,11 +28,11 @@ function _M:init(t)
 end
 
 function _M:actPlayer()
-  print("[Player] act")
+  --print("[Player] act")
   
   --check for resting
   if self:restStep() then
-    print("Player: Rest step")
+    --print("Player: Rest step")
     endTurn()
   else
     game_lock()

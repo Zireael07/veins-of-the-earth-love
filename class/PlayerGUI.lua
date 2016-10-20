@@ -103,7 +103,7 @@ function PlayerGUI:draw_targeting_overlay()
     --reset color
     love.graphics.setColor(255, 255, 255)
     if tile_x and tile_y then
-        love.graphics.setColor(colors.LIGHT_BLUE)
+        love.graphics.setColor(colors.LIGHT_RED)
         love.graphics.rectangle('line', tile_x*32, tile_y*32, 32, 32)
     end
 end
