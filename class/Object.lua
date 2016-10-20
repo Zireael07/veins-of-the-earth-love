@@ -13,6 +13,7 @@ function _M:init(t)
     self.display = t.display or "/"
     self.image = t.image --or "longsword"
     self.name = t.name --or "sword"
+    self.add_name = t.add_name
     self.slot = t.slot
     self.combat = t.combat
     self.wielder = t.wielder
@@ -38,13 +39,35 @@ function _M:place(x,y)
         found_x, found_y = Map:findFreeGrid(x, y, 10)
         if found_x and found_y then
             print("Object: updating map cell: ", found_x, found_y)
-            Map:setCellObject(found_x, found_y, self) --self.image)
+            Map:setCellObject(found_x, found_y, self) 
         end
     else
         print("Object: updating map cell: ", x, y)
-        Map:setCellObject(x, y, self) --self.ima
+        Map:setCellObject(x, y, self)
     end
     
+end
+
+function _M:descAttribute(attr)
+    if attr == "COMBAT_AMMO" then
+        local c = self.combat
+        return c.capacity
+    elseif attr == "LITE" then
+        return self.fuel
+    end
+end   
+
+function _M:getName(t)
+    t = t or {}
+    local name = self.name
+
+    if not t.no_add_name and self.add_name then --and self:isIdentified() then
+    name = name .. self.add_name:gsub("#([^#]+)#", function(attr)
+            return self:descAttribute(attr)
+        end)
+    end
+
+    return name
 end
 
 return _M

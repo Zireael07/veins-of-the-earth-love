@@ -161,7 +161,7 @@ function InventoryDialog:draw(player)
     --tooltip?
     if item then
         love.graphics.setColor(255, 255, 102)
-        love.graphics.print(item.name, mouse.x, mouse.y + 20)
+        love.graphics.print(item:getName(), mouse.x, mouse.y + 20)
     end
 
     if slot then 

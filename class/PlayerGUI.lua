@@ -85,7 +85,7 @@ function PlayerGUI:draw_tip()
       end
       if Map:getCellObject(tile_x, tile_y, 1) then
         o = Map:getCellObject(tile_x, tile_y, 1)
-        love.graphics.print(o.name, mouse.x+10, mouse.y+60)
+        love.graphics.print(o:getName(), mouse.x+10, mouse.y+60)
       end
     end
 end
