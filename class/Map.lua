@@ -271,7 +271,7 @@ function Map:display(x,y,w,h)
            if Map:getCellObjects(x,y) then
               --if yes then draw
               if Map:getCell(x,y):getNbObjects() > 1 then
-                print("We have more than one object in cell", x,y)
+                --print("We have more than one object in cell", x,y)
                 love.graphics.draw(
                   --should be the topmost item
                   Map:convertObjecttoTile(x,y,2),

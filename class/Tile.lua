@@ -20,9 +20,17 @@ function Tile:loadTiles()
     human = lg.newImage("gfx/tiles/mobiles/human.png"),
     gnome = lg.newImage("gfx/tiles/mobiles/npc/gnome_fighter.png"),
     --objects
+    --weapons
     longsword = lg.newImage("gfx/tiles/object/longsword.png"),
     dagger = lg.newImage("gfx/tiles/object/dagger.png"),
     spear = lg.newImage("gfx/tiles/object/spear.png"),
+    sling = lg.newImage("gfx/tiles/object/sling.png"),
+    shortbow = lg.newImage("gfx/tiles/object/bow_short.png"),
+    longbow = lg.newImage("gfx/tiles/object/bow_long.png"),
+    arrows = lg.newImage("gfx/tiles/object/arrows.png"),
+    bolts = lg.newImage("gfx/tiles/object/bolts.png"),
+    bullets = lg.newImage("gfx/tiles/object/bullets.png"),
+    --armor
     padded = lg.newImage("gfx/tiles/object/armor_padded.png"),
     leather = lg.newImage("gfx/tiles/object/armor_leather.png"),
     studded = lg.newImage("gfx/tiles/object/armor_studded.png"),

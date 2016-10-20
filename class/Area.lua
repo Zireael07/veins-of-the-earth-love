@@ -152,6 +152,8 @@ function Area:spawnTest()
   Spawn:createItem(3,3, "light wooden shield")
   Spawn:createItem(3,3, "leather armor")
 
+  Spawn:createItem(4,4, "longbow")
+  Spawn:createItem(4,4, "arrow")
 end
 
 return Area
