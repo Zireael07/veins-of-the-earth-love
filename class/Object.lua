@@ -17,6 +17,8 @@ function _M:init(t)
     self.slot = t.slot
     self.combat = t.combat
     self.wielder = t.wielder
+    --flags
+    self.ranged = t.ranged or false
 end
 
 function _M:act()
