@@ -6,14 +6,18 @@ io.stdout:setvbuf('no')
 
 --do stuff
 do
-    require 'libraries.autobatch'
+   require 'libraries.autobatch'
 
     --require
+    require "utils"
     require "gamefunctions"
     --create log file
     make_log_file()
     open_save()
+end
 
+--load
+function load_stuff()
     --load stuff that is necessary for all the classes/modules
     load = love.filesystem.load("load.lua")
     local loaded = load()
@@ -30,7 +34,8 @@ end
 --Zerobrane debugging
 function love.load(arg)
   if arg[#arg] == "-debug" then require("mobdebug").start() end
-
+  
+  load_stuff()
   --set default font (large because of main menu)
   love.graphics.setFont(sherwood_large)
 end
