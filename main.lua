@@ -33,7 +33,11 @@ end
 
 --Zerobrane debugging
 function love.load(arg)
-  if arg[#arg] == "-debug" then require("mobdebug").start() end
+  if arg[#arg] == "-debug" then require("mobdebug").start() 
+    --prevent total slowdown
+    require("mobdebug").off()
+    --use require("mobdebug").on and require("mobdebug").off where necessary
+  end
   
   load_stuff()
   --set default font (large because of main menu)
