@@ -110,6 +110,29 @@ function PlayerGUI:draw_targeting_overlay()
     end
 end
 
+function PlayerGUI:draw_turns_order()
+    --reset color
+    love.graphics.setColor(255, 255, 255)
+
+    for y=1, Map:getWidth()-1 do
+        for x=1, Map:getHeight()-1 do 
+            if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
+                a = Map:getCellActor(x, y)
+                draw_x = 130
+                draw_y = 15
+                --reminder: "entities" is a list of NPCs in order of turn
+                for i=1, #entities do
+                    local item = entities[i]
+                    if a == item then
+                        love.graphics.draw(loaded_tiles[a.image], draw_x, draw_y)
+                    end
+                    draw_x = draw_x + 40
+                end
+            end 
+        end
+    end   
+end
+
 function PlayerGUI:draw_unit_indicator()
     for y=1, Map:getWidth()-1 do
         for x=1, Map:getHeight()-1 do 

@@ -81,6 +81,7 @@ end
 
 function draw_GUI(player)
   GUI:draw_GUI(player)
+  GUI:draw_turns_order()
   GUI:draw_hotbar()
   GUI:draw_mouse()
   GUI:draw_tip()
