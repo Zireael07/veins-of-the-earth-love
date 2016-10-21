@@ -19,6 +19,8 @@ module("PlayerGUI", package.seeall, class.make)
 
 function PlayerGUI:loadGUI()
     love.graphics.setFont(goldbox_font)
+
+    CharacterCreation:load()
 end
 
 function PlayerGUI:draw_GUI(player)
@@ -303,6 +305,14 @@ end
 
 function PlayerGUI:character_creation_mouse_pressed(x,y,b)
     CharacterCreation:mouse_pressed(x,y,b)
+end
+
+function PlayerGUI:character_creation_keypressed(k)
+    CharacterCreation:keypressed(k)
+end
+
+function PlayerGUI:character_creation_textinput(t)
+    CharacterCreation:textinput(t)
 end
 
 function PlayerGUI:draw_character_sheet(player)

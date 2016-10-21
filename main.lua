@@ -80,3 +80,7 @@ function love.focus(f)
     end
     if gamemode and gamemode.focus then gamemode.focus(f) end
 end
+
+function love.textinput(t)
+    if gamemode and gamemode.textinput then gamemode.textinput(t) end
+end

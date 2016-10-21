@@ -1,8 +1,13 @@
 require 'T-Engine.class'
 
 local dice = require('libraries/dice')
+local utf8 = require("utf8")
 
 module("CharacterCreation", package.seeall, class.make)
+
+function CharacterCreation:load()
+    text = " "
+end
 
 function CharacterCreation:draw(player)
     love.graphics.setColor(255,255,255)
@@ -12,7 +17,7 @@ function CharacterCreation:draw(player)
     
     love.graphics.setColor(255, 255, 102)
 
-    love.graphics.print("CHARACTER CREATION", 200, 40)
+    love.graphics.print("CHARACTER CREATION", 200, 30)
 
     local y = 50
     love.graphics.print("STR:", 155, y)
@@ -75,7 +80,16 @@ function CharacterCreation:draw(player)
     end
     love.graphics.print("Male", x+130, y)
 
+    --name input
+    love.graphics.setColor(colors.SLATE)
+    local x = 400
+    local y = 75
+    love.graphics.rectangle('fill', x, y, 200, 20)
+    love.graphics.setColor(255, 255, 102)
+    love.graphics.printf(text, x, y, 600)
+
     --race selection
+    love.graphics.setColor(255, 255, 102)
     races = { {name="Human"},  {name="Half-Elf", stats_add = { cha = 2, }}, {name="Dwarf", stats_add = { con = 2, cha = -2}} }
     local x = 400
     local y = 100
@@ -142,7 +156,7 @@ function CharacterCreation:mouse_pressed(x,y,b)
 end
 
 function CharacterCreation:reroll()
-    print("Rerolling!")
+    --print("Rerolling!")
     self.rolled = {}
 
     for i=1,6 do
@@ -272,5 +286,22 @@ function CharacterCreation:selectRace(race)
     end
 end
 
+--text input
+function CharacterCreation:textinput(t)
+    text = text .. t
+end
+
+function CharacterCreation:keypressed(key)
+    if key == "backspace" then
+        -- get the byte offset to the last UTF-8 character in the string.
+        local byteoffset = utf8.offset(text, -1)
+ 
+        if byteoffset then
+            -- remove the last UTF-8 character.
+            -- string.sub operates on bytes rather than UTF-8 characters, so we couldn't do string.sub(text, 1, -2).
+            text = string.sub(text, 1, byteoffset - 1)
+        end
+    end
+end
 
 return CharacterCreation

@@ -139,6 +139,11 @@ function gamemode.keypressed(k)
       --print("Pressed key in inventory", k)
       if k == "escape" then dragged = nil end
     end
+    if popup_dialog == "character_creation" then
+      if k == "backspace" then
+        GUI:character_creation_keypressed(k)
+      end
+    end
     --if any dialog then
     if popup_dialog ~= '' then
       -- escape to exit
@@ -219,6 +224,12 @@ function gamemode.focus(f)
      cam1:setPosition(px, py)
   else
     --print("[GAME] Lock camera on focus lost")
+  end
+end
+
+function gamemode.textinput(t)
+  if popup_dialog == 'character_creation' then
+    GUI:character_creation_textinput(t)
   end
 end
 
