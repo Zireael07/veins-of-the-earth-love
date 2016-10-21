@@ -20,13 +20,18 @@ function ActorLife:takeHit(value, src)
     --set flags that are used by splash drawing
     self.damage_taken = value
 
-    --subtract hp
+    --if we deal damage
     if value > 0 then
+        --subtract hp
         if value <= self.hitpoints then
             self.hitpoints = self.hitpoints - value
             logMessage(colors.WHITE, src.name.." hits "..self.name.." for "..value.." damage!")
+        --we exceeded hitpoints in our hit
         else
-        
+            --show log message
+            logMessage(colors.WHITE, src.name.." hits "..self.name.." for "..self.hitpoints.." damage!")
+            --simulate the normal hit
+            self.hitpoints = 0
             --subtract wounds
             local wounds_remaining = value - self.hitpoints
             value = value - self.hitpoints
