@@ -81,6 +81,10 @@ function _M:playerPickup()
     end
 end
 
+function _M:doDrop(inven, item)
+  self:dropFloor(inven, item)
+end
+
 function _M:spotHostiles()
   print("Player: checking for hostiles")
   local seen = false

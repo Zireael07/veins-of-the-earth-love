@@ -319,6 +319,12 @@ function InventoryDialog:mouse_pressed(x,y,b)
                 local inven_inven = player["INVEN_"..dragged.inven:upper()]
                 local slot_inven = player["INVEN_"..slot:upper()]
 
+                if slot:find("drop") then
+                    player:doDrop(inven_inven, dragged.index)
+                    --not dragging anything anymore
+                    dragged = nil
+                return 
+                end
                 if dragged.inven == "inven" and not slot:find("inven") then
                     player:doWear(inven_inven, dragged.index, dragged.item, slot_inven)
                 else

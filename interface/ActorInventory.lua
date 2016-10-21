@@ -228,4 +228,22 @@ function _M:doTakeoff(inven, item, o)
 end
 
 
+function _M:dropFloor(inven, item)
+    --print("Dropping", inven, item)
+    local inv = self:getInven(inven)
+    --print("Inventory is", inv)
+    local o = inv[item]
+    --print("Object is", o)
+    if not o then
+        logMessage(colors.WHITE, "There is nothing to drop.")
+        return
+    end
+    --if o:check("on_drop", self) then return false end
+
+    self:removeObject(inven, item)
+
+    Map:setCellObject(self.x, self.y, o)
+    logMessage(colors.WHITE, "Dropping "..o:getName())
+end
+
 return _M
