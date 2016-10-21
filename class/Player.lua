@@ -82,6 +82,8 @@ function _M:playerPickup()
 end
 
 function _M:doDrop(inven, item)
+  --bugfix
+  item = tonumber(item)
   self:dropFloor(inven, item)
 end
 
