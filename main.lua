@@ -14,6 +14,8 @@ do
     --create log file
     make_log_file()
     open_save()
+    --init seed for dice
+    math.randomseed(os.time())
 end
 
 --load
