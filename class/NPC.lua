@@ -36,6 +36,7 @@ function _M:randomTarget()
 end  
 
 function _M:on_die(src)
+    Actor.on_die(self, src)
     print("[NPC] on die")
     --gen treasure
     Treasure:getTreasure(1)

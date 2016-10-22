@@ -195,7 +195,33 @@ function _M:bumpTarget(target)
 end
 
 function _M:on_die(src)
-  --print("[ACTOR] on_die")
+  print("[ACTOR] on_die")
+  --drop our inventory
+  local dropx, dropy = self.x, self.y
+  local invens = {}
+  for id, inven in pairs(self.inven) do
+    invens[#invens+1] = inven
+  end
+
+  for id, inven in pairs(invens) do
+    for i = #inven, 1, -1 do
+      local o = inven[i]
+      o.dropped_by = o.dropped_by or self.name
+      --Add info on where and by whom it was dropped (from ToME 2 port)
+      --[[o.found = {
+        type = 'mon_drop',
+        mon_name = self.name,
+        zone_name = game.zone.name,
+        town_zone = game.zone.town,
+        level = game:getDunDepth(),
+        level_name = game.level.name,
+        }]]
+      self:removeObject(inven, i)
+      Map:setCellObject(dropx, dropy, o)
+      print("[ACTOR] on death: dropped item from inventory", o.name)
+    end
+  end
+  self.inven = {}
 end
 
 function _M:setBodyPartsHP()
