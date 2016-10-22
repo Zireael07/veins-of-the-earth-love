@@ -110,6 +110,22 @@ function PlayerGUI:draw_targeting_overlay()
     end
 end
 
+function PlayerGUI:indicatorColor(val)
+    local color
+    if val == "player" or val == "helpful" then
+    color = {0, 255, 255}
+  elseif val == "friendly" then 
+    color = {0, 255, 0}
+  elseif val == "neutral" then 
+    color = {255, 255, 0}
+  elseif val == "unfriendly" then 
+    color = {255, 119,0}
+  elseif val == "hostile" then
+    color = {255, 0, 0}
+  end 
+  return color
+end 
+
 function PlayerGUI:draw_turns_order()
     --reset color
     love.graphics.setColor(255, 255, 255)
@@ -118,41 +134,24 @@ function PlayerGUI:draw_turns_order()
         for x=1, Map:getHeight()-1 do 
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
                 a = Map:getCellActor(x, y)
-                draw_x = 130
+                draw_x = 135
                 draw_y = 15
-                --reminder: "entities" is a list of NPCs in order of turn
-                --for i=1, #entities do
-                    for i=1, #visible_actors do
-                        local item = visible_actors[i]
-                    --local item = entities[i]
-                    --if a == item then
-                        love.graphics.draw(loaded_tiles[item.image], draw_x, draw_y)
-                    --end
+
+                for i=1, #visible_actors do
+                    local item = visible_actors[i]
+                    --reset color
+                    love.graphics.setColor(255, 255, 255)
+                    love.graphics.draw(loaded_tiles[item.image], draw_x, draw_y)
+                    local col = PlayerGUI:indicatorColor(item:indicateReaction())
+                    love.graphics.setColor(col)
+                    love.graphics.rectangle("line", draw_x, draw_y, 32, 32)
                     draw_x = draw_x + 40
-                    end
+                end
             end 
         end
-    end   
-end
-
-function PlayerGUI:draw_unit_indicator()
-    for y=1, Map:getWidth()-1 do
-        for x=1, Map:getHeight()-1 do 
-            if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
-               -- local circle_x = x*(32)+16
-               -- local circle_y = y*(32)+16
-                local circle_x = x*32+16
-                local circle_y = y*32+26
-                if Map:getCellActor(x,y).player then  
-                    Map:unitIndicatorCircle(circle_x, circle_y, "player")
-                    --Map:unitIndicatorSquare((x*32)+120, (y*32), "player")
-                else
-                    Map:unitIndicatorCircle(circle_x, circle_y)
-                    --Map:unitIndicatorSquare((x*32)+120, (y*32))
-                end
-            end
-        end
     end
+    love.graphics.setColor(colors.SLATE)
+    love.graphics.rectangle("line", 130, 10, draw_x-130, 40)   
 end
 
 --labels
