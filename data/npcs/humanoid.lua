@@ -32,7 +32,10 @@ npc_types['drow'] = {
     challenge = 1,
     max_hitpoints = 6,
     languages = {"Undercommon", "Drow"},
-    setup=function(instance) instance.name=Actor:nameGenerator() end
+    inventory = {{name="longsword"}},
+    setup=function(instance) 
+        instance.name=Actor:nameGenerator() 
+    end
 }
 
 npc_types['orc'] = {

@@ -37,6 +37,8 @@ function _M:init(t)
     self.subtype = t.subtype
     self.path = nil
     self.faction = t.faction or "enemy"
+
+    self.inventory = t.inventory
     --dialogue
     self.text = t.text
     self.convo = t.convo
@@ -58,8 +60,13 @@ function _M:init(t)
     ActorStats.init(self, t)
     ActorSkills.init(self, t)
 
+    --more delayed setup
     if self.body_parts then
       self:setBodyPartsHP()
+    end
+    if self.inventory then
+      print("We have an inventory")
+      self:equipItems(self.inventory)
     end
 end
 
@@ -360,6 +367,28 @@ function _M:nameGenerator()
 
       --print("[NAME GEN] name is", name)
     return name
+end
+
+function _M:equipItems(t)
+  print("Equipping items")
+  for i, v in ipairs(t) do
+    print("Spawning item for equipment for", self.name)
+    local o
+      o = Spawn:createItem(1, 1, v.name)
+
+      if o then
+        if o.slot then
+          print("Object's slot is", o.slot)
+          if self:wearObject(o, o.slot) then
+
+          print("Wearing an object", o.name)
+          else
+            self:addObject(self.INVEN_INVEN, o)
+            print("Adding object to inventory", o.name)
+          end
+        end
+      end
+  end
 end
 
 return _M
