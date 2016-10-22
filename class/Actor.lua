@@ -12,6 +12,7 @@ local Combat = require 'interface.ActorCombat'
 local ActorLife = require 'interface.ActorLife'
 local ActorStats = require 'interface.ActorStats'
 local ActorSkills = require 'interface.ActorSkills'
+local NameGenerator = require "class.NameGenerator"
 
 --AI
 local ActorAI = require 'interface.ActorAI'
@@ -352,5 +353,13 @@ function _M:portraitGen()
   end
 end
 
+function _M:nameGenerator()
+  local name
+  local namegen = NameGenerator.new(NameGenerator.drow_female_def)
+      name = namegen:generate()
+
+      --print("[NAME GEN] name is", name)
+    return name
+end
 
 return _M
