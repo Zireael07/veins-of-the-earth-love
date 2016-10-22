@@ -43,7 +43,8 @@ DAY_START = HOUR * 6
 -- @param start_day defaults to 1
 -- @param start_hour defaults to 8
 function _M:init(definition, datestring, start_year, start_day, start_hour)
-    local data = dofile(definition)
+    --lfs.load doesn't work here
+    local data = require(definition)
     self.calendar = {}
     local days = 0
     for _, e in ipairs(data) do

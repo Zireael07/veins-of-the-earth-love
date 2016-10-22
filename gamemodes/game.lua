@@ -53,7 +53,7 @@ function gamemode.load()
     visible_actors = TurnManager:getVisibleActors()
     s = TurnManager:getSchedulerClass()
 
-    calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. The time is %02d:%02d.", 1371, 1, 11)
+    calendar = Calendar.new("data/calendar", "Today is the %s %s of %s DR. The time is %02d:%02d.", 1371, 1, 11)
     game_turn = s:getTime()
 
     love.timer.sleep(.5)
