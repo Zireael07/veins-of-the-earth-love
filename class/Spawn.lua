@@ -19,12 +19,17 @@ function Spawn:createActor(x,y, id)
 
     if id and npc_types[id] then
       local t = npc_types[id]
-      print("Creating an npc from data", id)
+      print("[Spawn] Creating an npc from data", id)
       t = Entity:newEntity(t, "actor")
+      --resolve individual stuff
+      if t.setup ~= nil then
+          print("[Spawn] Setup individual npc stuff")
+          t:setup(t)       
+      end
       actor = NPC.new(t)
     else
       --actor = Actor.new()
-      print("Id not given, not doing anything") return
+      print("[Spawn] Id not given, not doing anything") return
     end
     if actor then
       actor:move(x,y)
@@ -43,12 +48,12 @@ function Spawn:createItem(x,y, id)
     local object
     if id and object_types[id] then
       local t = object_types[id]
-      print("Creating an object from data", id)
+      print("[Spawn] Creating an object from data", id)
       t = Entity:newEntity(t, "object")
       object = Object.new(t)
     else
       --object = Object.new()
-      print("Id not given, not doing anything") return
+      print("[Spawn] Id not given, not doing anything") return
     end
 
     if object then

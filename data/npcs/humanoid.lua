@@ -1,3 +1,5 @@
+local Actor = require 'class.Actor'
+
 npc_types['humanoid'] = {
     type = "humanoid",
     body = { INVEN = 10, MAIN_HAND = 1, OFF_HAND = 1, BODY = 1, HELM = 1, QUIVER=1 },
@@ -30,6 +32,7 @@ npc_types['drow'] = {
     challenge = 1,
     max_hitpoints = 6,
     languages = {"Undercommon", "Drow"},
+    setup=function(instance) instance.name=Actor:nameGenerator() end
 }
 
 npc_types['orc'] = {
