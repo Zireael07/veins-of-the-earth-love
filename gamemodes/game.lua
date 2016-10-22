@@ -275,10 +275,6 @@ function schedule()
   print("[GAME] Clear visible actors")
   TurnManager:schedule()
   visible_actors = TurnManager:getVisibleActors()
-  --debug
-   for i,e in ipairs(visible_actors) do
-        print("[GAME] We have a visible actor #",i, "name: ", e.name)
-    end  
 end
 
 function rounds()
