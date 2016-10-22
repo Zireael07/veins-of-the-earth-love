@@ -73,10 +73,10 @@ function ActorCombat:dealDamage(target, weapon, crit)
     else
         strmod = strmod or 1
     end
-    --print_to_log("[COMBAT] damage after rolling", dam)
+    print_to_log("[COMBAT] damage after rolling", dam)
 
     dam = dam + (strmod * self:getStatMod("STR"))
-    --print_to_log("[COMBAT] strength mod:", self:getStatMod("STR"), "total damage:", dam)
+    print_to_log("[COMBAT] strength mod:", self:getStatMod("STR"), "total damage:", dam)
 
   --Minimum 1 point of damage unless Damage Reduction works
     dam = math.max(1, dam)

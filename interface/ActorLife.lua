@@ -30,13 +30,13 @@ function ActorLife:takeHit(value, src)
         else
             --show log message
             logMessage(colors.WHITE, src.name.." hits "..self.name.." for "..self.hitpoints.." damage!")
-            --simulate the normal hit
-            self.hitpoints = 0
             --subtract wounds
             local wounds_remaining = value - self.hitpoints
             value = value - self.hitpoints
-            self.hp = 0
-
+            --simulate the normal hit
+            self.hitpoints = 0
+            
+            --deal damage
             self.wounds = self.wounds - wounds_remaining
 
             --log
