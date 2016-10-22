@@ -121,13 +121,15 @@ function PlayerGUI:draw_turns_order()
                 draw_x = 130
                 draw_y = 15
                 --reminder: "entities" is a list of NPCs in order of turn
-                for i=1, #entities do
-                    local item = entities[i]
-                    if a == item then
-                        love.graphics.draw(loaded_tiles[a.image], draw_x, draw_y)
-                    end
+                --for i=1, #entities do
+                    for i=1, #visible_actors do
+                        local item = visible_actors[i]
+                    --local item = entities[i]
+                    --if a == item then
+                        love.graphics.draw(loaded_tiles[item.image], draw_x, draw_y)
+                    --end
                     draw_x = draw_x + 40
-                end
+                    end
             end 
         end
     end   

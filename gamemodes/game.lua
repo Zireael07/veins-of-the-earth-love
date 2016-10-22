@@ -19,6 +19,7 @@ local Mouse = require 'class.Mouse'
 function gamemode.load()
     --list of entities
     entities = {}
+    visible_actors = {}
 
     --messages
     logMessages = {}
@@ -49,6 +50,7 @@ function gamemode.load()
     
     --load scheduler
     TurnManager:init(entities)
+    visible_actors = TurnManager:getVisibleActors()
     s = TurnManager:getSchedulerClass()
 
     calendar = Calendar.new("data/calendar.lua", "Today is the %s %s of %s DR. The time is %02d:%02d.", 1371, 1, 11)
@@ -269,7 +271,14 @@ function gamemode.update(dt)
 end
 
 function schedule()
+  visible_actors = {}
+  print("[GAME] Clear visible actors")
   TurnManager:schedule()
+  visible_actors = TurnManager:getVisibleActors()
+  --debug
+   for i,e in ipairs(visible_actors) do
+        print("[GAME] We have a visible actor #",i, "name: ", e.name)
+    end  
 end
 
 function rounds()

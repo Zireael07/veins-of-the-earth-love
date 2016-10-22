@@ -5,12 +5,15 @@ module("TurnManager", package.seeall, class.make)
 
 function TurnManager:init(entities)
     print("[TURN MANAGER] Initing entities")
+
     s = TurnManager:getSchedulerClass()
     --s  =ROT.Scheduler.Action:new()
     --put entities into scheduler
     for i, e in ipairs(entities) do
       s:add(i,true,i-1) 
     end
+
+    --self:getVisibleActors()
 end 
 
 function TurnManager:getSchedulerClass()
@@ -77,7 +80,7 @@ function TurnManager:getDebugString()
 end
 
 function TurnManager:schedule()
-    print("Cleaning up the scheduler...")
+    print("[TURN MANAGER] Cleaning up the scheduler...")
     --clear the scheduler
     s:clear()
 
@@ -86,6 +89,8 @@ function TurnManager:schedule()
       s:add(i,true,i-1) 
       --print("[Scheduler] Added: ", i, e)
     end
+
+    --self:getVisibleActors()
 end
 
 function TurnManager:removeDead()
@@ -101,6 +106,41 @@ end
 function TurnManager:unlocked()
     removeDead()
     schedule()
+end
+
+function TurnManager:getVisibleActors()
+    --print("[TURN MANAGER] Getting visible actors")
+    temp_actors = table.clone(entities, true)
+   for y=1, Map:getWidth()-1 do
+      for x=1, Map:getHeight()-1 do 
+          --if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then 
+          if not Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
+              a = Map:getCellActor(x, y)
+              
+
+              for i=#temp_actors, 1, -1 do
+                local item = temp_actors[i]
+                if a == item then
+                  print("Removing non-visible entity from list #", i, a.name)
+                  table.remove(temp_actors, i)
+                end
+              end
+--[[              for i=1, #entities do
+                local item = entities[i]
+                if a == item then
+                  visible_actors[#visible_actors+1] = a
+                  print("[TURN MANAGER] Added actor "..a.name.." to visible actors")
+                end
+              end]]
+          end
+      end
+  end
+  for i, e in ipairs(temp_actors) do
+    print("[TURN MANAGER] Visible actor #", i, "name: ", e.name)
+  end
+
+  return temp_actors
+
 end
 
 return TurnManager
