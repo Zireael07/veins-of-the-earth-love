@@ -16,8 +16,8 @@ function CharacterSheet:draw(player)
    
 
     love.graphics.setColor(255, 51, 51)
-    love.graphics.print("HP: "..player.hitpoints, 155, 50)
-    love.graphics.print("Wounds: "..player.wounds, 155, 75)
+    love.graphics.print("Endurance: "..player.hitpoints, 155, 50)
+    love.graphics.print("Health: "..player.wounds, 155, 75)
 
     --draw stats
     love.graphics.setColor(255, 255, 102)
@@ -43,7 +43,7 @@ function CharacterSheet:drawACForLocations(player)
     end
     y = 200
     for i, t in ipairs(list) do
-        love.graphics.print(("%s AC : %d"):format(t.loc, t.ac), 300, y)
+        love.graphics.print(("%s AC : %d"):format(t.loc, t.ac), 310, y)
         y = y + 25
     end
 end
@@ -58,7 +58,7 @@ function CharacterSheet:drawHPForLocations(player)
     end
     y = 50
     for i, t in ipairs(list) do
-        love.graphics.print(("%s HP : %d"):format(t.loc, t.hp), 300, y)
+        love.graphics.print(("%s End : %d"):format(t.loc, t.hp), 310, y)
         y = y + 25
     end
 end

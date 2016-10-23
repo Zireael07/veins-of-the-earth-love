@@ -40,7 +40,7 @@ function ActorLife:takeHit(value, src)
             self.wounds = self.wounds - wounds_remaining
 
             --log
-            logMessage(colors.LIGHT_RED, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." wounds")
+            logMessage(colors.LIGHT_RED, src.name.." hits "..self.name.." for "..math.floor(wounds_remaining).." health damage!")
 
             if self.hitpoints <= 1 then value = 0 end
 

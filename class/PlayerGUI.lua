@@ -36,8 +36,8 @@ function PlayerGUI:draw_GUI(player)
     love.graphics.setFont(goldbox_large_font)
 
     love.graphics.setColor(255, 51, 51)
-    love.graphics.print("HP: "..player.hitpoints, 10, 10)
-    love.graphics.print("Wounds: "..player.wounds, 10, 25)
+    love.graphics.print("Endure: "..player.hitpoints, 10, 10)
+    love.graphics.print("Health: "..player.wounds, 10, 25)
 
     --draw body
     love.graphics.setColor(colors.GREEN)
