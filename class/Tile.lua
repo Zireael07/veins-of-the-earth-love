@@ -19,6 +19,11 @@ function Tile:loadTiles()
     drow = lg.newImage("gfx/tiles/mobiles/drow.png"),
     human = lg.newImage("gfx/tiles/mobiles/human.png"),
     gnome = lg.newImage("gfx/tiles/mobiles/npc/gnome_fighter.png"),
+    --large size
+    orc_large = lg.newImage("gfx/tiles/large/mobiles/orc.png"),
+    drow_large = lg.newImage("gfx/tiles/large/mobiles/drow.png"),
+    human_large = lg.newImage("gfx/tiles/large/mobiles/human.png"),
+    player_tile_large = lg.newImage("gfx/tiles/large/player.png"),
     --objects
     --weapons
     longsword = lg.newImage("gfx/tiles/object/longsword.png"),
