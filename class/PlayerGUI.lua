@@ -236,6 +236,7 @@ end
 function PlayerGUI:tiletosplash(x,y, tile_size)
     pixel_x = math.floor(x*tile_size)
     pixel_y = math.floor(y*tile_size)
+    --print("Tile to splash", x, y, tile_size, pixel_x, pixel_y)
     return pixel_x, pixel_y
 end
 
@@ -249,10 +250,10 @@ function PlayerGUI:draw_damage_splashes(tile_size)
                 if a.damage_taken then
                     local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y, tile_size)
                     love.graphics.setColor(colors.RED)
-                    love.graphics.draw(loaded_tiles["damage_tile"], pixel_x-2, pixel_y+8)
+                    love.graphics.draw(loaded_tiles["damage_tile"], pixel_x-0.06*tile_size, pixel_y+0.25*tile_size)
                     --reset color
                     love.graphics.setColor(255, 255, 255)
-                    love.graphics.print(a.damage_taken, pixel_x+8, pixel_y+8)
+                    love.graphics.print(a.damage_taken, pixel_x+0.25*tile_size, pixel_y+0.25*tile_size)
                 end
             end
         end
