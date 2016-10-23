@@ -258,10 +258,18 @@ function Map:display(x,y,w,h)
             if not Map:isTileVisible(x,y) then love.graphics.setColor(128,128,128)
             else love.graphics.setColor(255,255,255) end
            --draw terrain
+           if tile_h == 32 then
            love.graphics.draw(
               Map:convertTerraintoTile(x, y),
               x*tile_w, 
               y*tile_h)
+          else
+            --scale terrain in zoomed mode
+            love.graphics.draw(
+              Map:convertTerraintoTile(x, y),
+              x*tile_w, 
+              y*tile_h, 0, 2, 2)
+          end
            --draw grid
            --love.graphics.setColor(0,0,0)
            love.graphics.setColor(51, 25, 0)
@@ -275,16 +283,32 @@ function Map:display(x,y,w,h)
               --if yes then draw
               if Map:getCell(x,y):getNbObjects() > 1 then
                 --print("We have more than one object in cell", x,y)
+                if tile_h == 32 then
                 love.graphics.draw(
                   --should be the topmost item
                   Map:convertObjecttoTile(x,y,2),
                   (x*tile_w), 
                   (y*tile_h))
+                else
+                  --special case for offsetting objects in zoomed mode
+                  love.graphics.draw(
+                  Map:convertObjecttoTile(x,y,2),
+                  (x*tile_w), 
+                  (y*tile_h), 0, 1, 1, 0, -(tile_h/2))
+                end
               else
+              if tile_h == 32 then
               love.graphics.draw(
                 Map:convertObjecttoTile(x,y, 1),
                 (x*tile_w), 
                 (y*tile_h))
+              else
+                --special case for offsetting objects in zoomed mode
+                love.graphics.draw(
+                  Map:convertObjecttoTile(x,y,1),
+                  (x*tile_w), 
+                  (y*tile_h), 0, 1, 1, 0, -(tile_h/2))
+              end
               end
             end  
            --check if we have any actors to draw
