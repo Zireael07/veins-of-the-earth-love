@@ -1,0 +1,15 @@
+The Shockbolt Angband 64x64/128x64 tileset is copyright (C) Raymond Gaustadnes 2012. It can be found in this folder.
+
+The author has granted permission for Veins of the Earth to modify the tileset.
+
+Permission is granted to:
+
+        use the tileset with the game
+        distribute and make copies of the tileset with the game, as long as no fee is charged for it
+
+Permission is not granted to:
+
+        modify the tileset without the author's permission.
+        incorporate tiles designed for ToME that do not appear in the Angband tileset.
+        use or distribute the tileset with other games or projects. If you want to use and distribute the tileset with other games or projects, you must obtain explicit permission from the author. Non-commercial games or projects may be granted permission to use them, and if so, use will be allowed as long as the game or project remains non-commercial. To use them in commercial games, a non-exclusive licence must be acquired from the author.
+
