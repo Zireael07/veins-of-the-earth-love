@@ -131,7 +131,7 @@ function gamemode.draw()
       --map
       draw_map(l,t,w,h)
       draw_map_GUI(tile_size)
-      if player and do_draw_labels == true then draw_labels() end
+      if player and do_draw_labels == true then draw_labels(tile_size) end
   end)
 
     --camera independent GUI
