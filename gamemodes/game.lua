@@ -70,17 +70,17 @@ function draw_map(l,t,w,h)
    Map:display(l,t,w,h)
 end
 
-function draw_map_GUI()
-  GUI:draw_damage_splashes()
+function draw_map_GUI(tile_size)
+  GUI:draw_damage_splashes(tile_size)
   if not mouse_mode then
-    GUI:draw_border_mousetile()
+    GUI:draw_border_mousetile(tile_size)
   else
     --if mouse_mode
     GUI:draw_targeting_overlay()
   end
   if not game_locked then
     if dijkstra then
-      GUI:draw_dijkstra_overlay(dijkstra)
+      GUI:draw_dijkstra_overlay(dijkstra, tile_size)
     end
   end
 end
@@ -104,8 +104,8 @@ function drawdebug()
   GUI:draw_drawstats()
 end
 
-function draw_labels()
-  GUI:draw_labels()
+function draw_labels(tile_size)
+  GUI:draw_labels(tile_size)
 end
 
 function draw_dialogs(player)
@@ -130,7 +130,7 @@ function gamemode.draw()
     cam1:draw(function(l,t,w,h)
       --map
       draw_map(l,t,w,h)
-      draw_map_GUI()
+      draw_map_GUI(tile_size)
       if player and do_draw_labels == true then draw_labels() end
   end)
 
@@ -142,6 +142,7 @@ end
 
 --input
 function gamemode.keypressed(k)
+    local shift = (love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift"))
     if popup_dialog == "inventory" then
       --print("Pressed key in inventory", k)
       if k == "escape" then dragged = nil end
@@ -190,6 +191,17 @@ function gamemode.keypressed(k)
         else
           do_draw_labels = false
         end
+      --zoom
+      elseif k == "=" and shift then
+          print("We're zooming!")
+          tile_size = 64
+          Map:setupMapView(tile_size)
+          Mouse:init(cam1, tile_size)
+      elseif k == "-" and shift then
+          print("We're zooming out!")
+          tile_size = 32
+          Map:setupMapView(tile_size)
+          Mouse:init(cam1, tile_size)
       end
 
     end
@@ -242,7 +254,7 @@ end
 
 function updateCamera(dt)
   --print("Player world position", player.x, player.y)
-  cam1:setPosition(player.x*32, player.y*32)
+  cam1:setPosition(player.x*tile_size, player.y*tile_size)
 end
 
 --update!

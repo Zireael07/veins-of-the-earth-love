@@ -92,21 +92,21 @@ function PlayerGUI:draw_tip()
     end
 end
 
-function PlayerGUI:draw_border_mousetile()
+function PlayerGUI:draw_border_mousetile(tile_size)
     --reset color
     love.graphics.setColor(255, 255, 255)
     if tile_x and tile_y then
         love.graphics.setColor(colors.GOLD)
-        love.graphics.rectangle('line', tile_x*32, tile_y*32, 32, 32)
+        love.graphics.rectangle('line', tile_x*tile_size, tile_y*tile_size, tile_size, tile_size)
     end    
 end
 
-function PlayerGUI:draw_targeting_overlay()
+function PlayerGUI:draw_targeting_overlay(tile_size)
     --reset color
     love.graphics.setColor(255, 255, 255)
     if tile_x and tile_y then
         love.graphics.setColor(colors.LIGHT_RED)
-        love.graphics.rectangle('line', tile_x*32, tile_y*32, 32, 32)
+        love.graphics.rectangle('line', tile_x*tile_size, tile_y*tile_size, tile_size, tile_size)
     end
 end
 
@@ -155,23 +155,23 @@ function PlayerGUI:draw_turns_order()
 end
 
 --labels
-function PlayerGUI:tiletoactorlabel(x,y)
-    pixel_x = math.floor(x*32)
+function PlayerGUI:tiletoactorlabel(x,y, tile_size)
+    pixel_x = math.floor(x*tile_size)
     --label needs to go *above* the tile, which is every 32px
-    pixel_y = math.floor((y*32)-15)
+    pixel_y = math.floor((y*tile_size)-15)
     --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
     return pixel_x, pixel_y
 end
 
-function PlayerGUI:tiletoobjectlabel(x,y)
-    pixel_x = math.floor((x*32)+20)
-    pixel_y = math.floor(y*32)
+function PlayerGUI:tiletoobjectlabel(x,y, tile_size)
+    pixel_x = math.floor((x*tile_size)+20)
+    pixel_y = math.floor(y*tile_size)
     --print("Tile to pixel for x, y"..x..", "..y.."pixel x"..pixel_x..", "..pixel_y)
     return pixel_x, pixel_y
 end
 
 
-function PlayerGUI:draw_labels()
+function PlayerGUI:draw_labels(tile_size)
     --reset color
     love.graphics.setColor(255, 255, 255)
     for y=1, Map:getWidth()-1 do
@@ -179,12 +179,12 @@ function PlayerGUI:draw_labels()
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
                 a = Map:getCellActor(x, y)
                 love.graphics.setColor(255, 255, 102)
-                love.graphics.print(a.name, PlayerGUI:tiletoactorlabel(x,y))
+                love.graphics.print(a.name, PlayerGUI:tiletoactorlabel(x,y, tile_size))
             end
             if Map:isTileSeen(x,y) and Map:getCellObject(x,y) then
                 o = Map:getCellObject(x,y)
                 love.graphics.setColor(255, 255, 255)
-                love.graphics.print(o.name, PlayerGUI:tiletoobjectlabel(x,y))
+                love.graphics.print(o.name, PlayerGUI:tiletoobjectlabel(x,y, tile_size))
             end
         end
     end
@@ -233,13 +233,13 @@ function PlayerGUI:draw_log_messages()
 end
 
 
-function PlayerGUI:tiletosplash(x,y)
-    pixel_x = math.floor(x*32)
-    pixel_y = math.floor(y*32)
+function PlayerGUI:tiletosplash(x,y, tile_size)
+    pixel_x = math.floor(x*tile_size)
+    pixel_y = math.floor(y*tile_size)
     return pixel_x, pixel_y
 end
 
-function PlayerGUI:draw_damage_splashes()
+function PlayerGUI:draw_damage_splashes(tile_size)
     --reset color
     love.graphics.setColor(255, 255, 255)
     for y=1, Map:getWidth()-1 do
@@ -247,7 +247,7 @@ function PlayerGUI:draw_damage_splashes()
             if Map:isTileSeen(x,y) and Map:getCellActor(x,y) then
                 a = Map:getCellActor(x, y)
                 if a.damage_taken then
-                    local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
+                    local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y, tile_size)
                     love.graphics.setColor(colors.RED)
                     love.graphics.draw(loaded_tiles["damage_tile"], pixel_x-2, pixel_y+8)
                     --reset color
@@ -300,16 +300,16 @@ function PlayerGUI:draw_pause_debug()
 end
 
 --"map" is a table representing dijkstra map
-function PlayerGUI:draw_dijkstra_overlay(map)
+function PlayerGUI:draw_dijkstra_overlay(map, tile_size)
     for y=1, Map:getWidth()-1 do
         for x=1, Map:getHeight()-1 do
             if Map:isTileSeen(x,y) then
                 -- Draws the path overlay
-                local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y)
+                local pixel_x, pixel_y = PlayerGUI:tiletosplash(x,y, tile_size)
                 love.graphics.setBlendMode( 'add' );
                 local color = Pathfinding:selectPathNodeColor(map, x,y)
                 love.graphics.setColor(colors[color])
-                love.graphics.rectangle('fill', pixel_x, pixel_y, 32, 32);
+                love.graphics.rectangle('fill', pixel_x, pixel_y, tile_size, tile_size);
                 love.graphics.setColor( 255, 255, 255, 200);
                 love.graphics.setBlendMode( 'alpha' );
             end
