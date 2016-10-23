@@ -151,9 +151,12 @@ end
 --assume we already checked if there is an actor at x,y
 function Map:convertActortoTile(x,y)
   local string = Map:getCellActor(x,y).image
-
-  tile = loaded_tiles[string]
-
+  
+  if tile_h == 64 then
+    tile = loaded_tiles[string.."_large"]
+  else
+    tile = loaded_tiles[string]
+  end
   --print ("Actor tile gotten for x: "..x.."y: "..y)
   return tile
 end
@@ -211,7 +214,7 @@ function Map:unitIndicatorCircle(x,y, val)
   elseif val == "hostile" then
     love.graphics.setColor(255, 0, 0)
   end 
-  love.graphics.ellipse('line', x, y, 15, 6)
+  love.graphics.ellipse('line', x, y, 0.46*tile_w, 0.19*tile_h)
 end
 
 function Map:unitIndicatorSquare(x,y, val)
@@ -287,8 +290,8 @@ function Map:display(x,y,w,h)
            --check if we have any actors to draw
            if Map:getCellActor(x,y) then
                 --attitude indicator
-                local circle_x = x*32+16
-                local circle_y = y*32+26
+                local circle_x = x*tile_h+0.5*tile_w
+                local circle_y = y*tile_w+0.81*tile_h
                 local a = Map:getCellActor(x,y)
                 if a.player then  
                     Map:unitIndicatorCircle(circle_x, circle_y, "player")
