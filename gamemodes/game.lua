@@ -27,6 +27,9 @@ function gamemode.load()
 
     popup_dialog = ''
 
+    --settings
+    tile_size = 32
+
     --load GUI
     GUI:loadGUI()
 
@@ -37,6 +40,7 @@ function gamemode.load()
 
     player = Spawn:createPlayer(player_x, player_y)
 
+
     --set up gamera
     cam1 = gamera.new(0, 0, Map:getWidth()*32, Map:getHeight()*32)
     local view_w = 10
@@ -44,9 +48,9 @@ function gamemode.load()
     cam1:setWindow(120,0,640,640)
 
     --pass the cam to the stuff that needs to be aware of it
-    Mouse:init(cam1)
+    Mouse:init(cam1, tile_size)
 
-    Map:setupMapView()
+    Map:setupMapView(tile_size)
     
     --load scheduler
     TurnManager:init(entities)

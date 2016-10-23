@@ -4,8 +4,9 @@ module("Mouse", package.seeall, class.make)
 
 local camera;
 
-function Mouse:init( ncamera )
+function Mouse:init( ncamera, tile_size)
     camera = ncamera;
+    tile_s = tile_size
 end
 
 function Mouse:getWorldPosition()
@@ -15,7 +16,7 @@ end
 function Mouse:getGridPosition()
     local mx, my = Mouse:getWorldPosition()
 
-    local x, y = math.floor(mx/32), math.floor(my/32)
+    local x, y = math.floor(mx/tile_s), math.floor(my/tile_s)
 
     if x < 1 then return end
     if y < 1 then return end

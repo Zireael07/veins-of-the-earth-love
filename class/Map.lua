@@ -20,14 +20,14 @@ function _M:init(width, height)
     end
 end
 
-function Map:setupMapView()
+function Map:setupMapView(tile_size)
    --size in cells
    map_display_w = Map:getWidth()-1
    map_display_h = Map:getHeight()-1
  
    --tile size
-   tile_w = 32
-   tile_h = 32
+   tile_w = tile_size
+   tile_h = tile_size
 end
 
 function Map:getBounds()
@@ -313,13 +313,13 @@ end
 
 --needed for scrolling
 function Map:getPixelDimensions()
-  local w, h = (Map:getWidth()-1)*32, (Map:getHeight()-1)*32
+  local w, h = (Map:getWidth()-1)*tile_w, (Map:getHeight()-1)*tile_h
   --print("[Map] Map pixel dimensions", w, h)
   return w, h
 end
 
 function Map:getPixeltoTile(x,y)
-  local x, y = math.floor(x/32), math.floor(y/32)
+  local x, y = math.floor(x/tile_w), math.floor(y/tile_h)
   return x, y
 end
 
