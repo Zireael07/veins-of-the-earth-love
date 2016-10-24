@@ -58,6 +58,9 @@ function Tile:loadTiles()
     --hotbar icons
     hotbar_attack = lg.newImage("gfx/hotbar/attack.png"),
     hotbar_skills = lg.newImage("gfx/hotbar/skills.png"),
+    --more UI
+    ui_left_arrow = lg.newImage("gfx/kenney_ui/arrowBeige_left.png"),
+    ui_right_arrow = lg.newImage("gfx/kenney_ui/arrowBeige_right.png"),
 
     --inventory
     ammo_inv = lg.newImage("gfx/inventory/ammo_inv.png"),
