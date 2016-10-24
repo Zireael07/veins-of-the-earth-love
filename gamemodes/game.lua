@@ -116,6 +116,8 @@ function draw_dialogs(player)
     GUI:draw_inventory_test(player)
   elseif popup_dialog == "character_sheet" then
     GUI:draw_character_sheet(player)
+  elseif popup_dialog == "skills" then
+    GUI:draw_skills_dialog(player)
   elseif popup_dialog == "log" then
     GUI:draw_log_dialog()
   elseif popup_dialog == "chat" then
@@ -144,13 +146,14 @@ end
 function gamemode.keypressed(k, sc)
     local shift = (love.keyboard.isScancodeDown("lshift") or love.keyboard.isScancodeDown("rshift"))
     if popup_dialog == "inventory" then
-      --print("Pressed key in inventory", k)
       if sc == "escape" then dragged = nil end
     end
     if popup_dialog == "character_creation" then
       if sc == "backspace" then
         GUI:character_creation_keypressed(k)
       end
+      if sc == "escape" then
+        popup_dialog = "skills" return end
     end
     --if any dialog then
     if popup_dialog ~= '' then
@@ -228,6 +231,8 @@ function gamemode.mousepressed(x,y,b)
     end
   elseif popup_dialog == "character_creation" then
     GUI:character_creation_mouse_pressed(x,y,b)
+  elseif popup_dialog == "skills" then
+    GUI:skills_dialog_mouse_pressed(x,y,b)
   elseif popup_dialog == 'inventory' then
       GUI:inventory_mouse_pressed(x,y,b)
   elseif popup_dialog == "chat" then
@@ -273,6 +278,8 @@ function gamemode.update(dt)
     end
   elseif popup_dialog == 'character_creation' then
     GUI:character_creation_mouse()
+  elseif popup_dialog == "skills" then
+    GUI:skills_dialog_mouse()
   elseif popup_dialog == 'inventory' then
     GUI:inventory_mouse()
   elseif popup_dialog == "chat" then

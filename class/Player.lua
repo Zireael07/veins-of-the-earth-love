@@ -16,6 +16,7 @@ function _M:init(t)
     Actor.init(self, t)
     self.max_hitpoints = 20
     self.hitpoints = 20
+    self.player_skillpoints = 20
     self.display = "@"
     self.image = "player_tile"
     self.wounds = 20

@@ -11,6 +11,7 @@ local LogDialog = require 'dialogs.LogDialog'
 local ChatDialog = require 'dialogs.ChatDialog'
 local CharacterCreation = require 'dialogs.CharacterCreation'
 local CharacterSheet = require 'dialogs.CharacterSheet'
+local SkillsDialog = require 'dialogs.SkillsDialog'
 
 --for debug overlays
 local Pathfinding = require 'interface.Pathfinding'
@@ -338,6 +339,18 @@ end
 
 function PlayerGUI:character_creation_textinput(t)
     CharacterCreation:textinput(t)
+end
+
+function PlayerGUI:draw_skills_dialog(player)
+    SkillsDialog:draw(player)
+end
+
+function PlayerGUI:skills_dialog_mouse()
+    SkillsDialog:mouse()
+end
+
+function PlayerGUI:skills_dialog_mouse_pressed(x,y,b)
+    SkillsDialog:mouse_pressed(x,y,b)
 end
 
 function PlayerGUI:draw_character_sheet(player)
