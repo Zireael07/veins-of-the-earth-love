@@ -52,13 +52,13 @@ function love.draw()
     end
 end
 
-function love.keypressed(key)
-    print("Pressed key: ".. key)
+function love.keypressed(key, scancode)
+    print("Pressed key: ".. key, scancode)
     --if gamemode and gamemode.keypressed and not gamemode.keypressed(k) then return end
-    if gamemode and gamemode.keypressed then gamemode.keypressed(key) end
+    if gamemode and gamemode.keypressed then gamemode.keypressed(key, scancode) end
     --keys that are always active
-	local alt = (love.keyboard.isDown("lalt") or love.keyboard.isDown("ralt"))
-    if k == "f4" and alt then love.event.push("q") end
+	local alt = (love.keyboard.isScancodeDown("lalt") or love.keyboard.isScancodeDown("ralt"))
+    if scancode == "f4" and alt then love.event.push("q") end
 end
 
 function love.update(dt)

@@ -141,50 +141,50 @@ end
 
 
 --input
-function gamemode.keypressed(k)
-    local shift = (love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift"))
+function gamemode.keypressed(k, sc)
+    local shift = (love.keyboard.isScancodeDown("lshift") or love.keyboard.isScancodeDown("rshift"))
     if popup_dialog == "inventory" then
       --print("Pressed key in inventory", k)
-      if k == "escape" then dragged = nil end
+      if sc == "escape" then dragged = nil end
     end
     if popup_dialog == "character_creation" then
-      if k == "backspace" then
+      if sc == "backspace" then
         GUI:character_creation_keypressed(k)
       end
     end
     --if any dialog then
     if popup_dialog ~= '' then
       -- escape to exit
-      if k == "escape" then popup_dialog = '' end
+      if sc == "escape" then popup_dialog = '' end
     --no dialogs
     else
       --for actions, check if game is locked before doing anything
       if game_locked then
-        if k == "left" then
+        if sc == "left" then
           player:PlayerMove("left")
-        elseif k == "right" then
+        elseif sc == "right" then
             player:PlayerMove("right")
-        elseif k == "down" then
+        elseif sc == "down" then
             player:PlayerMove("down")
-        elseif k == "up" then
+        elseif sc == "up" then
             player:PlayerMove("up")
-        elseif k == "g" then
+        elseif sc == "g" then
             player:playerPickup()
-        elseif k == "r" then
+        elseif sc == "r" then
             player:playerRest()
-        elseif k == "return" then
+        elseif sc == "return" then
             endTurn()
         end
       end
       --dialogs
-      if k == 'i' then
+      if sc == 'i' then
         popup_dialog = 'inventory'
-      elseif k == 'l' then
+      elseif sc == 'l' then
         popup_dialog = 'log'
-      elseif k == 'c' then
+      elseif sc == 'c' then
         popup_dialog = "character_sheet"
       --labels
-      elseif k == "tab" then 
+      elseif sc == "tab" then 
         if not do_draw_labels then
         --print("Do draw labels...")       
           do_draw_labels = true
@@ -192,12 +192,12 @@ function gamemode.keypressed(k)
           do_draw_labels = false
         end
       --zoom
-      elseif k == "=" and shift then
+      elseif sc == "=" and shift then
           print("We're zooming!")
           tile_size = 64
           Map:setupMapView(tile_size)
           Mouse:init(cam1, tile_size)
-      elseif k == "-" and shift then
+      elseif sc == "-" and shift then
           print("We're zooming out!")
           tile_size = 32
           Map:setupMapView(tile_size)
