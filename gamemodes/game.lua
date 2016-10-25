@@ -175,6 +175,10 @@ function gamemode.keypressed(k, sc)
             player:PlayerMove("down")
         elseif sc == "up" then
             player:PlayerMove("up")
+        elseif sc == "." and shift then
+            trychangeLevel(player)
+        elseif sc == "," and shift then
+            trychangeLevel(player)
         elseif sc == "g" then
             player:playerPickup()
         elseif sc == "r" then
@@ -366,4 +370,26 @@ end
 
 function setMouseMode(mode)
   mouse_mode = mode
+end
+
+function trychangeLevel(player)
+  if not player.x and player.y then return end
+
+  if Map:getCellTerrain(player.x, player.y).display == ">" or Map:getCellTerrain(player.x, player.y).display == "<" then
+    local area_display = Area:getAreaName()
+    local split = area_display:split(" : ")
+    if split[1] then area = split[1] end
+    if split[2] then level = split[2] end
+    --print("Area is", area, "lvl", level)
+    level = tonumber(level)
+    setArea(level+1, area)
+  else 
+    logMessage(colors.WHITE, "There is no way out of this level here")
+  end
+end
+
+function setArea(level, name)
+  if not name or not level then return end
+  print("Setting area to", name, "lvl", level)
+  Area:generate(level, name)
 end
