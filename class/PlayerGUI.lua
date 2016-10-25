@@ -12,6 +12,7 @@ local ChatDialog = require 'dialogs.ChatDialog'
 local CharacterCreation = require 'dialogs.CharacterCreation'
 local CharacterSheet = require 'dialogs.CharacterSheet'
 local SkillsDialog = require 'dialogs.SkillsDialog'
+local HelpControls = require 'dialogs.HelpControls'
 
 --for debug overlays
 local Pathfinding = require 'interface.Pathfinding'
@@ -368,6 +369,10 @@ end
 
 function PlayerGUI:inventory_mouse_pressed(x,y,b)
     InventoryDialog:mouse_pressed(x,y,b)
+end
+
+function PlayerGUI:draw_help_controls()
+    HelpControls:draw()
 end
 
 --log

@@ -118,6 +118,8 @@ function draw_dialogs(player)
     GUI:draw_character_sheet(player)
   elseif popup_dialog == "skills" then
     GUI:draw_skills_dialog(player)
+  elseif popup_dialog == "help_controls" then
+    GUI:draw_help_controls()
   elseif popup_dialog == "log" then
     GUI:draw_log_dialog()
   elseif popup_dialog == "chat" then
@@ -186,22 +188,23 @@ function gamemode.keypressed(k, sc)
         popup_dialog = 'log'
       elseif sc == 'c' then
         popup_dialog = "character_sheet"
+      elseif sc == "/" and shift then
+        popup_dialog = "help_controls"
       --labels
       elseif sc == "tab" then 
-        if not do_draw_labels then
-        --print("Do draw labels...")       
+        if not do_draw_labels then      
           do_draw_labels = true
         else
           do_draw_labels = false
         end
       --zoom
       elseif sc == "=" and shift then
-          print("We're zooming!")
+          --print("We're zooming!")
           tile_size = 64
           Map:setupMapView(tile_size)
           Mouse:init(cam1, tile_size)
       elseif sc == "-" and shift then
-          print("We're zooming out!")
+          --print("We're zooming out!")
           tile_size = 32
           Map:setupMapView(tile_size)
           Mouse:init(cam1, tile_size)
