@@ -24,9 +24,10 @@ function load_stuff()
     load = love.filesystem.load("load.lua")
     local loaded = load()
 
-    --require npc test
+    --require content tables
     require 'data/npcs'
     require 'data/objects'
+    require 'data/areas'
 
     
     --show menu screen
