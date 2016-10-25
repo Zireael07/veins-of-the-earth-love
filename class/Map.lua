@@ -142,6 +142,8 @@ function Map:convertTerraintoTile(x, y)
       if string == "." then tile = loaded_tiles["floor"] end
       if string == "#" then tile = loaded_tiles["wall"] end
       if string == "+" then tile = loaded_tiles["door"] end
+      if string == ">" then tile = loaded_tiles["stairs_down"] end
+      if string == "<" then tile = loaded_tiles["stairs_up"] end
     end
     
   --  print("Tile gotten for x: "..x.."y: "..y)
