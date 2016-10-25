@@ -33,7 +33,8 @@ function gamemode.load()
     --load GUI
     GUI:loadGUI()
 
-    Area:generate(1, 40, 40)
+    Area:generate(1, "test")
+    --Area:generate(1, "astray")
   
       --fix spawning in wall
     player_x, player_y = Map:findFreeGrid(1, 1, 5)

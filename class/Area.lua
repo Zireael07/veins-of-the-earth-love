@@ -16,23 +16,34 @@ function _M:init()
   dungeon = {}
 end
 
-function _M:generate(level, width, height)
-  print("Generating dungeon :"..level)
+function _M:generate(level, name)
+  print("Generating dungeon :", name, "lvl", level)
   dungeon[level] = {}
   dungeon[level].width = width
   dungeon[level].height = height
   dungeon[level].map = {}
   
+  if area_types[name] then
+    print("Getting parameters from data", name)
+    local area = area_types[name]
+    if not area.width or not area.height then print("No are width or height specified") end
+    width = area.width
+    height = area.height
+  end
   --remember to init the map
   Map:init(width+1, height+1)
   
   --test
-  --Area:makeAstray(width, height)
-  Area:makeWalled(width, height)
-  --Area:fillWalls(width, height)
+  if area_types[name] then
+    print("Creating area from data", name)
+    local area = area_types[name]
+    if area.setup ~= nil then
+      area:setup(area)
+    end
+  end
   
   Area:getAreaMap()
-  if path_map then print("Created a path_map successfully!")  end
+  if path_map then print_to_log("Created a path_map successfully!")  end
 
   Area:spawnStuff()
   Area:spawnTest()
