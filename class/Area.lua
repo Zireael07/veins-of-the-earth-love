@@ -24,7 +24,7 @@ function _M:generate(level, name)
   dungeon[level].map = {}
   
   if area_types[name] then
-    print("Getting parameters from data", name)
+    --print("Getting parameters from data", name)
     local area = area_types[name]
     if not area.width or not area.height then print("No are width or height specified") end
     width = area.width
@@ -35,7 +35,7 @@ function _M:generate(level, name)
   
   --test
   if area_types[name] then
-    print("Creating area from data", name)
+    --print("Creating area from data", name)
     local area = area_types[name]
     if area.setup ~= nil then
       area:setup(area)
@@ -44,6 +44,8 @@ function _M:generate(level, name)
     self:setAreaName(name, level)
   end
   
+  Area:placeRandomStairs()
+
   Area:getAreaMap()
   if path_map then print_to_log("Created a path_map successfully!")  end
 
@@ -127,6 +129,12 @@ function Area:makeAstray(width, height)
   end
 end
 
+
+function Area:placeRandomStairs()
+  x, y = Map:findRandomStandingGrid()
+  Area:placeTerrain(x,y, ">")
+  print("Creating stairs at ", x,y)
+end
 
 --Generic stuff
 function Area:placeTerrain(x,y, str)
