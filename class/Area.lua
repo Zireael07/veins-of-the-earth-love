@@ -40,6 +40,8 @@ function _M:generate(level, name)
     if area.setup ~= nil then
       area:setup(area)
     end
+
+    self:setAreaName(name, level)
   end
   
   Area:getAreaMap()
@@ -57,6 +59,18 @@ function _M:generate(level, name)
   Spawn:createEncounter(encounter, tx,ty)
 
   Map:drawMaptoLog()
+end
+
+function Area:setAreaName(name, level)
+  curr_area = name.." : "..level
+end
+
+function Area:getAreaName()
+  if curr_area then
+    return curr_area
+  else
+    return nil
+  end
 end
 
 --Simple area generation

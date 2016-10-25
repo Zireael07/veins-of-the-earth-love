@@ -112,6 +112,16 @@ function PlayerGUI:draw_targeting_overlay(tile_size)
     end
 end
 
+function PlayerGUI:draw_area_name(name)
+    --reset color
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setFont(sherwood_font)
+    
+    if name then
+        love.graphics.print(name, (love.graphics:getWidth()-100), 2)
+    end
+end
+
 function PlayerGUI:indicatorColor(val)
     local color
     if val == "player" or val == "helpful" then

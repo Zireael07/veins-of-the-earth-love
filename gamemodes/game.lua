@@ -89,6 +89,7 @@ end
 function draw_GUI(player)
   GUI:draw_GUI(player)
   GUI:draw_turns_order()
+  GUI:draw_area_name(Area:getAreaName())
   GUI:draw_hotbar()
   GUI:draw_mouse()
   GUI:draw_tip()
@@ -101,7 +102,7 @@ function draw_GUI(player)
 end
 
 function drawdebug()
-  GUI:draw_schedule()
+  --GUI:draw_schedule()
   GUI:draw_drawstats()
 end
 
