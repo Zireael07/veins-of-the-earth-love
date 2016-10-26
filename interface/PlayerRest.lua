@@ -58,8 +58,10 @@ end
 -- @return[1] true if we can continue to rest
 -- @return[2] false if we can't continue
 function _M:restStep()
-    print("Doing a rest step")
-    if not self.resting then print("Not resting") return false  end
+    --print("Doing a rest step")
+    if not self.resting then 
+        --print("Not resting") 
+    return false  end
 
     local ret, msg = self:restCheck()
     if ret and self.resting and self.resting.rest_turns and self.resting.cnt > self.resting.rest_turns then ret = false msg = nil end
@@ -78,7 +80,7 @@ end
 -- @return[1] true if we can continue to rest
 -- @return[2] false if we can't continue
 function _M:restCheck()
-    print("Doing rest check")
+    --print("Doing rest check")
     if self:spotHostiles(self) then return false, "hostile spotted" end
 
     --Start healing after having rested for 20 turns
