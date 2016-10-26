@@ -382,7 +382,16 @@ function trychangeLevel(player)
     if split[2] then level = split[2] end
     --print("Area is", area, "lvl", level)
     level = tonumber(level)
+    --fix bad turn order display
+    entities = {}
+    --lock so that no NPCs are trying to move while loading next level
+    game_lock()
     setArea(level+1, area)
+    --fix spawning in wall
+    player_x, player_y = Map:findFreeGrid(1, 1, 5)
+    player:move(player_x, player_y)
+    Entity:addEntity(player)
+    
   else 
     logMessage(colors.WHITE, "There is no way out of this level here")
   end
