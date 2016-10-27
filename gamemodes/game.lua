@@ -102,7 +102,7 @@ function draw_GUI(player)
 end
 
 function drawdebug()
-  --GUI:draw_schedule()
+  GUI:draw_schedule()
   GUI:draw_drawstats()
 end
 

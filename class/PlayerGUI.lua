@@ -292,9 +292,8 @@ end
 --debugging stuff
 function PlayerGUI:draw_schedule()
     love.graphics.setFont(sherwood_font)
-    --if color_r and color_g and color_b then love.graphics.setColor(color_r, color_g, color_b) end
     love.graphics.setColor(128, 255, 0)
-    love.graphics.print(schedule_curr, 680, 2) --draw_y)
+    love.graphics.print(schedule_curr, 680, 30)
 end
 
 function PlayerGUI:draw_drawstats()
