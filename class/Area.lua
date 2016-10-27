@@ -33,7 +33,7 @@ function _M:generate(level, name)
   --remember to init the map
   Map:init(width+1, height+1)
   
-  --test
+  --loading from data
   if area_types[name] then
     --print("Creating area from data", name)
     local area = area_types[name]
@@ -42,25 +42,28 @@ function _M:generate(level, name)
     end
 
     self:setAreaName(name, level)
+
+    --these require a map, so move here for safety
+    Area:placeRandomStairs()
+
+    Area:getAreaMap()
+    if path_map then print_to_log("Created a path_map successfully!")  end
+
+    Area:spawnStuff()
+    Area:spawnTest()
+
+    --test
+    Encounter:getNPCsByCR(1)
+    local encounter = Encounter:makeEncounter()
+    local tx, ty = Map:findRandomStandingGrid()
+    Spawn:createEncounter(encounter, tx,ty)
+    local tx, ty = Map:findRandomStandingGrid()
+    Spawn:createEncounter(encounter, tx,ty)
+
+    Map:drawMaptoLog()
   end
   
-  Area:placeRandomStairs()
-
-  Area:getAreaMap()
-  if path_map then print_to_log("Created a path_map successfully!")  end
-
-  Area:spawnStuff()
-  Area:spawnTest()
-
-  --test
-  Encounter:getNPCsByCR(1)
-  local encounter = Encounter:makeEncounter()
-  local tx, ty = Map:findRandomStandingGrid()
-  Spawn:createEncounter(encounter, tx,ty)
-  local tx, ty = Map:findRandomStandingGrid()
-  Spawn:createEncounter(encounter, tx,ty)
-
-  Map:drawMaptoLog()
+  
 end
 
 function Area:setAreaName(name, level)
