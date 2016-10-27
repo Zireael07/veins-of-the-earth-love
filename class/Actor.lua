@@ -65,7 +65,7 @@ function _M:init(t)
       self:setBodyPartsHP()
     end
     if self.inventory then
-      print("We have an inventory")
+      --print("We have an inventory")
       self:equipItems(self.inventory)
     end
 end
@@ -84,7 +84,7 @@ end
 function _M:move(x, y)
   if not x or not y then return end
   
-  print_to_log("Actor:moving")
+  --print_to_log("Actor:moving")
   x = math.floor(x)
 	y = math.floor(y)
   
@@ -98,8 +98,8 @@ function _M:move(x, y)
 	self.x, self.y = x, y
   print_to_log("Actor: new x,y : ", self.x, self.y)
   --update map
-  print_to_log("Actor: updating map cell: ", x, y)
-  print_to_log("Actor:old cell: ", self.old_x, self.old_y) 
+  --print_to_log("Actor: updating map cell: ", x, y)
+  --print_to_log("Actor:old cell: ", self.old_x, self.old_y) 
   Map:setCellActor(self.old_x, self.old_y, nil)
   Map:setCellActor(x, y, self) --self.image) 
 
@@ -109,11 +109,6 @@ function _M:move(x, y)
     print("[Actor] on_stand effects triggered")
     terrain.on_stand(terrain, x, y, self)
   end
-
-  --remove ourselves from old cell if we left it
- --[[ if x ~= self.old_x or y ~= self.old_y then
-    Map:setCellActor(self.old_x, self.old_y, nil)
-  end]]
   
 end
 
@@ -404,7 +399,7 @@ function _M:equipItems(t)
 
       if o then
         if o.slot then
-          print("Object's slot is", o.slot)
+          --print("Object's slot is", o.slot)
           if self:wearObject(o, o.slot) then
 
           print("Wearing an object", o.name)

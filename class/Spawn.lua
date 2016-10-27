@@ -19,7 +19,7 @@ function Spawn:createActor(x,y, id)
 
     if id and npc_types[id] then
       local t = npc_types[id]
-      print("[Spawn] Creating an npc from data", id)
+      --print("[Spawn] Creating an npc from data", id)
       t = Entity:newEntity(t, "actor")
       --resolve individual stuff
       if t.setup ~= nil then
@@ -48,7 +48,7 @@ function Spawn:createItem(x,y, id)
     local object
     if id and object_types[id] then
       local t = object_types[id]
-      print("[Spawn] Creating an object from data", id)
+      --print("[Spawn] Creating an object from data", id)
       t = Entity:newEntity(t, "object")
       object = Object.new(t)
     else
@@ -96,11 +96,12 @@ function Spawn:createEncounter(data, x, y)
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
 
+    print_to_log("[Spawn] Creating an encounter")
+
     for i, id in ipairs(data) do
       print("[Spawn] creating an encounter actor", id)
       Spawn:createActor(x,y, id)
-      x = x + 2
-      y = y + 2
+      
       if Map:getCell(x,y) then
         if Map:getCellTerrain(x,y).display == "#" then
           found_x, found_y = Map:findFreeGrid(x,y,5)
@@ -108,9 +109,10 @@ function Spawn:createEncounter(data, x, y)
           y = found_y
         end
       end
+
+      x = x + 2
+      y = y + 2
     end
-    
-    print("[Spawn] Creating an encounter")
 end
 
 
