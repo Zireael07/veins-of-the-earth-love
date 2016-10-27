@@ -5,6 +5,8 @@ module("Encounter", package.seeall, class.make)
 encounter = {}
 
 function Encounter:getNPCsByCR(val)
+    --empty the table to prevent tables growing
+    encounter = {}
     print("[Encounter] val is: ", val)
     for k, v in pairs(npc_types) do
         print("[Encounter] Getting NPC types", k, v)
