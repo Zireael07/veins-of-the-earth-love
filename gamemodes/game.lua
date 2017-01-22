@@ -391,6 +391,8 @@ function trychangeLevel(player)
     player_x, player_y = Map:findFreeGrid(1, 1, 5)
     player:move(player_x, player_y)
     Entity:addEntity(player)
+    --force update FOV
+    player:update_draw_visibility_new()
     
   else 
     logMessage(colors.WHITE, "There is no way out of this level here")
