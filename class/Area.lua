@@ -53,7 +53,7 @@ function _M:generate(level, name)
     Area:spawnTest()
 
     --test
-    Encounter:getNPCsByCR(1)
+    Encounter:getNPCsByCR(1/2)
     local encounter = Encounter:makeEncounter()
     local tx, ty = Map:findRandomStandingGrid()
     Spawn:createEncounter(encounter, tx,ty)
