@@ -104,3 +104,30 @@ npc_types['gnome'] = {
     faction = "neutral",
     languages = {"Common"},
 }
+
+npc_types['kobold'] = {
+    base = "humanoid",
+    
+    name = "kobold",
+    subtype = "reptilian",
+    image = "kobold",
+
+    desc = [[Ugly and green!]],
+    specialist_desc = [[Kobolds hate most humanoids and fey, but they particularly despise gnomes and sprites. They often protect their warrens with clever mechanical traps. Some folk claim that kobolds are distantly related to dragons.]],
+    uncommon_desc = [[Kobolds are rather pettily malevolent. They are omnivores, and live in dark places, usually dense forests or underground. They are talented miners and can see in the dark, but their eyes are sensitive to bright light.]],
+    common_desc = [[Kobolds are not known for their bravery or ferocity in battle. However, they can be cunning, and usually attack only when they have overwhelming odds in their favor.]],
+    base_desc = "This spindly little humanoid lizard is a kobold. Kobolds speak Draconic.",
+
+    darkvision = 3,
+    alignment = "Lawful Evil",
+    challenge = 1/2,
+    skill_hide = 4,
+    skill_listen = 1,
+    skill_spot = 1,
+    skill_search = 1,
+    skill_movesilently = 1,
+    hit_die = 4,
+    max_hitpoints = 8,
+    inventory = {{name="dagger"}},
+    emote_anger = "Kobold kill you!",
+}
