@@ -13,6 +13,7 @@ local CharacterCreation = require 'dialogs.CharacterCreation'
 local CharacterSheet = require 'dialogs.CharacterSheet'
 local SkillsDialog = require 'dialogs.SkillsDialog'
 local HelpControls = require 'dialogs.HelpControls'
+local DeathDialog = require 'dialogs.DeathDialog'
 
 --for debug overlays
 local Pathfinding = require 'interface.Pathfinding'
@@ -400,6 +401,17 @@ end
 
 function PlayerGUI:chat_mouse_pressed(x,y,b)
     ChatDialog:mouse_pressed(x,y,b)
+end
+
+--death screen
+function PlayerGUI:draw_death_dialog()
+    DeathDialog:draw()
+end
+
+function PlayerGUI:death_dialog_mouse()
+end
+
+function PlayerGUI:death_dialog_mouse_pressed(x,y,b)
 end
 
 return PlayerGUI
