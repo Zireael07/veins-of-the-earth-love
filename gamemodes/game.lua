@@ -112,7 +112,9 @@ end
 
 function draw_dialogs(player)
   --if popup_dialog ~= '' then print("[GAME] popup_dialog is", popup_dialog) end
-  if popup_dialog == "character_creation" then 
+  if popup_dialog == "death_dialog" then
+    GUI:draw_death_dialog()
+  elseif popup_dialog == "character_creation" then 
     GUI:draw_character_creation(player)
   elseif popup_dialog == "inventory" then
     GUI:draw_inventory_test(player)
@@ -149,6 +151,9 @@ end
 --input
 function gamemode.keypressed(k, sc)
     local shift = (love.keyboard.isScancodeDown("lshift") or love.keyboard.isScancodeDown("rshift"))
+    if popup_dialog == "death_dialog" then
+      if sc == "escape" then loadGamemode("menu") end
+    end
     if popup_dialog == "inventory" then
       if sc == "escape" then dragged = nil end
     end
@@ -166,7 +171,7 @@ function gamemode.keypressed(k, sc)
     --no dialogs
     else
       --for actions, check if game is locked before doing anything
-      if game_locked then
+      if game_locked and not player.dead then
         if sc == "left" then
           player:PlayerMove("left")
         elseif sc == "right" then
