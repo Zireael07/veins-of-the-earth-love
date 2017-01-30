@@ -22,6 +22,7 @@ function _M:init(t)
     self.wounds = 20
     self.name = "Player"
     self.gender = nil
+    self.race = "Human"
     --do it again to account for increased hp above
     if self.body_parts then
       self:setBodyPartsHP()

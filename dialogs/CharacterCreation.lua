@@ -274,16 +274,37 @@ end
 
 function CharacterCreation:selectRace(race)
     --print("[CHARACTER CREATION] selected race #", race)
+    
+    --print("Race selected is", races[race].name)
+    print("Player race is "..player.race.." race selected is "..races[race].name)
+    if player.race == races[race].name then
+       print("Player race equals clicked race") 
+    else
+        --remove old bonuses
+        for i,v in ipairs(races) do
+            if races[i].name == player.race then
+                print("Found a race that we belonged to, "..races[i].name)
+                if races[i].stats_add then
+                    for stat, val in pairs(races[i].stats_add) do
+                        print("Lowering the stats granted by "..races[i].name)
+                        local curr = player:getStat(stat:upper())
+                        player:setStat(stat:upper(), curr-val)
+                    end
+                end
+            end
+        end
 
-    print("Race selected is", races[race].name)
-
-    if races[race].stats_add then
-        for stat, val in pairs(races[race].stats_add) do
-            local curr = player:getStat(stat:upper())
-            --print("Current val for stat", curr, stat, "to add", val)
-            player:setStat(stat:upper(), curr+val)
+        print("Player race doesn't equal clicked")
+        if races[race].stats_add then
+            for stat, val in pairs(races[race].stats_add) do
+                local curr = player:getStat(stat:upper())
+                --print("Current val for stat", curr, stat, "to add", val)
+                player:setStat(stat:upper(), curr+val)
+            end
         end
     end
+
+    player.race = races[race].name
 end
 
 --text input
