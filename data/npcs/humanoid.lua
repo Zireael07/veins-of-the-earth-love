@@ -126,8 +126,8 @@ npc_types['kobold'] = {
     skill_spot = 1,
     skill_search = 1,
     skill_movesilently = 1,
-    hit_die = 4,
-    max_hitpoints = 8,
+    hit_die = 1,
+    max_hitpoints = 4,
     inventory = {{name="dagger"}},
     emote_anger = "Kobold kill you!",
 }
