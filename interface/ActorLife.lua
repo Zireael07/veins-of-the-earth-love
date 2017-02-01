@@ -1,16 +1,37 @@
 require 'T-Engine.class'
 
 local Entity = require 'class.Entity'
+local dice = require('libraries/dice')
 
 module("ActorLife", package.seeall, class.make)
 
 function ActorLife:init(t)
     self.max_hitpoints = t.max_hitpoints or 10
-    self.hitpoints = t.hitpoints or t.max_hitpoints
+    self:setMaxHP()
+    self.hitpoints = self.max_hitpoints or t.hitpoints
     self.max_wounds = t.max_wounds or 1
     self.wounds = t.wounds or 1
     --print_to_log("[ACTOR LIFE] Inited:", self.max_hitpoints, self.hitpoints)
     --self.die_at = t.die_at or -10
+    
+end
+
+
+
+function ActorLife:getHPDieSize(type)
+    if not type then return end
+    local typetodie = {
+    humanoid = 8,
+}
+    print("[ActorLife] Getting HP die for "..type)
+    return typetodie[type]
+end
+
+function ActorLife:setMaxHP()
+    if self.hit_die and self.hit_die > 0 then
+        self.max_hitpoints = dice.roll(self.hit_die..'d'..self:getHPDieSize(self.type))
+        print("[ActorLife] "..self.hit_die..'d'..self:getHPDieSize(self.type).. "result "..self.max_hitpoints)
+    end
 end
 
 function ActorLife:takeHit(value, src)

@@ -45,6 +45,7 @@ function _M:init(t)
     self.languages = t.languages
     -- Default melee barehanded damage
     self.combat = { dam = {1,4} }
+    self.hit_die = t.hit_die
      --Body parts
     self.body_parts = t.body_parts or {}
 
