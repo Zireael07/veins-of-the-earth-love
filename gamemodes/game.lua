@@ -43,7 +43,7 @@ function gamemode.load()
 
 
     --set up gamera
-    cam1 = gamera.new(0, 0, Map:getWidth()*32, Map:getHeight()*32)
+    cam1 = gamera.new(0, 0, Map:getWidth()*tile_size, Map:getHeight()*tile_size)
     local view_w = 10
     local view_h = 10
     cam1:setWindow(120,0,640,640)
@@ -210,13 +210,15 @@ function gamemode.keypressed(k, sc)
         end
       --zoom
       elseif sc == "=" and shift then
-          --print("We're zooming!")
+          print("We're zooming!")
           tile_size = 64
+          cam1:setWorld(0, 0, Map:getWidth()*tile_size, Map:getHeight()*tile_size)
           Map:setupMapView(tile_size)
           Mouse:init(cam1, tile_size)
       elseif sc == "-" and shift then
-          --print("We're zooming out!")
+          print("We're zooming out!")
           tile_size = 32
+          cam1:setWorld(0, 0, Map:getWidth()*tile_size, Map:getHeight()*tile_size)
           Map:setupMapView(tile_size)
           Mouse:init(cam1, tile_size)
       end
