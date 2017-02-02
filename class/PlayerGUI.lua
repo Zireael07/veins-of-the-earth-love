@@ -75,10 +75,18 @@ end
 
 function PlayerGUI:draw_tip()
     love.graphics.setFont(sherwood_font)
-    love.graphics.setColor(255, 255, 102)
+    
     if tile_x and tile_y then
+        --draw background
+        if Map:getCellActor(tile_x, tile_y) or Map:getCellObject(tile_x, tile_y, 1) then
+            --add a background to the tooltip
+            love.graphics.setColor(153, 76, 0, 100)
+            love.graphics.rectangle('fill', mouse.x +10, mouse.y+28, 160, 100)
+        end
+        --draw text
       if Map:getCellActor(tile_x, tile_y) then
         a = Map:getCellActor(tile_x, tile_y)
+        love.graphics.setColor(255, 255, 102)
         love.graphics.print(a.name, mouse.x+10, mouse.y+30)
         if a.type then  --player doesn't have it yet
             love.graphics.print(a.type, mouse.x+10, mouse.y+40)
@@ -89,8 +97,10 @@ function PlayerGUI:draw_tip()
         love.graphics.print(a:getHealthState(), mouse.x+90, mouse.y+40)
       end
       if Map:getCellObject(tile_x, tile_y, 1) then
+        love.graphics.setColor(255, 255, 102)
         o = Map:getCellObject(tile_x, tile_y, 1)
-        love.graphics.print(o:getName(), mouse.x+10, mouse.y+60)
+        love.graphics.print("==========", mouse.x+10, mouse.y+60)
+        love.graphics.print(o:getName(), mouse.x+10, mouse.y+80)
       end
     end
 end
