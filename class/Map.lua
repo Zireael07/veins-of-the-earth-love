@@ -159,6 +159,16 @@ function Map:convertActortoTile(x,y)
   else
     tile = loaded_tiles[string]
   end
+
+  --safeguard
+  if not tile then
+    print("Couldn't find tile for "..Map:getCellActor(x,y).name..", size: "..tile_h)
+    if tile_h == 64 then
+     tile = loaded_tiles["human_large"]
+    else
+      tile = loaded_tiles["human"]
+    end
+  end
   --print ("Actor tile gotten for x: "..x.."y: "..y)
   return tile
 end
