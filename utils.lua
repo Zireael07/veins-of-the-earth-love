@@ -14,7 +14,12 @@ function utils:dirfromstring(str)
 end
 
 function utils:distance(sx, sy, tx, ty)
-  return math.max( sx-tx, tx-ty )
+    local x_diff = sx-tx
+    local y_diff = sy-ty
+    --ensure always positive values
+    if x_diff < 0 then x_diff = x_diff*-1 end
+    if y_diff < 0 then y_diff = y_diff*-1 end
+    return math.max(x_diff, y_diff)
 end
 
 function table.append(dst, src)
