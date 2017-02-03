@@ -164,6 +164,18 @@ function InventoryDialog:draw(player)
         love.graphics.print(item:getName(), mouse.x, mouse.y + 20)
     end
 
+    --menu
+    if menu then
+        y = 30
+        love.graphics.setColor(153, 76, 0, 100)
+        love.graphics.rectangle('fill', menu.menu_x, menu.menu_y + y, 80, #menu_entries*20)
+        for i, v in ipairs(menu_entries) do
+            love.graphics.setColor(255, 255, 102)
+            love.graphics.print(menu_entries[i], menu.menu_x, menu.menu_y + y)
+            y = y + 15
+        end
+    end
+
     if slot then 
         love.graphics.setColor(colors.RED)
         love.graphics.print(slot, mouse.x + 10, mouse.y + 30)
@@ -338,11 +350,48 @@ function InventoryDialog:mouse_pressed(x,y,b)
             dragged = { item=item, index=index, inven=inven }
             --print("[Inventory] We are dragging an item", item)
         end
+        if menu then
+            if x > menu.menu_x and x < menu.menu_x + 80 then
+                if y > menu.menu_y and y < menu.menu_y + 45 then
+                    print("Pressed menu option 1") --Examine
+                end
+                if y > menu.menu_y + 50 and y < menu.menu_y + 70 then
+                    print("Pressed menu option 2") --Wear
+                    local inven_inven = player["INVEN_"..menu.inven:upper()]
+                    local slot_inven = player["INVEN_"..menu.item.slot:upper()]
+                    if not menu.item.slot:find("inven") and menu.inven == "inven" then
+                        player:doWear(inven_inven, menu.index, menu.item, slot_inven)
+                    end
+                    --dismiss menu once we're done
+                    menu = nil
+                end
+                if menu and y < menu.menu_y then
+                    menu = nil
+                end
+            else
+            --dismiss menu
+            menu = nil
+            end
+        end
+
     --right mouse button
     elseif b == 2 then
         --cancel drag
         if dragged then
             dragged = nil
+        else
+            --dismiss menu
+            if menu then
+                menu = nil
+            else
+                if slot and item then
+                    print("Press right mouse on a slot with item")
+                    if menu == nil then
+                        menu = {menu_x = x, menu_y = y, item = item, index = index, inven=inven}
+                        menu_entries = {"Examine", "Wear"}
+                    end
+                end
+            end
         end
     end
 end
