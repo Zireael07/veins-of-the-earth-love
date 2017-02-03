@@ -44,7 +44,10 @@ function _M:generate(level, name)
     self:setAreaName(name, level)
 
     --these require a map, so move here for safety
-    Area:placeRandomStairs()
+    Area:placeRandomStairs("down")
+    if level > 1 then
+      Area:placeRandomStairs("up")
+    end
 
     Area:getAreaMap()
     if path_map then print_to_log("Created a path_map successfully!")  end
@@ -133,9 +136,14 @@ function Area:makeAstray(width, height)
 end
 
 
-function Area:placeRandomStairs()
+function Area:placeRandomStairs(dir)
   x, y = Map:findRandomStandingGrid()
-  Area:placeTerrain(x,y, ">")
+  if dir == "down" then
+    Area:placeTerrain(x,y, ">")
+  end
+  if dir == "up" then
+    Area:placeTerrain(x,y, "<")
+  end
   print("Creating stairs at ", x,y)
 end
 

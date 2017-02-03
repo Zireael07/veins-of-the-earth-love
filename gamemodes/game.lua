@@ -390,25 +390,22 @@ end
 function trychangeLevel(player)
   if not player.x and player.y then return end
 
-  if Map:getCellTerrain(player.x, player.y).display == ">" or Map:getCellTerrain(player.x, player.y).display == "<" then
+  if Map:getCellTerrain(player.x, player.y).display == ">" then
     local area_display = Area:getAreaName()
     local split = area_display:split(" : ")
     if split[1] then area = split[1] end
     if split[2] then level = split[2] end
     --print("Area is", area, "lvl", level)
     level = tonumber(level)
-    --fix bad turn order display
-    entities = {}
-    --lock so that no NPCs are trying to move while loading next level
-    game_lock()
-    setArea(level+1, area)
-    --fix spawning in wall
-    player_x, player_y = Map:findFreeGrid(1, 1, 5)
-    player:move(player_x, player_y)
-    Entity:addEntity(player)
-    --force update FOV
-    player:update_draw_visibility_new()
-    
+    actualchangeLevel(1)
+  elseif Map:getCellTerrain(player.x, player.y).display == "<" then
+    local area_display = Area:getAreaName()
+    local split = area_display:split(" : ")
+    if split[1] then area = split[1] end
+    if split[2] then level = split[2] end
+    --print("Area is", area, "lvl", level)
+    level = tonumber(level)
+    actualchangeLevel(-1)
   else 
     logMessage(colors.WHITE, "There is no way out of this level here")
   end
@@ -418,4 +415,22 @@ function setArea(level, name)
   if not name or not level then return end
   print("Setting area to", name, "lvl", level)
   Area:generate(level, name)
+end
+
+function actualchangeLevel(change)
+    --fix bad turn order display
+    entities = {}
+    --lock so that no NPCs are trying to move while loading next level
+    game_lock()
+    setArea(level+change, area)
+    --fix spawning in wall
+    if change > 0 then
+      player_x, player_y = Map:findGrid("<") --Map:findFreeGrid(1, 1, 5)
+    else
+      player_x, player_y = Map:findGrid(">")
+    end
+    player:move(player_x, player_y)
+    Entity:addEntity(player)
+    --force update FOV
+    player:update_draw_visibility_new()
 end
