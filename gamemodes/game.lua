@@ -62,7 +62,7 @@ function gamemode.load()
     game_turn = s:getTime()
 
     love.timer.sleep(.5)
-    setDialog("character_creation")
+    setDialog("character_creation", "character_creation")
 
 end
 
@@ -198,7 +198,8 @@ function gamemode.keypressed(k, sc)
       end
       --dialogs
       if sc == "escape" then
-        popup_dialog = "menu_dialog"
+        --popup_dialog = "menu_dialog"
+        setDialog("menu_dialog", "menu_dialog")
       elseif sc == 'i' then
         popup_dialog = 'inventory'
       elseif sc == 'l' then
@@ -376,7 +377,7 @@ function onTurn()
   end
 end
 
-function setDialog(str, data, init)
+function setDialog(str, init, data)
   print("[GAME] set dialog")
   popup_dialog = str
   if data then

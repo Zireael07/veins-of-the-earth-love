@@ -2,11 +2,21 @@ require 'T-Engine.class'
 
 local dice = require('libraries/dice')
 local utf8 = require("utf8")
+local UI = require "UIElements"
 
 module("CharacterCreation", package.seeall, class.make)
 
 function CharacterCreation:load()
     text = " "
+    UI:init_text_button(250, 80, 50, "roll", "REROLL", function() CharacterCreation:reroll() end)
+    --races
+    races = { {name="Human"},  {name="Half-Elf", stats_add = { cha = 2, }}, {name="Dwarf", stats_add = { con = 2, cha = -2}} }
+    local x = 400
+    local y = 100
+    for i, r in ipairs(races) do
+        UI:init_text_button(x,y, 50, i, r.name, function() CharacterCreation:selectRace(id) end)
+        y = y + 15
+    end
 end
 
 function CharacterCreation:draw(player)
@@ -39,9 +49,9 @@ function CharacterCreation:draw(player)
         y = y + 25
     end
 
+    UI:draw(id)
+
     local y = 50
-    love.graphics.setColor(255, 255, 102)
-    love.graphics.print("REROLL", 250, y+30)
 
     love.graphics.setColor(colors.WHITE)
     if self.rolled then
@@ -87,31 +97,14 @@ function CharacterCreation:draw(player)
     love.graphics.rectangle('fill', x, y, 200, 20)
     love.graphics.setColor(255, 255, 102)
     love.graphics.printf(text, x, y, 600)
-
-    --race selection
-    love.graphics.setColor(255, 255, 102)
-    races = { {name="Human"},  {name="Half-Elf", stats_add = { cha = 2, }}, {name="Dwarf", stats_add = { con = 2, cha = -2}} }
-    local x = 400
-    local y = 100
-    for i, r in ipairs(races) do
-        if i == race then
-            love.graphics.setColor(colors.RED)
-        else
-            love.graphics.setColor(255, 255, 102)
-        end
-        love.graphics.print(r.name, x, y)
-        y = y + 15
-    end
 end
 
 function CharacterCreation:mouse_pressed(x,y,b)
     if mouse.x < 150 or mouse.y < 30 then return end 
 
-    local s = 40
+    --local s = 40
     if b == 1 then
-        if mouse.x > 250 and mouse.x < 250+s then
-            CharacterCreation:reroll()
-        end
+        UI:mouse_pressed(x,y,b)
         if drag then
             if box then
                 --set the proper stat
@@ -140,12 +133,6 @@ function CharacterCreation:mouse_pressed(x,y,b)
             end
         end
 
-        --races
-        if mouse.x > 400 and mouse.x < 450 then
-            if race then
-                CharacterCreation:selectRace(race)
-            end
-        end
     --right mouse button
     elseif b == 2 then
         --cancel drag
@@ -165,9 +152,9 @@ function CharacterCreation:reroll()
 end
 
 function CharacterCreation:mouse()
+    id = UI:mouse()
     mouse_over, index = CharacterCreation:mousetodrag()
     box = CharacterCreation:mousetobox()
-    race = CharacterCreation:mousetoRace()
 end
 
 function CharacterCreation:mousetodrag()
@@ -252,24 +239,6 @@ end
 
 function CharacterCreation:setGender(val)
     player.gender = val
-end
-
-function CharacterCreation:mousetoRace()
-    if mouse.x < 400 and mouse.y < 100 then return end
-    local race
-    if mouse.x > 400 and mouse.x < 450 then
-        if mouse.y > 100 and mouse.y < 115 then
-            race = 1 --"Human"
-        end
-        if mouse.y > 115 and mouse.y < 130 then
-            race = 2 --"Half-Elf"
-        end
-        if mouse.y > 130 and mouse.y < 150 then
-            race = 3 --"Dwarf"
-        end
-    end
-
-    return race
 end
 
 function CharacterCreation:selectRace(race)

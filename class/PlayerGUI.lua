@@ -25,7 +25,7 @@ module("PlayerGUI", package.seeall, class.make)
 function PlayerGUI:loadGUI()
     love.graphics.setFont(goldbox_font)
 
-    CharacterCreation:load()
+    --CharacterCreation:load()
 end
 
 function PlayerGUI:draw_GUI(player)
@@ -446,6 +446,12 @@ function PlayerGUI:init_dialog(str)
     if str == "test" then
         TestDialog:load()
         print("Loading test dialog UI")
+    end
+    if str == "character_creation" then
+        CharacterCreation:load()
+    end
+    if str == "menu_dialog" then
+        MenuDialog:load()
     end
 end
 
