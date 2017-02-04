@@ -378,6 +378,8 @@ function onTurn()
 end
 
 function setDialog(str, init, data)
+  --clean up
+  GUI:unload()
   print("[GAME] set dialog")
   popup_dialog = str
   if data then

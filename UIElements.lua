@@ -7,6 +7,10 @@ element = {}
 function UIElements:load()
 end
 
+function UIElements:unload()
+    element = {}
+end
+
 function UIElements:init_text_button(x,y, w, id, text, on_press)
     if not x or not y or not id or not text then print("[UI] Missing parameters!") return end
     element[#element+1] = {x = x, y=y, w=w, id=id, text=text, on_press=on_press}

@@ -2,6 +2,8 @@ require 'T-Engine.class'
 
 require 'class.Player'
 
+local UI = require "UIElements"
+
 --bar
 local Hotbar = require 'class.Hotbar'
 
@@ -24,8 +26,6 @@ module("PlayerGUI", package.seeall, class.make)
 
 function PlayerGUI:loadGUI()
     love.graphics.setFont(goldbox_font)
-
-    --CharacterCreation:load()
 end
 
 function PlayerGUI:draw_GUI(player)
@@ -345,6 +345,11 @@ function PlayerGUI:draw_dijkstra_overlay(map, tile_size)
 end
 
 --handle screens
+--generic stuff
+function PlayerGUI:unload()
+    UI:unload()
+end
+
 --character creation
 function PlayerGUI:draw_character_creation(player)
     CharacterCreation:draw(player)
@@ -445,7 +450,7 @@ end
 function PlayerGUI:init_dialog(str)
     if str == "test" then
         TestDialog:load()
-        print("Loading test dialog UI")
+        --print("Loading test dialog UI")
     end
     if str == "character_creation" then
         CharacterCreation:load()
