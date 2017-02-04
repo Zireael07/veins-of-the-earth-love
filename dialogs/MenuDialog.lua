@@ -50,6 +50,8 @@ function MenuDialog:mouse_pressed(x,y,b)
             end
             if mouse.y > 170 then
                 print("Pressed debug menu option")
+                --remember to init
+                setDialog("test", nil, true)
             end
         end
     end

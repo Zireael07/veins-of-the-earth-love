@@ -15,6 +15,7 @@ local SkillsDialog = require 'dialogs.SkillsDialog'
 local HelpControls = require 'dialogs.HelpControls'
 local DeathDialog = require 'dialogs.DeathDialog'
 local MenuDialog = require 'dialogs.MenuDialog'
+local TestDialog = require 'dialogs.TestDialog'
 
 --for debug overlays
 local Pathfinding = require 'interface.Pathfinding'
@@ -438,6 +439,26 @@ end
 
 function PlayerGUI:menu_dialog_mouse_pressed(x,y,b)
     MenuDialog:mouse_pressed(x,y,b)
+end
+
+--test
+function PlayerGUI:init_dialog(str)
+    if str == "test" then
+        TestDialog:load()
+        print("Loading test dialog UI")
+    end
+end
+
+function PlayerGUI:draw_test_dialog()
+    TestDialog:draw()
+end
+
+function PlayerGUI:test_mouse()
+    TestDialog:mouse()
+end
+
+function PlayerGUI:test_mouse_pressed(x,y,b)
+    TestDialog:mouse_pressed(x,y,b)
 end
 
 return PlayerGUI

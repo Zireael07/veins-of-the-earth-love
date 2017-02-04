@@ -130,6 +130,8 @@ function draw_dialogs(player)
     GUI:draw_log_dialog()
   elseif popup_dialog == "chat" then
     GUI:draw_chat(npc_chat)
+  elseif popup_dialog == "test" then
+    GUI:draw_test_dialog()
   end
 
 end
@@ -259,6 +261,8 @@ function gamemode.mousepressed(x,y,b)
       GUI:inventory_mouse_pressed(x,y,b)
   elseif popup_dialog == "chat" then
       GUI:chat_mouse_pressed(x,y,b)
+  elseif popup_dialog == "test" then
+      GUI:test_mouse_pressed(x,y,b)
   end
 end
 
@@ -308,6 +312,8 @@ function gamemode.update(dt)
     GUI:inventory_mouse()
   elseif popup_dialog == "chat" then
     GUI:chat_mouse()
+  elseif popup_dialog == "test" then
+    GUI:test_mouse()
   end
   
   rounds()
@@ -370,11 +376,14 @@ function onTurn()
   end
 end
 
-function setDialog(str, data)
+function setDialog(str, data, init)
   print("[GAME] set dialog")
   popup_dialog = str
   if data then
     npc_chat = data
+  end
+  if init then
+    GUI:init_dialog(str)
   end
 end
 
