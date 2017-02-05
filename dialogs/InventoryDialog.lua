@@ -275,7 +275,6 @@ function InventoryDialog:getItemInSlot(index, inven)
 end
 
 function InventoryDialog:mouse_pressed(x,y,b)
-    require("mobdebug").on()
     UI:mouse_pressed(x,y,b)
     if b == 1 then
         if dragged then

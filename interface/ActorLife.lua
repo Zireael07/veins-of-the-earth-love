@@ -23,14 +23,14 @@ function ActorLife:getHPDieSize(type)
     local typetodie = {
     humanoid = 8,
 }
-    print("[ActorLife] Getting HP die for "..type)
+    --print("[ActorLife] Getting HP die for "..type)
     return typetodie[type]
 end
 
 function ActorLife:setMaxHP()
     if self.hit_die and self.hit_die > 0 then
         self.max_hitpoints = dice.roll(self.hit_die..'d'..self:getHPDieSize(self.type))
-        print("[ActorLife] "..self.hit_die..'d'..self:getHPDieSize(self.type).. "result "..self.max_hitpoints)
+        --print("[ActorLife] "..self.hit_die..'d'..self:getHPDieSize(self.type).. " result "..self.max_hitpoints)
     end
 end
 
