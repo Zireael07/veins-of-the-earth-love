@@ -201,7 +201,8 @@ function gamemode.keypressed(k, sc)
         --popup_dialog = "menu_dialog"
         setDialog("menu_dialog", "menu_dialog")
       elseif sc == 'i' then
-        popup_dialog = 'inventory'
+        --popup_dialog = 'inventory'
+        setDialog("inventory", "inventory")
       elseif sc == 'l' then
         popup_dialog = 'log'
       elseif sc == 'c' then

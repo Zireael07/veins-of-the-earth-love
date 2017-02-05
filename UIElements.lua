@@ -42,8 +42,12 @@ function UIElements:mouse()
     local id
     local param
     for i,e in ipairs(element) do
-        if mouse.x > e.x and mouse.x < e.x + (e.w or 20) then
-            if mouse.y > e.y and mouse.y < e.y + 20 then
+        local width = e.w or 20
+        local height = 20 
+        if e.inventory then width = 42 height = 42 end
+
+        if mouse.x > e.x and mouse.x < e.x + width then
+            if mouse.y > e.y and mouse.y < e.y + height then
                 if e.id then
                     id = e.id
                 end
@@ -60,8 +64,12 @@ end
 function UIElements:mouse_pressed(x,y,b)
     if b == 1 then
         for i,e in ipairs(element) do
-            if x > e.x and x < e.x + (e.w or 20) then
-                if y > e.y and y < e.y + 20 then
+            local width = e.w or 20
+            local height = 20 
+            if e.inventory then width = 42 height = 42 end
+
+            if x > e.x and x < e.x + width then
+                if y > e.y and y < e.y + height then
                     --print("Pressed mouse over element "..e.id)
                     if e.on_press then
                         print("We have on_press, calling it")

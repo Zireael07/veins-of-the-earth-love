@@ -458,6 +458,9 @@ function PlayerGUI:init_dialog(str)
     if str == "menu_dialog" then
         MenuDialog:load()
     end
+    if str == "inventory" then
+        InventoryDialog:load()
+    end
 end
 
 function PlayerGUI:draw_test_dialog()
