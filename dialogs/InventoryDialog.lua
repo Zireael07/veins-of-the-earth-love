@@ -1,9 +1,11 @@
 require 'T-Engine.class'
 
+local UI = require 'UIElements'
+
 module("InventoryDialog", package.seeall, class.make)
 
-function InventoryDialog:drawSlot(inven, x, y)
-  local tiles = {
+function InventoryDialog:load()
+    local tiles = {
     BODY = loaded_tiles["armor_inv"],
     HELM = loaded_tiles["head_inv"],
     AMULET = loaded_tiles["amulet_inv"],
@@ -18,32 +20,132 @@ function InventoryDialog:drawSlot(inven, x, y)
     LITE = loaded_tiles["light_inv"],
     TOOL = loaded_tiles["tool_inv"],
     }
-  
-    if player:getInven(player["INVEN_"..inven]) then
-        love.graphics.draw(tiles[inven], x, y)
-        --if there is an item in the corresponding slot, draw it
-        for nb, o in ipairs(player:getInven(player["INVEN_"..inven])) do
-            if nb == 1 then
-                --black background
-                love.graphics.setColor(colors.BLACK)
-                love.graphics.rectangle('fill', x, y, 42, 42)
-                love.graphics.setColor(255, 255, 255)
-                local tile = InventoryDialog:getObjectTile(o)
-                love.graphics.draw(tile, x+5, y+5)
-            end
-        end
-        --draw outline around acceptable slots when dragging
-        if dragged then
-            local slot = dragged.item.slot
-            if inven == slot then
-                love.graphics.setColor(colors.GOLD)
-                love.graphics.rectangle('line', x, y, 42, 42)
-                love.graphics.setColor(255, 255, 255)
-            end
-        end
-    end 
 
+    --for inven,v in ipairs(tiles) do
+        if player:getInven(player["INVEN_BODY"]) then
+            InventoryDialog:init_inventory_slot(160, 50, "body", {}, tiles["BODY"])
+        end
+        if player:getInven(player["INVEN_HELM"]) then
+            InventoryDialog:init_inventory_slot(210, 50, "helm", {}, tiles["HELM"])
+        end
+        if player:getInven(player["INVEN_AMULET"]) then
+            InventoryDialog:init_inventory_slot(270, 50, "amulet", {}, tiles["AMULET"])
+        end
+        --2nd line
+        if player:getInven(player["INVEN_QUIVER"]) then
+            InventoryDialog:init_inventory_slot(160, 100, "quiver", {}, tiles["QUIVER"])
+        end
+        if player:getInven(player["INVEN_SHOULDER"]) then
+            InventoryDialog:init_inventory_slot(270, 100, "shoulder", {}, tiles["SHOULDER"])
+        end
+        --3rd line
+        if player:getInven(player["INVEN_MAIN_HAND"]) then
+            InventoryDialog:init_inventory_slot(160, 150, "main_hand", {}, tiles["MAIN_HAND"])
+        end
+        if player:getInven(player["INVEN_OFF_HAND"]) then
+            InventoryDialog:init_inventory_slot(270, 150, "off_hand", {}, tiles["OFF_HAND"])
+        end
+        --4th line 
+        --rings
+        --5th line
+        if player:getInven(player["INVEN_CLOAK"]) then
+            InventoryDialog:init_inventory_slot(160, 250, "cloak", {}, tiles["CLOAK"])
+        end
+        if player:getInven(player["INVEN_BELT"]) then
+            InventoryDialog:init_inventory_slot(270, 250, "belt", {}, tiles["BELT"])
+        end
+        --6th line
+        if player:getInven(player["INVEN_BOOTS"]) then
+            InventoryDialog:init_inventory_slot(270, 300, "boots", {}, tiles["BOOTS"])
+        end
+        if player:getInven(player["INVEN_LITE"]) then
+            InventoryDialog:init_inventory_slot(160, 300, "lite", {}, tiles["LITE"])
+        end
+        --bottom
+        if player:getInven(player["INVEN_TOOL"]) then
+            InventoryDialog:init_inventory_slot(210, 300, "tool", {}, tiles["TOOL"]) 
+        end
+    --end
+    --backpack
+    local x = 160
+    local y = 400
+
+    --total of INVEN slots (30)
+    --one row
+    for i=1,15 do
+        InventoryDialog:init_inventory_slot(x, y, "inven_"..i, {255, 255, 102})
+        x = x + 45
+    end
+    --2nd row
+    y = 470
+    x = 160
+    for i=16,30 do
+        InventoryDialog:init_inventory_slot(x,y, "inven_"..i, {255, 255, 102})
+        x = x + 45
+    end
+
+    --ground
+    x = 350
+    y = 120
+    for i=1,5 do
+        InventoryDialog:init_inventory_slot(x,y, "drop_"..i, {255, 51, 51})
+        y = y + 45
+    end
 end
+
+function InventoryDialog:init_inventory_slot(x,y, id, border_color, bg)
+    if not x or not y or not id then print("[UI] Inventory slot: missing parameters!") return end
+    UI.element[#UI.element+1] = {x=x, y=y, id=id, inventory=true, border_color=border_color, bg=bg}
+end
+
+function InventoryDialog:draw_ui()
+    for i,e in ipairs(UI.element) do
+        --background if any
+        if e.bg then
+            love.graphics.draw(e.bg, e.x, e.y)
+        else
+            --black fill
+            love.graphics.setColor(0,0,0)
+            love.graphics.rectangle('fill', e.x, e.y, 42, 42)
+            --colored border
+            love.graphics.setColor(e.border_color)
+            love.graphics.rectangle('line', e.x, e.y, 42, 42)
+        end
+
+        ind, inv = InventoryDialog:slottoIndex(e.id)
+        --drop slots have no assigned inven
+        if inv ~= "drop" then
+            --if there is an item in the corresponding slot, draw it
+            for nb, o in ipairs(player:getInven(player["INVEN_"..inv:upper()])) do
+                if inv:upper() ~= "INVEN" then
+                    if nb == 1 then
+                        --black background
+                        love.graphics.setColor(colors.BLACK)
+                        love.graphics.rectangle('fill', e.x, e.y, 42, 42)
+                        love.graphics.setColor(255, 255, 255)
+                        local tile = InventoryDialog:getObjectTile(o)
+                        love.graphics.draw(tile, e.x+5, e.y+5)
+                    end
+                else 
+                    if nb == tonumber(ind) then
+                        local tile = InventoryDialog:getObjectTile(o)
+                        love.graphics.draw(tile, e.x+5, e.y+5)
+                    end
+                end
+            end
+        end
+    end
+end
+
+--draw outline around acceptable slots when dragging
+    --[[if dragged then
+        local slot = dragged.item.slot
+        if inven == slot then
+            love.graphics.setColor(colors.GOLD)
+            love.graphics.rectangle('line', x, y, 42, 42)
+            love.graphics.setColor(255, 255, 255)
+        end
+    end]]
 
 function InventoryDialog:draw(player)
 
@@ -55,22 +157,16 @@ function InventoryDialog:draw(player)
     love.graphics.draw(loaded_tiles["player_tile"], 200,120, 0, 2.5, 2.5)
 
     --draw inventory UI bits
+    love.graphics.setColor(255,255,255)
+    InventoryDialog:draw_ui()
+
+
     --necessary for the ring slot
     local tiles = {
       RING = loaded_tiles["ring_inv"]
     }
     
-    --top
-    InventoryDialog:drawSlot("BODY", 160, 50)
-    InventoryDialog:drawSlot("HELM", 210, 50)
-    InventoryDialog:drawSlot("AMULET", 270, 50)
-    --2nd line
-    InventoryDialog:drawSlot("QUIVER", 160, 100)
-    InventoryDialog:drawSlot("SHOULDER", 270, 100)
-    --3rd line
-    InventoryDialog:drawSlot("MAIN_HAND", 160, 150)
-    InventoryDialog:drawSlot("OFF_HAND", 270, 150)
-    --4th line
+    --[[--4th line
     --special because two rings
     if player:getInven(player.INVEN_RING) then
         love.graphics.draw(tiles["RING"], 160, 200)
@@ -85,72 +181,12 @@ function InventoryDialog:draw(player)
                 love.graphics.draw(tile, 270+5, 200+5)
             end
         end
-    end
+    end]]
 
-    --5th line
-    InventoryDialog:drawSlot("CLOAK", 160, 250)
-    InventoryDialog:drawSlot("BELT", 270, 250)
-    --6th line
-    InventoryDialog:drawSlot("BOOTS", 270, 300)
-    InventoryDialog:drawSlot("LITE", 160, 300)
-    --bottom
-    InventoryDialog:drawSlot("TOOL", 210, 300) 
-
-    --backpack
-    local x = 160
-    local y = 400
-
-    --total of INVEN slots (30)
-    --one row
-    for i=1,15 do
-        --black fill
-        love.graphics.setColor(0,0,0)
-        love.graphics.rectangle('fill', x, y, 42, 42)
-        --gold border
-        love.graphics.setColor(255, 255, 102)
-        love.graphics.rectangle('line', x, y, 42, 42)
-
-        --if there is an item in the corresponding slot, draw it
-        for nb, o in ipairs(player:getInven(player.INVEN_INVEN)) do
-            --print("We have an item in inventory slot ", nb)
-            if nb == i then
-                local tile = InventoryDialog:getObjectTile(o)
-                love.graphics.draw(tile, x+5, y+5)
-                --print("We are going to draw on slot ", i)
-            end
-        end
-
-
-        x = x + 45
-    end
-    --2nd row
-    y = 470
-    x = 160
-    for i=16,30 do
-        --black fill
-        love.graphics.setColor(0,0,0)
-        love.graphics.rectangle('fill', x, y, 42, 42)
-        --gold border
-        love.graphics.setColor(255, 255, 102)
-        love.graphics.rectangle('line', x, y, 42, 42)
-
-        x = x + 45
-    end
-
-    --drop slots
+    --drop slots header
     x = 350
     y = 120
     love.graphics.print("Ground", x, y-20)
-    for i=1,5 do
-        --black fill
-        love.graphics.setColor(0,0,0)
-        love.graphics.rectangle('fill', x, y, 42, 42)
-        --red border
-        love.graphics.setColor(255, 51, 51)
-        love.graphics.rectangle('line', x, y, 42, 42)
-
-        y = y + 45
-    end
 
     --fill right hand side
     love.graphics.setColor(255, 255, 102)
@@ -190,8 +226,7 @@ function InventoryDialog:draw(player)
 end
 
 function InventoryDialog:getObjectTile(o)
-    local string 
-   -- local tile
+    local string
     if not o.image then print("Object does not have image defined") return end
 
     string = o.image
@@ -201,93 +236,9 @@ function InventoryDialog:getObjectTile(o)
 end
 
 function InventoryDialog:mouse()
-    slot = InventoryDialog:mousetoSlot()
+    slot = UI:mouse()
     index, inven = InventoryDialog:slottoIndex(slot)
     item = InventoryDialog:getItemInSlot(index, inven)
-end
-
-
-function InventoryDialog:mousetoSlot()
-    if mouse.x < 150 or mouse.y < 30 then return end
-
-    local s = 42
-
-    local slot
-    --is there a better way?
-    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 50 and mouse.y < 50+s then
-        slot = "body"
-    end
-    if mouse.x > 210 and mouse.x < 210+s and mouse.y > 50 and mouse.y < 50+s then
-        slot = "helm"
-    end
-    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 50 and mouse.y < 50+s then
-        slot = "amulet"
-    end
-    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 100 and mouse.y < 100+s then
-        slot = "quiver"
-    end
-    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 100 and mouse.y < 100+s then
-        slot = "shoulder"
-    end
-    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 150 and mouse.y < 150+s then
-        slot = "main_hand"
-    end
-    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 150 and mouse.y < 150+s then
-        slot = "off_hand"
-    end
-    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 200 and mouse.y < 200+s then
-        slot = "ring_1"
-    end
-    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 200 and mouse.y < 200+s then
-        slot = "ring_2"
-    end
-    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 250 and mouse.y < 250+s then
-        slot = "cloak"
-    end
-    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 250 and mouse.y < 250+s then
-        slot = "belt"
-    end
-    if mouse.x > 160 and mouse.x < 160+s and mouse.y > 300 and mouse.y < 300+s then
-        slot = "lite"
-    end
-    if mouse.x > 270 and mouse.x < 270+s and mouse.y > 300 and mouse.y < 300+s then
-        slot = "boots"
-    end
-    if mouse.x > 210 and mouse.x < 210+s and mouse.y > 300 and mouse.y < 300+s then
-        slot = "tool"
-    end
-    
-    --inventory
-    local x = 160
-    local y = 400
-    for i=1,15 do
-        if mouse.x > x and mouse.x < x + s and mouse.y > y and mouse.y < y + s then
-            slot = "inven_"..i    
-        end
-        x = x + 45
-    end
-
-    y = 470
-    x = 160
-    for i=16,30 do
-        if mouse.x > x and mouse.x < x + s and mouse.y > y and mouse.y < y + s then
-            slot = "inven_"..i    
-        end
-        x = x + 45
-    end
-
-    --ground
-    x = 350
-    y = 120
-    for i=1,5 do
-        if mouse.x > x and mouse.x < x + s and mouse.y > y and mouse.y < y + s then
-            slot = "drop_"..i    
-        end
-        y = y + 45
-    end
-
-    --print("Mousing over slot: ", slot)
-    return slot
 end
 
 function InventoryDialog:slottoIndex(slot)
@@ -296,7 +247,7 @@ function InventoryDialog:slottoIndex(slot)
 
     local i
     local inven
-    if slot:find("inven_") or slot:find("ring_") then
+    if slot:find("inven_") or slot:find("ring_") or slot:find("drop_") then
         local split = slot:split('_')
         if split[2] then
             i = split[2]
@@ -306,7 +257,7 @@ function InventoryDialog:slottoIndex(slot)
         i = 1
         inven = slot
     end
-   -- print("Index is ", i)
+    --print("Index is ", i)
     --print("Inven is ", inven)
     return i, inven
 end
@@ -324,6 +275,8 @@ function InventoryDialog:getItemInSlot(index, inven)
 end
 
 function InventoryDialog:mouse_pressed(x,y,b)
+    require("mobdebug").on()
+    UI:mouse_pressed(x,y,b)
     if b == 1 then
         if dragged then
             if slot then
@@ -348,7 +301,7 @@ function InventoryDialog:mouse_pressed(x,y,b)
         end
         if item then 
             dragged = { item=item, index=index, inven=inven }
-            --print("[Inventory] We are dragging an item", item)
+            --print("[Inventory] We are dragging an item", item, "index", index, "inven"..(inven or " "))
         end
         if menu then
             if x > menu.menu_x and x < menu.menu_x + 80 then
