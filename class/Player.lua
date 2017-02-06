@@ -23,6 +23,12 @@ function _M:init(t)
     self.name = "Player"
     self.gender = nil
     self.race = "Human"
+    self.money = {
+      platinum = 0,
+      gold = 0, 
+      silver = 100, 
+      bronze = 0
+    }
     --do it again to account for increased hp above
     if self.body_parts then
       self:setBodyPartsHP()
@@ -121,6 +127,11 @@ function _M:on_die(src)
   game_lock()
   --display dialog
   setDialog("death_dialog")
+end
+
+function _M:getCoins(color)
+  if not self.money[color] then print("Specified invalid coin color", color) end
+  return self.money[color] or 0
 end
 
 return _M
