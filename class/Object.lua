@@ -19,6 +19,7 @@ function _M:init(t)
     self.wielder = t.wielder
     self.ammo_type = t.ammo_type
     self.cost = 0
+    self.desc = t.desc
     --flags
     self.ranged = t.ranged or false
     if t.cost then
@@ -78,6 +79,13 @@ function _M:getName(t)
     return name
 end
 
+function _M:getExamineDescription()
+    if not self.desc then return "No description available" end
+    local desc = self.desc
+    desc = desc.."\n "..self:formatPrice()
+    return desc
+end
+
 --10 coppers to a silver, 20 silvers to a gold means 200 coppers to a gold
 --10 gold to a platinum means 2000 coppers to a platinum
 function _M:setValue(plat, gold, silver)
@@ -110,10 +118,10 @@ function _M:formatPrice()
     local plat_rest = math.floor(plat_change/200)
     local gold_rest = math.floor(gold_change/10)
 
-    if self.cost > 2000 then
+    if self.cost >= 2000 then
         if (plat_rest or 0) > 0 then return ""..platinum.." pp "..plat_rest.." gp"
         else return ""..platinum.." pp" end
-    elseif self.cost > 200 then
+    elseif self.cost >= 200 then
         if (gold_rest or 0) > 0 then return ""..gold.." gp "..gold_rest.." sp"
         else return ""..gold.." gp" end
     elseif self.cost > 10 then

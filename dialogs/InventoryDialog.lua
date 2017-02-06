@@ -212,6 +212,14 @@ function InventoryDialog:draw(player)
         end
     end
 
+    --examine screen
+    if examine then
+        love.graphics.setColor(255, 255, 51, 150)
+        love.graphics.rectangle('fill', 270, 100, 400, 400)
+        love.graphics.setColor(colors.SLATE)
+        love.graphics.printf(examine.item:getExamineDescription(), 280, 120, 380)
+    end
+
     if slot then 
         love.graphics.setColor(colors.RED)
         love.graphics.print(slot, mouse.x + 10, mouse.y + 30)
@@ -306,6 +314,7 @@ function InventoryDialog:mouse_pressed(x,y,b)
             if x > menu.menu_x and x < menu.menu_x + 80 then
                 if y > menu.menu_y and y < menu.menu_y + 45 then
                     print("Pressed menu option 1") --Examine
+                    examine = {item=menu.item}
                 end
                 if y > menu.menu_y + 50 and y < menu.menu_y + 70 then
                     print("Pressed menu option 2") --Wear
@@ -328,6 +337,10 @@ function InventoryDialog:mouse_pressed(x,y,b)
 
     --right mouse button
     elseif b == 2 then
+        --dismiss examine
+        if examine then
+            examine = nil
+        end
         --cancel drag
         if dragged then
             dragged = nil
