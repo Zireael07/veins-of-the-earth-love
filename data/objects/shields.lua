@@ -7,6 +7,9 @@ object_types['buckler'] = {
     encumber = 5,
     material = "steel",
     durability = 5,
+    cost = {
+        silver = 50,
+    },
     wielder = {
         combat_shield = 1,
         spell_fail = 5
@@ -22,6 +25,9 @@ object_types['light wooden shield'] = {
     encumber = 5,
     material = "wood",
     durability = 7,
+    cost = {
+        silver = 150,
+    },
     wielder = {
         combat_shield = 1,
         spell_fail = 5
@@ -37,6 +43,9 @@ object_types['light steel shield'] = {
     encumber = 5,
     material = "steel",
     durability = 10,
+    cost = {
+        silver = 175,
+    },
     wielder = {
         combat_shield = 1,
         spell_fail = 5
@@ -52,6 +61,10 @@ object_types['heavy wooden shield'] = {
     encumber = 10,
     material = "steel",
     durability = 15,
+    cost = {
+        gold = 1,
+        silver = 100,
+    },
     wielder = {
         combat_shield = 2,
         spell_fail = 15
@@ -67,6 +80,10 @@ object_types['heavy steel shield'] = {
     encumber = 15,
     material = "steel",
     durability = 20,
+    cost = {
+        gold = 2,
+        silver = 50,
+    },
     wielder = {
         combat_shield = 2,
         spell_fail = 15
@@ -82,6 +99,10 @@ object_types['tower shield'] = {
     encumber = 45,
     material = "steel",
     durability = 20,
+    cost = {
+        gold = 2,
+        silver = 50,
+    },
     wielder = {
         combat_shield = 4,
         spell_fail = 30

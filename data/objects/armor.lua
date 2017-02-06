@@ -5,6 +5,9 @@ object_types['padded armor'] = {
     image = "padded",
     desc = "A simple padded armor. Does not offer much protection.",
     encumber = 10,
+    cost = {
+        silver = 140,
+    },
     wielder = {
         combat_armor = 1,
         max_dex_bonus = 8,
@@ -19,6 +22,9 @@ object_types['leather armor'] = {
     image = "leather",
     desc = "A set of leather armor. Does not offer much protection.",
     encumber = 10,
+    cost = {
+        gold = 1
+    },
     wielder = {
         combat_armor = 2,
         max_dex_bonus = 6,
@@ -33,6 +39,10 @@ object_types['studded armor'] = {
     image = "studded",
     desc = "A set of leather armor. Does not offer much protection.",
     encumber = 10,
+    cost = { --525 silver pieces
+        gold = 2,
+        silver = 125,
+    },
     wielder = {
         combat_armor = 3,
         max_dex_bonus = 5,

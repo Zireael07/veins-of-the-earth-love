@@ -6,6 +6,9 @@ object_types['dagger'] = {
     desc = "A normal trusty dagger.\n\n",
     encumber = 3,
     light = true,
+    cost = {
+        silver = 30,
+    },
     combat = {
         dam = {1,4},
         threat = 1,
@@ -24,6 +27,9 @@ object_types['short spear'] = {
     desc = "A wooden short spear.\n\n",
     encumber = 10,
     simple = true,
+    cost = {
+        silver = 20,
+    },
     combat = {
         dam = {1,6},
     },
@@ -42,6 +48,9 @@ object_types['longsword'] = {
     desc = "A trusty sword.\n\n",
     encumber = 4,
     martial = true,
+    cost = {
+        silver = 175,
+    },
     combat = {
         dam = {1,8},
         threat = 2,
