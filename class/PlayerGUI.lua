@@ -26,6 +26,7 @@ module("PlayerGUI", package.seeall, class.make)
 
 function PlayerGUI:loadGUI()
     love.graphics.setFont(goldbox_font)
+    Hotbar:load()
 end
 
 function PlayerGUI:draw_GUI(player)
