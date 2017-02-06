@@ -193,6 +193,20 @@ function InventoryDialog:draw(player)
     love.graphics.print("INVENTORY", 500, 50)
     --love.graphics.print("AC: "..player:getAC(), 500, 100)
 
+    --money bar
+    
+    x = 500
+    y = 140
+    love.graphics.print("MONEY", x, y-20)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(loaded_tiles["ui_platinum_coin"], x, y)
+    love.graphics.print(player:getCoins("platinum"), x+20, y)
+    love.graphics.draw(loaded_tiles["ui_gold_coin"], x+60, y)
+    love.graphics.print(player:getCoins("gold"), x+80, y)
+    love.graphics.draw(loaded_tiles["ui_silver_coin"], x+120, y)
+    love.graphics.print(player:getCoins("silver"), x+140, y)
+    love.graphics.draw(loaded_tiles["ui_bronze_coin"], x+180, y)
+    love.graphics.print(player:getCoins("bronze"), x+200, y)
 
     --tooltip?
     if item then

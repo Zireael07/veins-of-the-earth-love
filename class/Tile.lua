@@ -65,6 +65,10 @@ function Tile:loadTiles()
     --more UI
     ui_left_arrow = lg.newImage("gfx/kenney_ui/arrowBeige_left.png"),
     ui_right_arrow = lg.newImage("gfx/kenney_ui/arrowBeige_right.png"),
+    ui_platinum_coin = lg.newImage("gfx/kenney_ui/iconCircle_grey.png"),
+    ui_gold_coin = lg.newImage("gfx/kenney_ui/iconCircle_beige.png"),
+    ui_silver_coin = lg.newImage("gfx/kenney_ui/iconCircle_blue.png"),
+    ui_bronze_coin = lg.newImage("gfx/kenney_ui/iconCircle_brown.png"),
 
     --inventory
     ammo_inv = lg.newImage("gfx/inventory/ammo_inv.png"),
