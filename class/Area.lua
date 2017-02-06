@@ -190,10 +190,11 @@ function Area:spawnStuff()
   Spawn:createItem(tx,ty, "leather helmet")
   local tx, ty = Map:findRandomStandingGrid()
   Spawn:createItem(tx,ty, "leather armor")
+  local tx, ty = Map:findRandomStandingGrid()
+  Spawn:createItem(tx,ty, "light wooden shield")
 end
 
 function Area:spawnTest()
-  Spawn:createItem(3,3, "light wooden shield")
   Spawn:createItem(3,3, "studded armor")
 
   Spawn:createItem(4,4, "longbow")

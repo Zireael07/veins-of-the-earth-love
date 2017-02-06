@@ -376,18 +376,18 @@ end
 
 function Map:findRandomStandingGrid()
     local x, y = rng:random(1, Map:getHeight()-1), rng:random(1, Map:getWidth()-1)
-    local found_x,found_y = 0
+    local found_x, found_y = 0
 
     local tries = 0
-    while not Map:getCellTerrain(x,y).display == "." and tries < 1000 do
+    while Map:getCellTerrain(x,y).display ~= "." do --and tries < 1000 do
       x, y = rng:random(1, Map:getHeight()-1), rng:random(1, Map:getWidth()-1)
       tries = tries + 1
     end
-    if tries < 1000 then
+    --if tries < 1000 then
       found_x = x
       found_y = y  
       print("Random standing grid",x, y)
-    end
+    --end
     return found_x, found_y
 end
 
