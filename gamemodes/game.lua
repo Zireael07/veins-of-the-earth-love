@@ -77,7 +77,7 @@ function draw_map_GUI(tile_size)
     GUI:draw_border_mousetile(tile_size)
   else
     --if mouse_mode
-    GUI:draw_targeting_overlay()
+    GUI:draw_targeting_overlay(tile_size)
   end
   if not game_locked then
     if dijkstra then
