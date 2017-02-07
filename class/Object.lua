@@ -24,7 +24,7 @@ function _M:init(t)
     self.ranged = t.ranged or false
     if t.cost then
         print_to_log("[OBJECT] setting value for "..t.name)
-        self.cost = self:setValue((t.cost.platinum or 0), (t.cost.gold or 0), (t.cost.silver or 0))
+        self.cost = self:setValue((t.cost.platinum or 0), (t.cost.gold or 0), (t.cost.silver or 0), (t.cost.copper or 0))
     end
 end
 
@@ -88,8 +88,8 @@ end
 
 --10 coppers to a silver, 20 silvers to a gold means 200 coppers to a gold
 --10 gold to a platinum means 2000 coppers to a platinum
-function _M:setValue(plat, gold, silver)
-    print_to_log("[OBJECT] Setting value: plat ", plat, " gold ", gold, " silver ", silver)
+function _M:setValue(plat, gold, silver, copper)
+    print_to_log("[OBJECT] Setting value: plat ", plat, " gold ", gold, " silver ", silver, " copper ", copper)
     local cost = 0
 
     if plat > 0 then
@@ -100,6 +100,9 @@ function _M:setValue(plat, gold, silver)
     end
     if silver > 0 then
         cost = cost + silver*10
+    end
+    if copper > 0 then
+        cost = cost + copper
     end
     print_to_log("[OBJECT] Cost is ", cost)
     return cost
