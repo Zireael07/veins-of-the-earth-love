@@ -183,9 +183,13 @@ function _M:onWear(o, inven_id)
 
     if o.wielder then
         for k, e in pairs(o.wielder) do
-            --temporary band-aid
-            --self[k] = e
             o.wielded[k] = self:addTemporaryValue(k, e)
+            --force recompute FOV
+            if k == "lite" and self.player then
+                --force update FOV
+                self:update_draw_visibility_new()
+            end
+
         end
     end
 end
