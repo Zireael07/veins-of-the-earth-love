@@ -7,7 +7,7 @@ local Treasure = require 'class.Treasure'
 
 local Map = require 'class.Map'
 
-module("NPC", package.seeall, class.inherit(Actor))
+module("NPC", package.seeall, class.inherit(Actor, ActorAI))
 
 function _M:init(t)
     --init inherited stuff
@@ -15,6 +15,7 @@ function _M:init(t)
 end
 
 function _M:act()
+    ActorAI.act(self)
     if self:reactionToward(player) < 0 then
         self:target(player.x, player.y)
     else

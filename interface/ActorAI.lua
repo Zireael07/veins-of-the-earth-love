@@ -7,11 +7,15 @@ local Map = require "class.Map"
 module("ActorAI", package.seeall, class.make)
 
 actor_path = {}
+seen_actors = {}
+
+function ActorAI:act()
+  print_to_log("[ActorAI] running AI")
+  self:getSeenActors()
+end
 
 function ActorAI:target(tx, ty, self_x, self_y)
     if not tx or not ty then return end
-    
-    print_to_log("[ActorAI] running AI")
 
     --test
     local w = Map:getWidth()-1
@@ -30,6 +34,23 @@ end
 function ActorAI:getPath()
   --print("Getting path")
   return actor_path
+end
+
+function ActorAI:getSeenActors()
+  local range = math.max(self.lite or 0, self.darkvision or 0)
+  for y=1, Map:getWidth()-1 do
+      for x=1, Map:getHeight()-1 do 
+        if utils:distance(self.x, self.y, x, y) < range then
+          if Map:getCellActor(x,y) then 
+            local a = Map:getCellActor(x,y)
+            if a and a ~= self and not a.dead then
+              seen_actors[#seen_actors+1] = a
+              print("AI ", self.name, "can see ", a.name)
+            end
+          end
+        end
+      end
+  end
 end
 
 return ActorAI

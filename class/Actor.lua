@@ -40,6 +40,7 @@ function _M:init(t)
 
     self.inventory = t.inventory
     self.lite = t.lite
+    self.darkvision = t.darkvision or 0
     --dialogue
     self.text = t.text
     self.convo = t.convo
@@ -154,6 +155,13 @@ function _M:moveAlongPath(path)
     self:move(path[2].x, path[2].y)
   end
 end
+
+function _M:isNear(x,y, radius)
+  radius = radius or 1
+  if utils:distance(self.x, self.y, x, y) > radius then return false end
+  return true
+end
+
 
 function _M:reactionToward(target)
   return Faction:factionReaction(self.faction, target.faction)
