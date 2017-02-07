@@ -73,7 +73,9 @@ function PlayerGUI:draw_mouse(x,y)
     love.graphics.print((tile_x or "N/A")..", "..(tile_y or "N/A"), mouse.x+10, mouse.y)
     love.graphics.setColor(255, 255, 102)
     if tile_x and tile_y then
-        love.graphics.print(utils:distance(player.x, player.y, tile_x, tile_y), mouse.x+50, mouse.y)
+        local dist = utils:distance(player.x, player.y, tile_x, tile_y)
+        local feet = dist*5
+        love.graphics.print(dist.." "..feet.." ft", mouse.x+50, mouse.y)
     end 
     love.graphics.print(player.x..", "..player.y, mouse.x+10, mouse.y+15)
 end
