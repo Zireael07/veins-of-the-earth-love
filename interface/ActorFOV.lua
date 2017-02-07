@@ -20,7 +20,8 @@ function ActorFOV:update_draw_visibility_new()
     -- mark all seen tiles as not currently seen
     
     fov=ROT.FOV.Precise:new(lightPassesCallback,{topology=8})
-    results = fov:compute(self.x,self.y,6,isVisibleCallback)
+    --results = fov:compute(self.x,self.y,4,isVisibleCallback)
+    results = fov:compute(self.x, self.y, self.lite or 0, isVisibleCallback)
 end
 
 -- for FOV calculation

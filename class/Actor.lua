@@ -39,6 +39,7 @@ function _M:init(t)
     self.faction = t.faction or "enemy"
 
     self.inventory = t.inventory
+    self.lite = t.lite
     --dialogue
     self.text = t.text
     self.convo = t.convo
