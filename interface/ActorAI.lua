@@ -7,7 +7,12 @@ local Map = require "class.Map"
 module("ActorAI", package.seeall, class.make)
 
 actor_path = {}
-seen_actors = {}
+--seen_actors = {}
+
+function ActorAI:init()
+  self.seen_actors = {}
+  print("[ActorAI] Inited AI")
+end
 
 function ActorAI:act()
   print_to_log("[ActorAI] running AI")
@@ -37,6 +42,8 @@ function ActorAI:getPath()
 end
 
 function ActorAI:getSeenActors()
+  --clear
+  self.seen_actors = {}
   local range = math.max(self.lite or 0, self.darkvision or 0)
   for y=1, Map:getWidth()-1 do
       for x=1, Map:getHeight()-1 do 
@@ -44,12 +51,22 @@ function ActorAI:getSeenActors()
           if Map:getCellActor(x,y) then 
             local a = Map:getCellActor(x,y)
             if a and a ~= self and not a.dead then
-              seen_actors[#seen_actors+1] = a
-              print("AI ", self.name, "can see ", a.name)
+              self.seen_actors[#self.seen_actors+1] = a
+              --print("AI ", self.name, "can see ", a.name)
             end
           end
         end
       end
+  end
+end
+
+function ActorAI:canSeePlayer()
+  for i,v in ipairs(self.seen_actors) do
+    if self.seen_actors[i].player then
+      print("AI ", self.name, "can see Player!!")
+      return true
+    end
+    return false
   end
 end
 

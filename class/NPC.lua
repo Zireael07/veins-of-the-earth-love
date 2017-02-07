@@ -12,11 +12,12 @@ module("NPC", package.seeall, class.inherit(Actor, ActorAI))
 function _M:init(t)
     --init inherited stuff
     Actor.init(self, t)
+    ActorAI.init(self)
 end
 
 function _M:act()
     ActorAI.act(self)
-    if self:reactionToward(player) < 0 then
+    if self:reactionToward(player) < 0 and self:canSeePlayer() then
         self:target(player.x, player.y)
     else
         self:randomTarget()
