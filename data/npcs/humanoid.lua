@@ -21,7 +21,7 @@ npc_types['drow'] = {
     common_desc = [[Drow are known for their evil natures, matriarchal cultures, and zealous worship of malign, arachnid gods. They are more delicate than humans, but also more dextrous and more cunning. Drow are talented spellcasters, with drow women holding all divine roles. Culturally, drow train their children with the rapier, short sword, and hand crossbow, and they often poison their weapons.]],
     base_desc = [[This lithe, ebon-skinned humanoid is a dark elf, also known as a drow. These subterranean elves speak both Elven and Undercommon, and typically also speak Common. Some drow also learn other racial languages or a form of sign language known only to them.]],
     
-    infravision = 120, --divide by 5 to get number of squares
+    darkvision = 24, --120 feet
     alignment = "Chaotic Evil",
     skill_hide = 1,
     skill_movesilently = 1,
@@ -51,7 +51,7 @@ npc_types['orc'] = {
     common_desc = [[Orcs are considerably stronger than the average human, though this is countered by a general lack of the more cerebral traits. A warlike people who believe that to survive they must conquer as much territory as they can, they are often at odds with those they encounter (including other tribes of their own kind) and are a generally hated race for this reason. Their warlike culture does however mean that all of their kind are well trained in the use of weaponry, and many prefer large, two-handed weapons that deal as much damage as quickly as possible.]],
     base_desc = "This primitive looking creature is an orc, one of the most prolific and agressive of the humanoid races. Orcs speak their own language, and the more intelligent of their kind often learn Goblin or Giant. ",
 
-    infravision = 60,
+    darkvision = 12, --60 ft.
     alignment = "Chaotic Evil",
     skill_listen = 2,
     skill_spot = 2,
@@ -78,6 +78,7 @@ npc_types['human'] = {
     text = "Welcome, adventurer! What are you doing in this dismal place?",
     convo = "test",
     languages = {"Common"},
+    lite = 4, --hack to simulate having a torch
     show_portrait = true
 }
 
@@ -96,7 +97,7 @@ npc_types['gnome'] = {
     hit_die = 1,
     alignment = "Neutral Good",
     challenge = 1/2,
-    darkvision = 3,
+    darkvision = 6, --30 ft.
     skill_hide = 3,
     skill_listen = 1,
     skill_spot = 1,
@@ -118,7 +119,7 @@ npc_types['kobold'] = {
     common_desc = [[Kobolds are not known for their bravery or ferocity in battle. However, they can be cunning, and usually attack only when they have overwhelming odds in their favor.]],
     base_desc = "This spindly little humanoid lizard is a kobold. Kobolds speak Draconic.",
 
-    darkvision = 3,
+    darkvision = 12, --60 ft.
     alignment = "Lawful Evil",
     challenge = 1/2,
     skill_hide = 4,
