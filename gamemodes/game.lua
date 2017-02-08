@@ -33,7 +33,7 @@ function gamemode.load()
     --load GUI
     GUI:loadGUI()
 
-    Area:generate(1, "test")
+    Area:generate(1, "arena")
     --Area:generate(1, "astray")
   
       --fix spawning in wall
