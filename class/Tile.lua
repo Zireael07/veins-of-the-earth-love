@@ -16,6 +16,7 @@ function Tile:loadTiles()
     door = lg.newImage("gfx/tiles/terrain/door.png"),
     stairs_down = lg.newImage("gfx/tiles/terrain/stairs_down.png"),
     stairs_up = lg.newImage("gfx/tiles/terrain/stairs_up.png"),
+    floor_sand = lg.newImage("gfx/tiles/UT/sand.png"),
     --NPCs
     orc = lg.newImage("gfx/tiles/mobiles/orc.png"),
     drow = lg.newImage("gfx/tiles/mobiles/drow.png"),
