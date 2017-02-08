@@ -44,9 +44,9 @@ function _M:generate(level, name)
     self:setAreaName(name, level)
 
     --these require a map, so move here for safety
-    Area:placeRandomStairs("down")
+    Area:placeRandomStairs(area, "down")
     if level > 1 then
-      Area:placeRandomStairs("up")
+      Area:placeRandomStairs(area, "up")
     end
 
     Area:getAreaMap()
@@ -82,40 +82,36 @@ function Area:getAreaName()
 end
 
 --Simple area generation
-function Area:fillWalls(width, height)
+function Area:fillWalls(area, width, height)
   for x=1, width do
-    --dungeon[level].map[x] = {}
     for y=1, height do
-            --dungeon[level].map[x][y] = {}
-      Area:placeTerrain(x, y, ".")
+      Area:placeTerrain(x, y, ".", area)
     end
   end
 end
 
-function Area:makeWalled(width, height)
+function Area:makeWalled(area, width, height)
  for x=1, width do
-    --dungeon[level].map[x] = {}
     for y=1, height do
       local empty= x>1 and y>1 and x<width and y<height
-            --dungeon[level].map[x][y] = {}
-      if empty then Area:placeTerrain(x,y, ".")
-      else Area:placeTerrain(x,y, "#")
+      if empty then Area:placeTerrain(x,y, ".", area)
+      else Area:placeTerrain(x,y, "#", area)
       end
     end
   end
 end
 
 --requires A* checking!
-function Area:makeRandom(width, height)
+function Area:makeRandom(area, width, height)
   for x=1, width do
     for y=1, height do
       local str = rng:random(1,2) == 1 and "." or "#"
-      Area:placeTerrain(x, y, str)
+      Area:placeTerrain(x, y, str, area)
     end
   end
 end
 
-function Area:makeAstray(width, height)
+function Area:makeAstray(area, width, height)
   local symbols = {Wall="#", Empty=".", DoorN="+", DoorS="+", DoorE="+", DoorW="+"}
 
   local generator = astray.Astray:new( width-1, height-1, 80, 70, 100, astray.RoomGenerator:new(4,2,3,2,3) )
@@ -129,37 +125,48 @@ function Area:makeAstray(width, height)
           local ny=y-1
           if tmp_tilemap[nx] ~= nil and tmp_tilemap[nx][ny] ~= nil then
                local res = tmp_tilemap[nx][ny]
-               Area:placeTerrain(x, y, res)
+               Area:placeTerrain(x, y, res, area)
           end
         end
   end
 end
 
 
-function Area:placeRandomStairs(dir)
+function Area:placeRandomStairs(area, dir)
   x, y = Map:findRandomStandingGrid()
   if dir == "down" then
-    Area:placeTerrain(x,y, ">")
+    Area:placeTerrain(x,y, ">", area)
   end
   if dir == "up" then
-    Area:placeTerrain(x,y, "<")
+    Area:placeTerrain(x,y, "<", area)
   end
   print("Creating stairs at ", x,y)
 end
 
 --Generic stuff
-function Area:placeTerrain(x,y, str)
+function Area:getTerrainTile(area, str)
+  if area[str] then return area[str] 
+  else return nil end
+end
+
+function Area:placeTerrain(x,y, str, area)
+    if not area then print("We forgot area parameter!!") return end
     if not x or not y then print("No location parameters") return end
     if x > Map:getHeight()-1 then print("X out of bounds") end
     if y > Map:getWidth()-1 then print("Y out of bounds") end
 
-    terrain = Grid.new({display=str, 
-      --test
-      --[[on_stand = function(self, x, y, who)
-        who:takeHit(1, {name="fire"})
-      end,]]
-    }
-    )
+    local image = Area:getTerrainTile(area, str)
+
+    if image then
+      terrain = Grid.new({display=str, image = image })
+    else
+      terrain = Grid.new({display=str
+              --test
+        --[[on_stand = function(self, x, y, who)
+          who:takeHit(1, {name="fire"})
+        end,]]
+        })
+    end
 
     print("[Area] Created terrain at ",x,y, str)
     terrain:place(x,y,str)

@@ -138,12 +138,18 @@ function Map:convertTerraintoTile(x, y)
   if not Map:getCellTerrain(x,y) then tile = loaded_tiles["floor_bright"]
   else
     local string = Map:getCellTerrain(x, y).display
-  --  print("Cell terrain string is ", string)
-      if string == "." then tile = loaded_tiles["floor"] end
-      if string == "#" then tile = loaded_tiles["wall"] end
-      if string == "+" then tile = loaded_tiles["door"] end
-      if string == ">" then tile = loaded_tiles["stairs_down"] end
-      if string == "<" then tile = loaded_tiles["stairs_up"] end
+    local image = Map:getCellTerrain(x,y).image or nil
+      --theming
+      if image then
+        tile = loaded_tiles[image]
+      else
+        --failsafes
+        if string == "." then tile = loaded_tiles["floor"] end
+        if string == "#" then tile = loaded_tiles["wall"] end
+        if string == "+" then tile = loaded_tiles["door"] end
+        if string == ">" then tile = loaded_tiles["stairs_down"] end
+        if string == "<" then tile = loaded_tiles["stairs_up"] end
+      end
     end
     
   --  print("Tile gotten for x: "..x.."y: "..y)
