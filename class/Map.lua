@@ -18,6 +18,9 @@ function _M:init(width, height)
             self.cells[x][y] = Cell:new()
         end
     end
+
+    --init shader
+    outline_shader = love.graphics.newShader("gfx/shaders/outline.glsl")
 end
 
 function Map:setupMapView(tile_size)
@@ -347,6 +350,11 @@ function Map:display(x,y,w,h)
                 Map:convertActortoTile(x, y),
                 (x*tile_w), 
                 (y*tile_h))
+              --draw outline around actors to make them pop out
+              outline_shader:send( "stepSize", {1/32, 1/32})
+              love.graphics.setShader(outline_shader)
+              love.graphics.draw(Map:convertActortoTile(x, y), (x*tile_w), (y*tile_h) )
+              love.graphics.setShader()
             end
           end
           --reset color
