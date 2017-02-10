@@ -32,7 +32,15 @@ function Spawn:createActor(x,y, id)
       print("[Spawn] Id not given, not doing anything") return
     end
     if actor then
-      actor:move(x,y)
+      if actor:canMove(x,y) then
+        actor:move(x,y)
+      else
+        print("[Spawn] Actor not able to spawn at first spot, finding free grid...")
+        found_x, found_y = Map:findFreeGrid(x, y, 10)
+        if found_x and found_y then
+          actor:move(x,y)
+        end
+      end
     end
     
     --return actor
