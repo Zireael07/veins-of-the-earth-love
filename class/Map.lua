@@ -1,5 +1,7 @@
 require 'T-Engine.class'
 
+local vivid = require 'libraries/vivid'
+
 local Cell = require 'class.Cell'
 
 module("Map", package.seeall, class.make)
@@ -263,7 +265,15 @@ function Map:drawHex(x,y, size)
   end
 end
 
+function Map:showLightEffect(r,g,b, x,y)
+  --love.graphics.setColor(r,g,b)
 
+  local dist = utils:distance(player.x, player.y, x, y)
+  local color = {r,g,b}
+  local r,g,b,a = vivid.darken(0.05*dist, color)
+  --print("Vivid color is: R ", r, "G ", g, "B", b)
+  love.graphics.setColor(r,g,b)
+end
 
 --actual display happens here
 --x,y,w,h from gamera
@@ -277,7 +287,14 @@ function Map:display(x,y,w,h)
          if Map:isTileSeen(x,y) or Map:isTileVisible(x,y) then
             --shade
             if not Map:isTileVisible(x,y) then love.graphics.setColor(128,128,128)
-            else love.graphics.setColor(255,255,255) end
+            --visible
+            else 
+              if (player.lite or 0) > 0 then
+                Map:showLightEffect(255, 255, 0, x, y)
+              else
+              love.graphics.setColor(255,255,255) 
+              end
+            end
            --draw terrain
            if tile_h == 32 then
            love.graphics.draw(
@@ -292,7 +309,6 @@ function Map:display(x,y,w,h)
               y*tile_h, 0, 2, 2)
           end
            --draw grid
-           --love.graphics.setColor(0,0,0)
            love.graphics.setColor(51, 25, 0)
            love.graphics.rectangle('line', (x*tile_w), (y*tile_h), tile_h, tile_w)
          end
