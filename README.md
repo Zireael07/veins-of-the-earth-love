@@ -16,8 +16,10 @@ Place them in /libraries folder.
 
 [RLDice](https://github.com/timothymtorres/RL-Dice) - a dice rolls library
 
-[HUMP](https://github.com/vrld/hump) - required for camera module (scrolling map)
+[Gamera](https://github.com/kikito/gamera) - required for camera class (scrolling map)
 
 [Astray](https://github.com/SiENcE/astray) - for nice looking dungeon generation
 
 [Autobatch](https://github.com/rxi/autobatch) - for better performance
+
+[Vivid](https://github.com/WetDesertRock/vivid) - for color manipulation
