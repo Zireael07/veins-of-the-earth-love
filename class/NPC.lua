@@ -41,7 +41,30 @@ function _M:on_die(src)
     Actor.on_die(self, src)
     print("[NPC] on die")
     --gen treasure
-    Treasure:getTreasure(1)
+    self:spawnTreasure(1)
+end
+
+function _M:spawnTreasure(lvl)
+    print("[TREASURE] Spawn treasure")
+
+    local coinage_to_item = {
+        ["cp"] = "copper coins",
+        ["sp"] = "silver coins",
+        ["gp"] = "gold coins",
+        ["pp"] = "platinum coins",
+    }
+    local coins, goods, items = Treasure:getTreasure(lvl)
+
+    if coins then
+        local split = coins:split(' ')
+        local coin
+        if split[4] then
+         coin = split[4] 
+         --print("[TREASURE] Coinage is ", coin) 
+        end
+        --print("ID is ", coinage_to_item[coin])
+        Spawn:createItem(self.x, self.y, coinage_to_item[coin])
+    end
 end
 
 return _M

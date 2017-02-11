@@ -69,9 +69,10 @@ function Treasure:getItems(lvl)
 end
 
 function Treasure:getTreasure(lvl, val)
-    Treasure:getCoins(lvl)
-    Treasure:getGoods(lvl)
-    Treasure:getItems(lvl)
+    local coins = Treasure:getCoins(lvl)
+    local goods = Treasure:getGoods(lvl)
+    local items = Treasure:getItems(lvl)
+    return coins, goods, items
 end
 
 return Treasure
