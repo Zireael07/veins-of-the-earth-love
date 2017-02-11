@@ -404,6 +404,9 @@ function _M:equipItems(t)
       o = Spawn:createItem(1, 1, v.name)
 
       if o then
+        --remove it from the 1,1 tile
+        i = o:getObjectIndex(o.x, o.y)
+        Map:setCellObjectbyIndex(o.x, o.y, nil, i)
         if o.slot then
           --print("Object's slot is", o.slot)
           if self:wearObject(o, o.slot) then

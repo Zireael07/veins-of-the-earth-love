@@ -58,8 +58,17 @@ function _M:place(x,y)
         --fix wrong coords
         self.x, self.y = x, y
     end
+end
 
-    
+function _M:getObjectIndex(x,y)
+    local res 
+    local objects = Map:getCellObjects(x,y)
+    for i,e in ipairs(objects) do
+        if e == self then res = i 
+        else res = nil end
+    end
+    print("Object:getting index for object ", self.name)
+    return res
 end
 
 function _M:descAttribute(attr)
