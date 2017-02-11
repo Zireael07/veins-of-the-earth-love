@@ -207,6 +207,9 @@ function Area:spawnTest()
 
   Spawn:createItem(4,4, "longbow")
   Spawn:createItem(4,4, "arrow")
+
+  Spawn:createItem(5,5, "copper coins")
+  Spawn:createItem(5,4, "silver coins")
 end
 
 return Area

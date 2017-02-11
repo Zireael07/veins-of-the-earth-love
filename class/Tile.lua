@@ -56,6 +56,11 @@ function Tile:loadTiles()
     --light
     torch = lg.newImage("gfx/tiles/object/torch.png"),
     lantern = lg.newImage("gfx/tiles/object/lantern.png"),
+    --coins
+    copper_coins = lg.newImage("gfx/tiles/object/copper_coins.png"),
+    silver_coins = lg.newImage("gfx/tiles/object/silver_coins.png"),
+    gold_coins = lg.newImage("gfx/tiles/object/gold_coins.png"),
+    platinum_coins = lg.newImage("gfx/tiles/object/platinum_coins.png"),
     --effect
     damage_tile = lg.newImage("gfx/splash_gray.png"),
 
