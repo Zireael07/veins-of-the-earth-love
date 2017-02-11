@@ -10,9 +10,9 @@ function _M:init(t)
     --default loc for testing
     self.x = 1
     self.y = 1
-    self.display = t.display or "/"
-    self.image = t.image --or "longsword"
-    self.name = t.name --or "sword"
+    self.display = t.display
+    self.image = t.image
+    self.name = t.name
     self.add_name = t.add_name
     self.slot = t.slot
     self.combat = t.combat
@@ -20,10 +20,11 @@ function _M:init(t)
     self.ammo_type = t.ammo_type
     self.cost = 0
     self.desc = t.desc
+    self.on_prepickup = t.on_prepickup
     --flags
     self.ranged = t.ranged or false
     if t.cost then
-        print_to_log("[OBJECT] setting value for "..t.name)
+        --print_to_log("[OBJECT] setting value for "..t.name)
         self.cost = self:setValue((t.cost.platinum or 0), (t.cost.gold or 0), (t.cost.silver or 0), (t.cost.copper or 0))
     end
 end
@@ -49,11 +50,15 @@ function _M:place(x,y)
         if found_x and found_y then
             print("Object: updating map cell: ", found_x, found_y)
             Map:setCellObject(found_x, found_y, self) 
+            self.x, self.y = found_x, found_y
         end
     else
         print("Object: updating map cell: ", x, y)
         Map:setCellObject(x, y, self)
+        --fix wrong coords
+        self.x, self.y = x, y
     end
+
     
 end
 
@@ -132,6 +137,10 @@ function _M:formatPrice()
         else return silver.." sp" end
     else return self.cost
     end
+end
+
+function _M:on_prepickup(who, idx)
+    print("Called on prepickup")
 end
 
 return _M

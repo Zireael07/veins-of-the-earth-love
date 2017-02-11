@@ -134,11 +134,18 @@ function _M:pickupFloor(i)
 
     if Map:getCellObject(self.x, self.y, i) then
         o = Map:getCellObject(self.x, self.y, i)
-        local ok = self:addObject(self.INVEN_INVEN, o)
-        if ok then
-            logMessage(colors.WHITE, self.name.." picked up "..o.name)
-            Map:setCellObjectbyIndex(self.x, self.y, nil, i)
-            endTurn()
+        if o then
+            local prepickup = o:on_prepickup(self, i)
+            if not prepickup then
+                local ok = self:addObject(self.INVEN_INVEN, o)
+                if ok then
+                    logMessage(colors.WHITE, self.name.." picked up "..o.name)
+                    Map:setCellObjectbyIndex(self.x, self.y, nil, i)
+                    endTurn()
+                else
+                    logMessage(colors.WHITE, self.name.." has no room for "..o.name)
+                end
+            end
         end
     else
         logMessage(colors.WHITE, "Nothing to pick up here")
