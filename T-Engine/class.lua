@@ -23,7 +23,7 @@ if not _G.__class_module then
     local oldmodule = module
     local _G = _G
     function _G.module(name, ...)
-        print("Getting module: "..name)
+        --print("Getting module: "..name)
         setfenv(1, _G)
         oldmodule(name, ...)
         -- dance around since module() returns nothing

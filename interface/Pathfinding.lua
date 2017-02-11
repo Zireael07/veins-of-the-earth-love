@@ -72,8 +72,8 @@ local myFinder = Pathfinder(my_grid, 'JPS', walkable)
 --pass the coords
 local startx, starty = self_x,self_y
 local endx, endy = x,y
-print("Start x y are:", self_x, self_y)
-print("Target x and y are: ", x, y)
+print_to_log("[Pathfinding] Start x y are:", self_x, self_y)
+print_to_log("[Pathfinding] Target x and y are: ", x, y)
  
  --safety
 if not startx or not starty then return end 
@@ -84,9 +84,9 @@ if path then
   if length > 1 then
     path:fill()
   end
-  print(('Path found! Length: %.2f'):format(length))
+  print_to_log(('[Pathfinding] Path found! Length: %.2f'):format(length))
     for node, count in path:iter() do
-      print(('Step: %d - x: %d - y: %d'):format(count, node.x, node.y))
+      print_to_log(('[Pathfinding] Step: %d - x: %d - y: %d'):format(count, node.x, node.y))
     end
 end
 

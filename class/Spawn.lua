@@ -60,12 +60,11 @@ function Spawn:createItem(x,y, id)
       t = Entity:newEntity(t, "object")
       object = Object.new(t)
     else
-      --object = Object.new()
       print("[Spawn] Id not given, not doing anything") return
     end
 
     if object then
-      print("[Spawn] Created item at ",x,y)
+      print_to_log("[Spawn] Created item", object.name, " at ",x,y)
       object:place(x,y)
     end
 

@@ -104,7 +104,7 @@ function _M:move(x, y)
   --print_to_log("Actor: updating map cell: ", x, y)
   --print_to_log("Actor:old cell: ", self.old_x, self.old_y) 
   Map:setCellActor(self.old_x, self.old_y, nil)
-  Map:setCellActor(x, y, self) --self.image) 
+  Map:setCellActor(x, y, self)
 
   --trigger on_stand
   local terrain = Map:getCellTerrain(x,y)
@@ -191,10 +191,6 @@ function _M:bumpTarget(target)
         local chat = Chat.new(target.convo, target, self)
         chat:invoke()
       end
-      --set npc
-      --print("[PLAYER] should show chat", target.name)
-      --display
-      --setDialog("chat", target)
     end
   end
 end

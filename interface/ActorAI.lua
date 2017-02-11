@@ -63,7 +63,7 @@ end
 function ActorAI:canSeePlayer()
   for i,v in ipairs(self.seen_actors) do
     if self.seen_actors[i].player then
-      print("AI ", self.name, "can see Player!!")
+      print_to_log("AI ", self.name, "can see Player!!")
       return true
     end
     return false
