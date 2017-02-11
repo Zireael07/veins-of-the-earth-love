@@ -27,7 +27,7 @@ function _M:init(t)
       platinum = 0,
       gold = 0, 
       silver = 100, 
-      bronze = 0
+      copper = 0
     }
     --do it again to account for increased hp above
     if self.body_parts then
@@ -132,6 +132,12 @@ end
 function _M:getCoins(color)
   if not self.money[color] then print("Specified invalid coin color", color) end
   return self.money[color] or 0
+end
+
+function _M:incMoney(color, val)
+  if not self.money[color] then print("Specified invalid coin color", color) end
+  self.money[color] = (self.money[color] or 0) + val
+  print("Increased money ", color, "by ", val)
 end
 
 return _M

@@ -206,7 +206,7 @@ function InventoryDialog:draw(player)
     love.graphics.draw(loaded_tiles["ui_silver_coin"], x+120, y)
     love.graphics.print(player:getCoins("silver"), x+140, y)
     love.graphics.draw(loaded_tiles["ui_bronze_coin"], x+180, y)
-    love.graphics.print(player:getCoins("bronze"), x+200, y)
+    love.graphics.print(player:getCoins("copper"), x+200, y)
 
     --tooltip?
     if item then

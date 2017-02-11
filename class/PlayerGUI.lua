@@ -107,7 +107,7 @@ function PlayerGUI:draw_tip()
         love.graphics.setColor(255, 255, 102)
         o = Map:getCellObject(tile_x, tile_y, 1)
         love.graphics.print("==========", mouse.x+10, mouse.y+60)
-        love.graphics.print(o:getName(), mouse.x+10, mouse.y+80)
+        love.graphics.print((o:getName() or " "), mouse.x+10, mouse.y+80)
         if o.cost then
             love.graphics.print(o:formatPrice(), mouse.x+10, mouse.y+100)
         end
