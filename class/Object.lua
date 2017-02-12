@@ -17,12 +17,14 @@ function _M:init(t)
     self.slot = t.slot
     self.combat = t.combat
     self.wielder = t.wielder
-    self.ammo_type = t.ammo_type
     self.cost = 0
     self.desc = t.desc
     self.on_prepickup = t.on_prepickup
     --flags
     self.ranged = t.ranged or false
+    --special
+    self.ammo_type = t.ammo_type
+    self.number_coins = t.number_coins or 0
     if t.cost then
         --print_to_log("[OBJECT] setting value for "..t.name)
         self.cost = self:setValue((t.cost.platinum or 0), (t.cost.gold or 0), (t.cost.silver or 0), (t.cost.copper or 0))
