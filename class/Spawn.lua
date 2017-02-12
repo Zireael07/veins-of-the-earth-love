@@ -58,6 +58,11 @@ function Spawn:createItem(x,y, id)
       local t = object_types[id]
       --print("[Spawn] Creating an object from data", id)
       t = Entity:newEntity(t, "object")
+      --resolve individual stuff
+      if t.setup ~= nil then
+          print("[Spawn] Setup individual item stuff")
+          t:setup(t)       
+      end
       object = Object.new(t)
     else
       print("[Spawn] Id not given, not doing anything") return
@@ -81,16 +86,13 @@ function Spawn:createPlayer(x,y)
         body_parts = { torso=1, arms=1, legs=1, head=1 },
         languages = {"Undercommon"},
     body = { MAIN_HAND=1, OFF_HAND=1, SHOULDER=1, BODY=1, CLOAK=1, BELT=1, QUIVER=1, GLOVES=1, LEGS=1, ARMS=1, BOOTS=1, HELM=1, RING=2, AMULET=1, LITE=1, TOOL=1, INVEN=30 },
-    inventory = {{name="longsword"}, {name="leather armor"}},
+    inventory = {{name="longsword"}, {name="leather armor"}, {name="torch"}},
   }
 
     player_temp = Player.new(t)
 
---    Entity:addEntity(player_temp)
     player_temp:move(player_x, player_y)
 
-    --fix player visibility on turn 1
-    --player:PlayerMove("left")
     --update FOV
     player_temp:update_draw_visibility_new()
 
