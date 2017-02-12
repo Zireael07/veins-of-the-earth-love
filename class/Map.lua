@@ -276,6 +276,98 @@ function Map:showLightEffect(r,g,b, x,y)
 end
 
 --actual display happens here
+function Map:drawTerrain(x,y)
+  --shade
+  if not Map:isTileVisible(x,y) then love.graphics.setColor(128,128,128)
+  --visible
+  else 
+    if (player.lite or 0) > 0 then
+      Map:showLightEffect(255, 255, 0, x, y)
+    else
+      love.graphics.setColor(255,255,255) 
+    end
+  end
+  --draw terrain
+  if tile_h == 32 then
+  love.graphics.draw(
+    Map:convertTerraintoTile(x, y),
+    x*tile_w, 
+    y*tile_h)
+  else
+  --scale terrain in zoomed mode
+  love.graphics.draw(
+    Map:convertTerraintoTile(x, y),
+    x*tile_w, 
+    y*tile_h, 0, 2, 2)
+  end
+--draw grid
+love.graphics.setColor(51, 25, 0)
+love.graphics.rectangle('line', (x*tile_w), (y*tile_h), tile_h, tile_w)
+end
+
+function Map:drawObjects(x,y)
+  --check if we have any objects to draw
+  if Map:getCellObjects(x,y) then
+    --if yes then draw
+    if Map:getCell(x,y):getNbObjects() > 1 then
+      --print("We have more than one object in cell", x,y)
+      if tile_h == 32 then
+      love.graphics.draw(
+        --should be the topmost item
+        Map:convertObjecttoTile(x,y,2),
+        (x*tile_w), 
+        (y*tile_h))
+      else
+        --special case for offsetting objects in zoomed mode
+        love.graphics.draw(
+        Map:convertObjecttoTile(x,y,2),
+        (x*tile_w), 
+        (y*tile_h), 0, 1, 1, 0, -(tile_h/2))
+      end
+    else
+      if tile_h == 32 then
+      love.graphics.draw(
+        Map:convertObjecttoTile(x,y, 1),
+        (x*tile_w), 
+        (y*tile_h))
+      else
+        --special case for offsetting objects in zoomed mode
+        love.graphics.draw(
+          Map:convertObjecttoTile(x,y,1),
+          (x*tile_w), 
+          (y*tile_h), 0, 1, 1, 0, -(tile_h/2))
+      end
+    end
+  end 
+end
+
+function Map:drawActors(x,y)
+  --check if we have any actors to draw
+  if Map:getCellActor(x,y) then
+    --attitude indicator
+    local circle_x = x*tile_h+0.5*tile_w
+    local circle_y = y*tile_w+0.81*tile_h
+    local a = Map:getCellActor(x,y)
+    if a.player then  
+        Map:unitIndicatorCircle(circle_x, circle_y, "player")
+    else
+        Map:unitIndicatorCircle(circle_x, circle_y, a:indicateReaction())
+    end
+    --reset color
+    love.graphics.setColor(255,255,255)
+    --if actor then draw
+    love.graphics.draw(
+      Map:convertActortoTile(x, y),
+      (x*tile_w), 
+      (y*tile_h))
+    --draw outline around actors to make them pop out
+    outline_shader:send( "stepSize", {1/32, 1/32})
+    love.graphics.setShader(outline_shader)
+    love.graphics.draw(Map:convertActortoTile(x, y), (x*tile_w), (y*tile_h) )
+    love.graphics.setShader()
+  end
+end
+
 --x,y,w,h from gamera
 function Map:display(x,y,w,h)
   local left, top = Map:getPixeltoTile(x,y)                                                     
@@ -285,93 +377,14 @@ function Map:display(x,y,w,h)
          --print("Drawing X within : ", left, right, " Y within", top, bottom)
          --do we see the tile
          if Map:isTileSeen(x,y) or Map:isTileVisible(x,y) then
-            --shade
-            if not Map:isTileVisible(x,y) then love.graphics.setColor(128,128,128)
-            --visible
-            else 
-              if (player.lite or 0) > 0 then
-                Map:showLightEffect(255, 255, 0, x, y)
-              else
-              love.graphics.setColor(255,255,255) 
-              end
-            end
-           --draw terrain
-           if tile_h == 32 then
-           love.graphics.draw(
-              Map:convertTerraintoTile(x, y),
-              x*tile_w, 
-              y*tile_h)
-          else
-            --scale terrain in zoomed mode
-            love.graphics.draw(
-              Map:convertTerraintoTile(x, y),
-              x*tile_w, 
-              y*tile_h, 0, 2, 2)
-          end
-           --draw grid
-           love.graphics.setColor(51, 25, 0)
-           love.graphics.rectangle('line', (x*tile_w), (y*tile_h), tile_h, tile_w)
+            Map:drawTerrain(x,y)
          end
          if Map:isTileVisible(x,y) then
            --reset color
            love.graphics.setColor(255,255,255)
-           --check if we have any objects to draw
-           if Map:getCellObjects(x,y) then
-              --if yes then draw
-              if Map:getCell(x,y):getNbObjects() > 1 then
-                --print("We have more than one object in cell", x,y)
-                if tile_h == 32 then
-                love.graphics.draw(
-                  --should be the topmost item
-                  Map:convertObjecttoTile(x,y,2),
-                  (x*tile_w), 
-                  (y*tile_h))
-                else
-                  --special case for offsetting objects in zoomed mode
-                  love.graphics.draw(
-                  Map:convertObjecttoTile(x,y,2),
-                  (x*tile_w), 
-                  (y*tile_h), 0, 1, 1, 0, -(tile_h/2))
-                end
-              else
-              if tile_h == 32 then
-              love.graphics.draw(
-                Map:convertObjecttoTile(x,y, 1),
-                (x*tile_w), 
-                (y*tile_h))
-              else
-                --special case for offsetting objects in zoomed mode
-                love.graphics.draw(
-                  Map:convertObjecttoTile(x,y,1),
-                  (x*tile_w), 
-                  (y*tile_h), 0, 1, 1, 0, -(tile_h/2))
-              end
-              end
-            end  
-           --check if we have any actors to draw
-           if Map:getCellActor(x,y) then
-                --attitude indicator
-                local circle_x = x*tile_h+0.5*tile_w
-                local circle_y = y*tile_w+0.81*tile_h
-                local a = Map:getCellActor(x,y)
-                if a.player then  
-                    Map:unitIndicatorCircle(circle_x, circle_y, "player")
-                else
-                    Map:unitIndicatorCircle(circle_x, circle_y, a:indicateReaction())
-                end
-              --reset color
-              love.graphics.setColor(255,255,255)
-              --if actor then draw
-              love.graphics.draw(
-                Map:convertActortoTile(x, y),
-                (x*tile_w), 
-                (y*tile_h))
-              --draw outline around actors to make them pop out
-              outline_shader:send( "stepSize", {1/32, 1/32})
-              love.graphics.setShader(outline_shader)
-              love.graphics.draw(Map:convertActortoTile(x, y), (x*tile_w), (y*tile_h) )
-              love.graphics.setShader()
-            end
+           --check and draw objects
+           Map:drawObjects(x,y) 
+           Map:drawActors(x,y)
           end
           --reset color
           love.graphics.setColor(255, 255, 255)
